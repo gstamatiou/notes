@@ -1,0 +1,2436 @@
+\documentclass{report}
+
+% Packages for math symbols and equations
+\input{packages}
+\input{commands}
+
+\usepackage{tikz-cd}
+
+
+% Title page information
+\title{Notes}
+\author{Giorgos}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Anosov representations}
+\section{Motivation}
+We study Anosov representations because they give a flexible generalisation of the theory of convex cocompact representations of hyperbolic groups into rank $1$ Lie groups into the setting of representations of hyperbolic groups into semisimple Lie groups.
+They now serve as an organizing principle for the geometric and dynamical approach to the so-called Higher Teichmüller theory.
+
+\subsection{Convex-cocompact representations}
+\begin{definition}
+    Let $\Gamma$ be a finitely generated discrete subgroup of $\SO_0(n,1)$.
+    We say that $\Gamma$ is convex-cocompact if any of the two following equivalent conditions hold:
+    \begin{enumerate}[label=(\roman*)]
+        \item There exists a $\Gamma$-invariant convex subset $C \subseteq \mathbb H^n$ such that $\Gamma \backslash C$ is compact.
+        \item For some $x_0 \in \mathbb H^n$, the orbit map $\tau: \Gamma \to \mathbb H^n$ given by $\gamma \mapsto \gamma x_0$ is a quasi-isometric embedding.
+    \end{enumerate}
+    A representation $\rho:\Gamma \to \SO_0(2,1)$ of a discrete group $\Gamma$ is convex-cocompact if $\rho(\Gamma)$ is convex-cocompact.
+\end{definition}
+
+\begin{example}
+    The holonomy representation of a hyperbolic surface group $\pi_1(S)$ into $\SO_0(2,1)$ is convex-cocompact.
+\end{example}
+Under certain conditions, the set of convex-cocompact representations is a union of connected components, which implies that the Teichmüller space is in fact a union of connected components.
+However, this is not always the case, for instance with $\hom(\mathbb F_2, \SO_0(2,1))$.
+A goal of Anosov representations is to generalize convex-cocompact representations.
+In particular, we will be interested in representations into higher rank Lie groups that satisfy the following two properties:
+\begin{enumerate}
+    \item The induced orbit maps are quasi-isometric embeddings.
+    \item The representations should form an open subset of the representation variety.
+\end{enumerate}
+\begin{remark}
+    For $n \geq 3$, any two discrete faithful representations convex-cocompact representations of a group $\Gamma$ into $\SO_0(n,1)$ are conjugate, by a theorem of Mostow.
+\end{remark}
+
+\subsection{Anosov representations}
+\begin{definition}
+    Let $\Gamma$ be a finitely generated group.
+    A representation $\rho:\Gamma \to \SL(d,\mathbb R)$ is $P_k$ Anosov if the logarithm of the $k$-th singular value gap is linearly controlled, i.e.\ there exist $C, c>0$ such that for all $\gamma \in \Gamma$:
+    \[
+    \frac{1}{C} |\gamma| - c \leq \log \frac{\sigma_k(\rho(\gamma))}{\sigma_{k+1}(\rho(\gamma))} \leq C |\gamma| + c.
+    \]
+\end{definition}
+If $\rho$ is $P_k$ Anosov, then there exists a limit map $\xi: \partial \Gamma \to \mathcal F_{k, d-k}(\mathbb R^d)$ that is transverse and dynamics-preserving.
+\begin{example}
+    Typical examples of Anosov representations include:
+    \begin{enumerate}[label=(\roman*)]
+        \item Convex-cocompact representations of finitely generated groups into rank 1 Lie groups.
+        \item Holonomy representations of strictly convex (real) projective closed manifolds.
+        \item Hitchin representations.
+    \end{enumerate}
+\end{example}
+
+\section{Hyperbolic groups}
+\subsection{The Gromov boundary}
+Here $X$ will be assumed to be a proper geodesic metric space.
+\begin{definition}
+    Let $X$ be a $\delta$-hyperbolic space.
+    Recall that a geodesic in $X$ is an isometric embedding $\alpha: \mathbb R \to X$, while a geodesic ray is an isometric embedding $\alpha: [0, \infty) \to X$.
+    We denote with $\alpha(\infty)$ the equivalence class of $\alpha$, i.e.\ the set of geodesic rays that stay at bounded distance from $\alpha$.
+    A generalized geodesic is a geodesic segment or a geodesic ray, i.e.\ an isometric embedding $\alpha: I \to X$ where $I=[0, \inftyœ]$ or $I = [0, R]$.
+    In the second case we consider the extension $\alpha: [0, \infty) \to X$ given by $\alpha(t) = \alpha(R)$ for $t \geq R$.
+    We define its Gromov boundary $\partial X$ in one of the following equivalent ways:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\partial X$ is the set of equivalence classes of geodesic rays in $X$, where two rays are equivalent if they stay at bounded distance from each other.
+        \item $\partial X$ is the set of equivalence classes of geodesic rays starting from a specific point $x_0 \in X$, where two rays are equivalent if they stay at bounded distance from each other.
+    \end{enumerate}
+\end{definition}
+Note that with the above definition, $X \cup \partial X  = \{c(\infty) : c \text{ generalized geodesic ray} \}$.
+To topologize $X \cup \partial X$ we consider the following notion of convergence:
+\begin{definition}
+    A sequence $x_n \in X \cup \partial X$ converges to $x \in \partial X$ if there exist generalized geodesic rays $c_n, c$ such that $c(\infty) = x, c_n(\infty) = x_n$ and $c_n \to c$ uniformly on compact sets.
+\end{definition}
+\begin{proposition}[Visibility of $\partial X$]
+    Let $X$ be a $\delta$-hyperbolic proper geodesic space.
+    Then for each pair of distinct points on the boundary, there exists a geodesic joining them.
+\end{proposition}
+\begin{lemma}\label{lem:bounded_distance_convergence}
+    Let $X$ be a geodesic $\delta$-hyperbolic space.
+    For $x_n, y_n \in X$ at (uniformly in $n$) bounded distance and $z \in \partial X$, we have that $x_n \to z$ implies $y_n \to z$.
+\end{lemma}
+
+\subsection{Hyperbolic groups}
+\begin{proposition}[North-South dynamics]
+    Let $\Gamma$ be a $\delta$-hyperbolic group.
+    For every infinite order element $\gamma \in \Gamma$, there exists a quasi-isometric embedding $c_\gamma : \mathbb R \to \Gamma$ and $R>0$ such that $\gamma^n(c_\gamma(t)) = c_\gamma(t + n)$ for all $t \in \mathbb R, n \in \mathbb \mathbb Z$ and $\gamma^\pm \in \partial \Gamma$ such that for all $x \in \Gamma$:
+    \[
+    \lim_{n \to \infty} \gamma^n x = \gamma^+, \lim_{n \to -\infty} \gamma^n x = \gamma^-,
+    \]
+    and $\gamma$ fixes both $\gamma^+$ and $\gamma^-$.
+\end{proposition}
+
+\subsection{Dynamics on the Gromov boundary}
+\begin{proposition}
+    Let $\Gamma$ be a $\delta$-hyperbolic group and $\gamma \in \Gamma$ an infinite order element.
+    Then $\gamma$ has exactly two fixed points $\gamma^\pm = \lim_{n \to \pm \infty} \gamma^n$ in $\partial \Gamma$, and $\gamma^n z \to \gamma^+$ for all $z \in \partial \Gamma - \{\gamma^-\}$.
+\end{proposition}
+
+\section{Convex cocompact representations}
+
+\begin{center}
+    Key takeaways:
+    \begin{enumerate}
+        \item The Teichmüller space can be realized as the moduli space of marked hyperbolic structures modulo homotopy, or as representations of the fundamental group into $\PSL(2, \mathbb R)$ modulo conjugation.
+        \item Convex cocompact representaions of finitely generated groups into $\SO_0(n,1)$ are exactly the $P_1$-Anosov representations (\cref{thm:convex_cocompact_anosov})
+        Then the image of the representation acts cocompactly on the convex hull of the limit set (\cref{prop:convex_cocompact_limit_set})
+        \item Convex cocompact representations of a finitely generated group is stable.
+        \item The set of convex cocompact representations is closed for finitely generated torsion-free groups that are not virtually cyclic.
+    \end{enumerate}    
+\end{center}
+
+\subsection{Teichmüller theory}
+Here $S$ will be a closed surface with finitely many punctures of genus at least $2$.
+\begin{definition}
+    A complete orientable Riemmannian surface $X$ is hyperbolic if it is locally isometric to the hyperbolic plane $\mathbb H^2$.
+\end{definition}
+To every hyperbolic surface $X$ we can associate a conjugacy class of a discrete subgroup $\Gamma \leq \PSL(2, \mathbb R)$ by $X \mapsto \pi_1(X)$.
+Recall that a marked hyperbolic structure on $S$ is a pair $(X, \phi)$, where $X$ is a hyperbolic surface and $\phi: S \to X$ is a diffeomorphism.
+\begin{definition}[Marked hyperbolic structures model for $\mathcal T(S)$]
+    A marked hyperbolic structure on $S$ is the moduli space of marked hyperbolic structures on $S$:
+    \[
+    \mathcal T(S) = \{ \text{ marked hyperbolic structures on } S \}/\sim,
+    \]
+    where $(X, \phi) \sim (X', \phi')$ if there exists an isometry $f: X \to X'$ such that $\phi' = f \circ \phi$ up to isotopy.
+\end{definition}
+To provide another model for $\mathcal T(S)$, we consider a marked hyperbolic structure $(X, \phi)$ on $S$.
+Since $X$ is a hyperbolic surface, $\tilde X$ is isometric to the hyperbolic plane $\mathbb H^2$.
+Moreover, the fundamental group $\pi_1(X)$ acts isometrically and properly discontinuously on $\tilde X$.
+Using the marking $\phi$, we identify $\pi_1(S)$ with $\pi_1(X)$, which in turn is identified with a subgroup of isometries of $\tilde X$ and hence with a subgroup of $\PSL(2, \mathbb R) = \Isom^+(\mathbb H^2)$.
+In this way we obtain a representation $\rho: \pi_1(S) \to \PSL(2, \mathbb R)$ that is discrete and faithful, but well-defined only up to conjugation in $\PSL(2, \mathbb R)$.
+This motivates the following definition:
+\begin{definition}[Representation model for $\mathcal T(S)$]
+    The Teichmüller space of $S$ is defined as the space of conjugacy classes of discrete faithful representations of $\pi_1(S)$ into $\PSL(2, \mathbb R)$:
+    \[
+    \mathcal T(S) = \hom(\pi_1(S), \PSL(2, \mathbb R))/\PSL(2, \mathbb R).
+    \]
+\end{definition}
+Recall that an isotopy is a continuous map $H: S \times [0,1] \to S$ such that for each $t \in [0,1]$, $H_t: S \to S$ is a homeomorphism.
+\begin{definition}
+    The mapping class group $\mathrm{MCG}(S)$ is the group of isotopy classes of orientation-preserving homeomorphisms of $S$:
+    \[
+    \mathrm{MCG}(S) = \{\text{orientation-preserving homeomorphisms of } S\}/\{\text{ isotopy }\}.
+    \]
+\end{definition}
+
+\subsection{Convex cocompact representations into $\SO_0(n,1)$}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{proper actions.png}
+    \caption{Proper actions on hyperbolic disk}
+    \label{fig:proper_actions}
+\end{figure}
+\subsubsection{Convex cocompactness and Anosovness}
+Recall that a representation is almost faithful if the kernel is finite.
+The following proposition tells us that for $\SO_0(n,1)$ convex cocompactness and $P_1$-Anosov are equivalent and shows how we can obtain the limit map from the convex cocompactness condition.
+\begin{theorem}\label{thm:convex_cocompact_anosov}
+    Let $\rho: \Gamma \to \SO_0(n,1)$ be a representation of a finitely generated group $\Gamma$.
+    Then $\rho$ is convex cocompact if and only if it is $P_1$-Anosov.
+    In that case:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Gamma$ is Gromov hyperbolic.
+        \item $\rho$ is discrete and almost faithful.
+        \item There exists a continuous, injective, $\rho$-equivariant map $\xi: \partial \Gamma \to \partial \mathbb H^n$ that is dynamics-preserving, i.e.\ we have 
+        $$\lim_{n \to \infty} \rho(\gamma_n) x = \xi(z)$$
+        for sequences $\gamma_n \in \Gamma$ such that $\gamma_n \to z \in \partial \Gamma$ and points $x \in \mathbb H^n$.
+        Moreover, for elements $\gamma \in \Gamma$ of infinite order, $\rho(\gamma)$ fixes $\xi(\gamma^+)$ and $\xi(\gamma^-)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We fix throughout the proof an element $x_0 \in \mathbb H^n$ and consider the orbit map corresponding to it.
+    The hyperbolicity of $\Gamma$ follows from the lemma of Milnor-Svarc.
+    To prove that $\rho$ is discrete, we proceed by contradiction. If this were not the case, then there would exist a sequence $\gamma_n \in \Gamma$ with no repeated elements such that $\rho(\gamma_n) \to e$.
+    In particular, $\rho(\gamma_n) x_0$ is bounded.
+    Since the orbit map is a quasi-isometric embedding, this implies that $|\gamma_n|$ is bounded, which is a contradiction, since this would imply that $\{\gamma_n\}$ is finite.
+    Similarly, to show that $\rho$ is almost faithful, we can show that the kernel is bounded, and hence finite.
+
+    For the second point, the lemma of Milnor-Svarc implies that the orbit map is a quasi-isometry, and the theory of Gromov hyperbolic spaces, we know that it must extend to a homeomorphism $\xi: \partial \Gamma \to \partial \mathbb H^n$ between the Gromov boundaries.
+    Let $\gamma_n \in \Gamma$ converge to $z \in \partial \Gamma$. 
+    By Milnor-Svarc, we have that $\rho(\gamma_n)^{n} x_0 \to \xi(z)$ as $n \to \infty$.
+    But for any $x \in \mathbb H^n$, we have that $d(\rho(\gamma_n) x_0, \rho(\gamma_n) x) = d(x_0, x)$ is bounded, and $\rho(\gamma_n) x_0 \to \xi(z)$ as $n \to infty$, so $\rho(\gamma_n) x \to \xi(z)$ by  \cref{lem:bounded_distance_convergence}.
+    In particular, for an infinite order element $\gamma \in \Gamma$, we have that $\gamma^{\pm n} \to \gamma^\pm$ as $n \to \infty$, so $\rho(\gamma^n) x_0 \to \xi(\gamma^\pm)$.
+    Since $\xi(\gamma^\pm)$ is the limit of a sequence fixed by $\rho(\gamma)$, it will be fixed as well.
+\end{proof}
+\subsubsection{Limit set}
+\begin{definition}
+    Let $H$ be a discrete subgroup of $\SO_0(n,1)$.
+    Then the limit set $\Lambda$ of $H$ is the set of accumulation points of an orbit of $H$ that are contained in $\partial \mathbb H^n$:
+    \[
+    \Lambda = \overline{H x_0} - H x_0 \subseteq \partial \mathbb H^n,
+    \]
+    where $x_0 \in \mathbb H^n$ is fixed.
+\end{definition}
+\begin{remark}
+    In the above definition, there have been made a few subtle assertions:
+    \begin{enumerate}[label=(\roman*)]
+        \item The limit set $\Lambda(\rho)$ is independent of the choice of $x_0$.
+        This can be seen by using \cref{lem:bounded_distance_convergence}.
+        \item The set of accumulation points in $\partial \mathbb H^n$ of an orbit is equal to $\overline{H x_0} - H x_0$.
+        Clearly the set of accumulation points is contained in $\overline{H x_0}$.
+        To see that it is disjoint from $H x_0$, we can use the fact that it is contained in $\partial \mathbb H^n$.
+        On the other hand, every element in $\overline{H x_0} - H x_0$ is the limit of a sequence of discrete elements in $H$, so it is an accumulation point.
+        \item \label{rem:limit_set_properly_discontinuous}If one assumes that $H$ is a discrete subgroup that acts properly discontinuously on $\mathbb H^n$, then the accumulation points of any orbit lie on the boundary of $\mathbb H^n$.
+        To see this, assume for the sake of contradiction that there exists an accumulation point $z \in \mathbb H^n$ of an orbit $H x_0$.
+        Then there exists a sequence of pairwise different elements $h_n \in H$ such that $h_n x_0 \to z$.
+        In particular $h_n x_0$ is bounded, so there exists some ball $B_R(x_0)$ that contains all $h_n x_0$ and $x_0$.
+        This however implies that $h_n x_0 \in h_n B_{R}(x_0) \cap B_R(x_0)$ for all $n$, which contradicts thes proper discontinuity of the action.
+    \end{enumerate}
+\end{remark}
+Now we are ready to make the link between the geometric definition of convex cocompactness and the notion of convex cocompact representation (i.e.\ a representation whose orbit map is a quasi-isometric embedding).
+\begin{proposition}\label{prop:convex_cocompact_limit_set}
+    Let $\rho: \Gamma \to \SO_0(n,1)$ be a discrete and faithful representation.
+    Then $\rho$ is convex cocompact if and only if $\rho(\Gamma)$ preserves a convex subset of $\mathbb H^n$, on which it acts cocompactly.
+    In that case, the convex hull of the limit set $\Lambda(\rho)$ of $\rho(\Gamma)$ is such a subset.
+\end{proposition}
+\subsubsection{Stability and closedness}
+Two of the basic features of the space of convex cocompact representations that we look for when generalizing are their stability and closedness.
+To fix our notation, for a group $\Gamma$ we denote with $\mathrm{CC}(\Gamma, \SO_0(n,1)) \subseteq \hom(\Gamma, \SO_0(n,1))$ the set of convex cocompact representations of $\Gamma$ in $\SO_0(n,1)$, with $\mathrm{X}(\Gamma, \SO_0(n,1)) = \hom(\Gamma, \SO_0(n,1))/\SO_0(n,1)$ the character variety of $\Gamma$ in $\SO_0(n,1)$, and with $\hat{\mathrm{CC}}(\Gamma, \SO_0(n,1)) \subseteq \mathrm{X}(\Gamma, \SO_0(n,1))$ the set of conjugacy classes of convex cocompact representations.
+We will also denote with $\mathrm{DF}(\Gamma, \SO_0(n,1)) \subseteq \hom(\Gamma, \SO_0(n,1))$ the set of discrete and faithful representations and with $\hat{\mathrm{DF}}(\Gamma, \SO_0(n,1)) \subseteq \mathrm{X}(\Gamma, \SO_0(n,1))$ the set of conjugacy classes of discrete and faithful representations.
+Then we have:
+\begin{theorem}\cref{thm:stability_closedness}
+    Let $\Gamma$ be a finitely generated group.
+    \begin{enumerate}[label=(\roman*)]
+        \item The convex cocompact representations of $\Gamma$ are open in the space of representations and in the character variety, i.e.\ 
+        \[
+        \mathrm{CC}(\Gamma, \SO_0(n,1)) \subseteq \hom(\Gamma, \SO_0(n,1)) \text{ and } \hat{\mathrm{CC}}(\Gamma, \SO_0(n,1)) \subseteq \mathrm{X}(\Gamma, \SO_0(n,1))
+        \]
+        are open.
+        \item If we assume that $\Gamma$ is torsion-free and not virtually cyclic, then the convex cocompact representations are closed in the space of representations and in the character variety, i.e.\
+        \[
+        \mathrm{CC}(\Gamma, \SO_0(n,1)) \subseteq \hom(\Gamma, \SO_0(n,1)) \text{ and } \hat{\mathrm{CC}}(\Gamma, \SO_0(n,1)) \subseteq \mathrm{X}(\Gamma, \SO_0(n,1))
+        \]
+        are closed.
+    \end{enumerate}
+\end{theorem}
+
+\chapter{Lorentzian spaces}
+Here we recall some basic facts on Lorentzian spaces.
+We will introduce Lorentzian manifolds of constant sectional curvature and we will see that, as in the Riemannian case, two Lorentzian manifolds of constant sectional curvature $K$ are locally isometric.
+Generally, we will focus on those with maximal isometry group, as they provide models of manifolds of constant sectional curvature: if $M$ is a Lorentzian manifold with constant sectional curvature $K$ and maximal isometry group, then any Lorentzian manifold with constant sectional curvature $K$ carries a natural $(\mathrm{Isom}(M), M)$-atlas made of local isometries. Simply connected space forms have maximal isometry group, but in general there are manifolds with maximal isometry group which are not simply connected.
+In particular, we will focus on the case $K=-1$ and in that case it will be convenient to use  models which are not simply connected.
+
+\section{Basic definitions}
+\begin{definition}
+    \begin{enumerate}[label=(\roman*)]
+        \item A \emph{Lorentzian metric} on a manifold of dimension $n+1$  is a non-degenerate symmetric 2-tensor $g$ of signature $(n,1)$. 
+        \item A \emph{Lorentzian manifold} is a connected manifold $M$ equipped with a Lorentzian metric $g$.
+        \item In a Lorentzian manifold $M$ we say that a non-zero vector $v\in TM$ is \emph{spacelike, lightlike, timelike} if $g(v,v)$ is respectively positive, zero or negative. More generally, we say that a linear subspace $V\subset T_x M$ is \emph{spacelike, lightlike, timelike} if the restriction of $g_x$ to $V$ is positive definite, degenerate or indefinite.
+        \item A differentiable curve is \emph{spacelike, lightlike, timelike} if its tangent vector is spacelike (resp. lightlike, timelike) at every point. It is \emph{causal} if the tangent vector is either timelike or lightlike.
+        \item The set of lightlike vectors of $T_x M$ is also known as the \emph{light cone} at $x$.
+    \end{enumerate}
+\end{definition}
+
+Assuming $\dim M \geq 3$, the light cone disconnects $T_x M$ into three regions: two convex open cones formed by timelike vectors, one opposite to the other, and the region of spacelike vectors.
+\begin{definition}
+    Let $M$ be a Lorentzian manifold.
+    \begin{enumerate}[label=(\roman*)]
+        \item A continuous choice (in the sense of a continuous timelike vector field) of one of the two cones of time-like vectors for each point $x\in M$ is called a \emph{time orientation} of $M$.
+        \item If a time-orientation of $M$ exists, then $M$ is said to be \emph{time-orientable}.
+        Timelike vectors in the same component as the time-orientation are said \emph{future-directed}, while the rest are said \emph{past-directed}.
+        \item Given a point $x$ in a time-oriented Lorentzian manifold $M$, the \emph{future} of $x$ is the set $\fut{(x)}$ of points which are connected to $x$ by a future-directed causal curve. The \emph{past} of $x$, denoted $\past{(x)}$, is defined similarly, for past-directed causal curves.
+    \end{enumerate}
+\end{definition}
+
+An \emph{orthonormal basis} of $T_xM$ is a basis $v_1,\ldots v_{n+1}$ such that $|g(v_i, v_j)|=\delta_{ij}$, with $v_1,\ldots v_n$ spacelike, and  $v_{n+1}$ timelike.
+As in the Riemannian setting, on a Lorentzian manifold $M$ there is a unique linear connection $\nabla$ which is symmetric and compatible with the Lorentzian metric $g$.
+We refer to it as the \emph{Levi-Civita connection} of $M$. The Levi-Civita connection determines the Riemann curvature tensor  defined by
+$$R(u,v)w=\nabla_u \nabla_v w-\nabla_v \nabla_u w-\nabla_{[u,v]}w~.$$
+We then say that a Lorentzian manifold $M$ has constant sectional curvature $K$ if
+\begin{equation}\label{eq:constcurv}
+     g(R(u,v)v,u)=K \left(g(u,u)g(v,v)-g(u,v)^2\right)
+\end{equation}
+for every pair of vectors $u,v\in T_xM$ and every $x\in M$.
+This definition is strictly analogous to the definition given in the Riemannian realm. However in this setting the sectional curvature can be defined only for planes in 
+$T_x M$ where $g$ is non-degenerate.
+\begin{example}
+The Minkowski space $\R^{n,1}$ the Levi-Civita connection given by the Euclidean connection:
+\[
+\nabla_X Y = (X Y^i)\partial_i,
+\]
+so the Riemann curvature tensor is zero, and the same is true for the sectional curvature.
+\end{example}
+
+Finally, we say that $M$ is \emph{geodesically complete} if every geodesic is defined for all times, or in other words, the exponential map is defined everywhere.
+
+\section{Maximal isometry groups and geodesic completeness}
+Constant curvature of manifolds allows us to extend isometries of tangent spaces to isometries of the whole manifold.
+As a result, two Lorentzian manifolds $M$ and $N$ of constant curvature $K$ are locally isometric, a fact which is well-known in the Riemannian setting. 
+More precisely, the following holds:
+\begin{lemma} \label{lem:extension}
+Let $M$ and $N$ be Lorentzian manifolds of constant curvature $K$. 
+\begin{enumerate}
+    \item Then every linear isometry $L:T_xM\to T_yN$ extends to an isometry $f:U\to V$, where $U$ and $V$ are neighbourhoods of $x$ and $y$ respectively, and two extensions $f:U\to V$ and $f:U'\to V'$ of $L$ coincide on $U\cap U'$.
+    \item If $M$ is simply connected and $N$ is geodesically complete, then any isometry $L: T_x M \to T_y N$ extends to a unique local isometry $f:M\to N$.
+    \item If $M$ and $N$ are both simply connected and geodesically complete, then any isometry $L: T_xM\to T_yN$ extends to a unique global isometry $f:M\to N$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+    For the last statement, recall that a local isometry from a simply connected manifold to a uniquely geodesic manifold is a global isometry.
+\end{proof}
+Exactly as in the Riemannian case the proof is a simple consequence of the classical Cartan--Ambrose--Hicks Theorem.
+Note that this implies in particular that there is a unique simply connected geodesically complete Lorentzian manifold of constant curvature $K$ up to isometries.
+For instance for $K=0$ a model is the Minkowski space $\R^{n,1}$.
+
+Another consequence of Lemma \ref{lem:extension} is that, fixing a point $x_0\in M$, the set of isometries of $M$, which we will denote by $\mathrm{Isom}(M)$, can be realized as a subset of $\mathrm{ISO}(T_{x_0}M, TM)$, namely the fiber bundle over $M$ whose fiber over $x\in M$ is the space of linear isometries of $T_{x_0}M$ into $T_x M$.
+
+It can be proved that $\mathrm{Isom}(M)$ has the structure of a Lie group with respect to composition so that the inclusion
+$\mathrm{Isom}(M)\hookrightarrow\mathrm{ISO}(T_{x_0}M, TM)$ is a differentiable proper embedding.
+It follows that  the maximal dimension of $\mathrm{Isom}(M)$ is
+ $\dim \OO(n,1)+n+1=(n+1)(n+2)/2$. 
+ 
+\begin{definition}
+A Lorentzian manifold $M$ has \emph{maximal isometry group} if the action of $\mathrm{Isom}(M)$ is transitive and, 
+for every point $x\in M$, every linear isometry $L:T_xM\to T_xM$ extends to an isometry of $M$.
+\end{definition}
+Equivalently $M$ has maximal isometry group if the above inclusion of $\mathrm{Isom}(M)$ into the bundle $\mathrm{ISO}(T_{x_0}M, TM)$ is a bijection.
+Hence, if $M$ has maximal  isometry group, then the dimension of the isometry group is maximal.
+
+From \cref{lem:extension}, every simply connected Lorentzian manifold $M$ has maximal isometry group if it has constant sectional curvature and is geodesically complete. The converse holds even without the simply connectedness assumption:
+\begin{lemma} \label{lemma:max isom group implies constant curvature}
+\begin{enumerate}[label=(\roman*)]
+    Let $M$ be a Lorentzian manifold.
+    \item If $M$ has a maximal isometry group then $M$ has  constant sectional curvature and is geodesically complete.
+    \item If $M$ is simply connected, then $M$ has maximal isometry group if and only if $M$ has constant sectional curvature and is geodesically complete.
+\end{enumerate}
+\end{lemma}
+
+\chapter{Pseudoriemannian hyperbolic spaces}
+\begin{definition}
+    Let $V$ be a real vector space of dimension $n = p+q+1$, equipped with an inner product $\langle \cdot, \cdot \rangle$ of signature $(p,q+1)$.
+    We define the pseudoriemannian hyperbolic space
+    \[
+    \mathbb H^{p,q} = \left\{ x \in \mathbb P(V) : \langle x,x \rangle < 0\right\},
+    \]
+    whose double cover is given by 
+    \[
+    \hat{\mathbb H}^{p,q} = \left\{ x \in V : \langle x,x \rangle = -1 \right\}
+    \]
+\end{definition}
+\section{Second fundamental form}
+A reference for the material of this section is Chapter 4 of \cite{o1983semi}.
+When we say submanifold, we mean embedded (the inclusion is an emersive topological embedding).
+\begin{definition}
+    Let $M$ be a pseudoriemannian submanifold of a pseudoriemannian manifold $\tilde M$.
+    Then the orthogonal decomposition of the tangent bundle $TM$ with respect to the ambient metric defines two vector bundle homomorphisms: 
+    \[
+    \nabla : \Gamma(M) \times \Gamma(M) \to \Gamma(TM),\quad \II: \Gamma(TM) \to \Gamma(NM), 
+    \]
+    that satisfy
+    \[
+    \tilde \nabla_X Y = \nabla_X Y + \II(X,Y), \text{ for } X,Y \in \Gamma(TM),
+    \]
+    where $\tilde nabla$ is the Levi-Civita connection of $\tilde M$ and $\tilde nabla_X Y$ is evaluated for any smooth extensions of $X,Y$ to $\tilde M$.
+    The first is called the induced connection on $M$ and the second is called the second fundamental form of $M$ in $\tilde M$.
+\end{definition}
+The notation $\nabla$ is understood in the light of the following proposition.
+\begin{proposition}
+    Let $M$ be a pseudoriemannian submanifold of a pseudoriemannian manifold $\tilde M$.
+    Then the induced connection $\nabla$ is the Levi-Civita connection of $M$ with respect to the induced metric.
+\end{proposition}
+The second fundamental form has a few basic properties:
+\begin{proposition}
+    Let $M$ be a pseudoriemannian submanifold of a pseudoriemannian manifold $\tilde M$.
+    Then the second fundamental form $\II$ satisfies the following properties:
+    \begin{enumerate}[label=(\roman*)]
+        \item Symmetry: $\II(X,Y) = \II(Y,X)$ for all $X,Y \in \Gamma(TM)$.
+        \item Biliniearity: $\II$ is bilinear in $C^\infty(M)$.
+        \item The value of $II(X,Y)$ at $p \in M$ for $X, Y \in \Gamma(TM)$ depends only on the values of $X_p, Y_p$ at $p$.
+    \end{enumerate}
+\end{proposition}
+Hence, to compute the Levi-Civita connection of a pseudoriemannian submanifold, it suffices to project the Levi-Civita connection of the ambient space onto the tangent space of the submanifold, or equivalently, compute the second fundamental form of $M$.
+Similarly, there exists an analog of the Gauss formula for vector fields over curves:
+\begin{proposition}
+    Let $M$ be a pseudoriemannian submanifold of a pseudoriemannian manifold $\tilde M$, $\gamma: I \to M$ a smooth curve in $M$ and $X \in \Gamma(\gamma)$ a smooth vector field along $\gamma$ (with values in $TM$).
+    Then 
+    \[
+    \tilde D_t X = D_t X + \II(\gamma', X),
+    \]
+    where $\tilde D_t X$ is the covariant derivative along $\gamma$ in $M$ of an extension of $X$ on $M$, $D_t$ is the covariant derivative along $\gamma$ in the submanifold.
+\end{proposition}
+\begin{remark}
+    The Gauss formula for vector fields and curves give us two ways of interpreting the second fundamental form.
+    If $(M, g)$ is a pseudoriemannian submanifold of a pseudoriemannian manifold $(\tilde M, \tilde g)$, then
+    \begin{enumerate}
+        \item The second fundamental form measures the difference between differentiation in the ambient space $\tilde M$ and differentiation in the submanifold $M$ for given vector fields in $M$.
+        \item $\II(v,v)$ is the $\tilde g$-acceleration $\tilde D_t \tilde \gamma$ of the $g$-geodesic $\gamma$ in $M$, with initial veolicity $v \in T_p M$.
+    \end{enumerate}
+\end{remark}
+The second fundamental form can give us the curvature of a submanifold:
+\begin{proposition}\label{prop:curvature_submanifold}
+    Let $M$ be a pseudoriemannian subbmanifold of a pseudoriemannian manifold $M$.
+    Then for every $v, w \in T_p M$ that generate a nondegenerate plane, the sectional curvature of $M$ is given by
+    \[
+    K(v,w) = \tilde K(v,w) + \frac{\langle \II(v,v) ,\II(w,w) \rangle - \langle \II(v,w), \II(v,w) \rangle^2}{ \langle v,v \rangle \langle w,w \rangle - \langle v,w \rangle^2}.
+    \]
+\end{proposition}
+\subsection{Pseudoriemannian hypersurfaces}
+Let $M$ be a pseudoriemannian hypersurface of a pseudoriemannian manifold $\tilde M$.
+Around every point, we can define a unit normal vector field $N$ that is orthogonal to the tangent space of $M$.
+\begin{figure}[ht]
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.45\textwidth]{Pseudospheres/pseudospheres.png} &
+        \includegraphics[width=0.45\textwidth]{Pseudospheres/pseudohyperbolics.png} \\
+        \small (a) Pseudospheres in different signatures  &
+        \small (b) Pseudohyperbolics in different signatures \\
+        \includegraphics[width=0.45\textwidth]{Pseudospheres/H_1_1_S_0_2.png} &
+        \includegraphics[width=0.45\textwidth]{Pseudospheres/H_2_0_S_1_1.png} \\
+        \small (c) $\mathbb H^{1,1}$ and $\mathbb S^{0,2}$ &
+        \small (d) $\mathbb H^{2,0}$ and $\mathbb S^{1,1}$
+    \end{tabular}
+    \caption{Visualizations of pseudospheres and pseudohyperbolics in different signatures,\\ $\mathbb S^{2,0}$: black, $\mathbb S^{1,1}$: red, $\mathbb S^{0,2}$: orange, $\mathbb H^{2,0}$: green, $\mathbb H^{1,1}$: blue, $\mathbb H^{0,2}$: black, \href{https://www.geogebra.org/m/rwsndb8h}{Geogebra applet}.}
+    \label{fig:pseudospheres_grid}
+\end{figure}
+\begin{definition}
+    Let $M$ be a pseudoriemannian hypersurface of a pseudoriemannian manifold $\tilde M$, and let $N$ be a unit normal vector field.
+    We define the shape operator $s: \Gamma(TM) \to \Gamma(TM)$ with respect to $N$ by
+    \[
+    \langle s X, Y \rangle = \langle \II(X,Y), N \rangle, \text{ for } X,Y \in \Gamma(TM).
+    \]
+    It can often by computed using the formula
+    \[
+    s X = \tilde \nabla_X N.
+    \]
+\end{definition}
+The shape operator captures the second fundamental form of the hypersurface in the following sense:
+\[
+\II(X,Y) = \langle N, N \rangle \langle s X, Y \rangle N.
+\]
+Analogously to \cref{prop:curvature_submanifold}, the shape operator can give us the curvature of a hypersurface:
+\begin{proposition}\label{prop:curvature_hypersurface}
+    Let $M$ be a pseudoriemannian hypersurface of a pseudoriemannian manifold $M$.
+    Then for every $v, w \in T_p M$ that generate a nondegenerate plane, the sectional curvature of $M$ is given by
+    \[
+    K(v,w) = \tilde K(v,w) + \langle N, N \rangle \frac{\langle Sv ,v \rangle \langle Sw, w \rangle- \langle Sv, w \rangle^2}{ \langle v,v \rangle \langle w,w \rangle - \langle v,w \rangle^2},
+    \]
+    where $N$ is the unit normal vector field, and $S$ is the shape operator with respect to $N$.
+\end{proposition}
+\subsubsection{Hyperquadrics}
+We give the analogue of the sphere and the hyperbolic space for the pseudoriemannian case, i.e.\ the pseudoriemannian hypersurfaces of constant sectional curvature (see \cref{ex:hyperquadratics_curvatures}).
+The notation $\mathbb S^{p,q}, \mathbb H^{p,q}$ hints to the signature of the induced metric.
+\begin{definition}
+    Let $0 \leq \nu \leq n$, with $n \geq 2$.
+    We define the pseudosphere of radius $r > 0$ as
+    \[
+    \mathbb S^n_\nu(r) = \mathbb S^{n-\nu,\nu}(r) = \left\{ x \in \mathbb R^{n+1}_\nu = \mathbb R^{n+1-\nu,\nu} : \langle x,x \rangle = r^2 \right\},
+    \]
+    and the pseudohyperbolic space of radius $r > 0$ as
+    \[
+    \mathbb H^n_\nu(r) = \mathbb H^{n - \nu, \nu}(r) = \left\{ x \in \mathbb R^{n+1}_\nu = \mathbb R^{n-\nu, \nu + 1} : \langle x,x \rangle = -r^2 \right\}.
+    \]
+\end{definition}
+\begin{example}\label{ex:hyperquadratics_curvatures}
+    The shape operator for the pseudospheres $\mathbb S^{p,q}$ and on the pseudohyperbolic spaces is given $Sv = -\frac{1}{r} v$.
+    In particular, the  pseudosphere $\mathbb S^{n - \nu, \nu}(r)$ is of constant sectional curvature $K = \frac{1}{r^2}$, and the pseudohyperbolic space $\mathbb H^{n - \nu, \nu}(r)$ is of constant sectional curvature $K = -\frac{1}{r^2}$.
+\end{example}
+As one can suspect, the pseudospheres and the pseudohyperbolics are related to each other:
+\begin{proposition}
+    The pseudospheres are anti-isometric to the pseudohyperbolic spaces.
+    More precisely, the map
+    \begin{align*}
+        \sigma: \mathbb S^n_\nu(r) = \mathbb S^{n - \nu, \nu}(r) &\to \mathbb H^n_{n - \nu}(r) = \mathbb H^{\nu, n - \nu}(r)\\
+        (x_1, \cdots x_\nu, x_{\nu+1}, \cdots x_{n+1}) &\mapsto (x_{\nu+1}, \cdots x_{n+1}, x_1, \cdots x_\nu)\\
+    \end{align*}
+    is an anti-isometry, i.e.\ a diffeomorphism that satisfies $\d_x \sigma (u), d_x \sigma (v) = -\langle u, v \rangle$ for all $u,v \in T_x \mathbb S^n_\nu(r)$.
+\end{proposition}
+We have also a simple diffeomorphic model for the pseudospheres and pseudohyperbolics:
+\begin{proposition}
+    Each $\mathbb S^n_\nu(r) = \mathbb S^{n - \nu, \nu}(r)$ is diffeomorphic to $\mathbb R^{\nu} \times \mathbb S^{n-\nu}$, and each $\mathbb H^n_\nu(r) = \mathbb H^{n - \nu, \nu}(r)$ is diffeomorphic to $\mathbb S^{\nu} \times \mathbb R^{n -\nu}$. 
+\end{proposition}
+The following proposition gives the geodesics of the pseudospheres and the pseudohyperbolics.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Pseudospheres/geodesiques.png}
+    \caption{Geodesics in the $\mathbb H^{1,1} \subseteq R^{1,2}$}
+    \label{fig:geodesics_hyperbolic_plane}
+\end{figure}
+\begin{proposition}
+    Let $q(\cdot, \cdot)$ be the metric defining the pseudohyperbolic space $\mathbb H^{n - \nu, \nu}(r)$,  $p \in \mathbb H^{n- \nu, \nu}(r)$, and $\Pi$ be a plane passing from $p$ and the origin.
+    Then the intersection $\Pi \cap \mathbb H^{n - \nu, \nu}(r)$ is a geodesic in $\mathbb H^{n - \nu, \nu}(r)$, and we distinguish the following three cases:
+    \begin{enumerate}[label=(\roman*)]
+        \item If $\sgn(q_{|\Pi}) = (0,0,2)$, then the intersection is an ellipse, and a timelike geodesic.
+        \item If $\sgn(q_{|\Pi}) = (0,1,1)$, then the intersection is a pair of parallel lines, and null geodesics.
+        \item If $\sgn(q_{|\Pi}) = (1, 0, 1)$, then the intersection is a hyperbola, whose branches are spacelike geodesics.
+    \end{enumerate}
+    Any geodesic in $\mathbb H^{n - \nu, \nu}(r)$ is obtained as such, and in particular, the pseudohyperbolics are complete.
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let $e_1, e_2$ be an orthonormal basis for $q$ on $\Pi$, and consider the coordinates $y = (y_1, y_2)$ on $\Pi \cap \mathbb H^{n - \nu, \nu}$ such that $s = y^1(s)e_1 + y^2(s)e_2$ for $s \in \Pi \cap \mathbb H^{n - \nu, \nu}(r)$.
+        Then
+        \begin{align*}
+            \Pi \cap \mathbb H^{n - \nu, \nu}(r) &= \left\{ y \in \mathbb R^{n - \nu, \nu + 1} : q(y,y) = -r^2 \right\}\\
+            &= \left\{ y^1 e_1 + y^2 e_2 \in \mathbb R^{n - \nu, \nu + 1} : -(y^1)^2 - (y^2)^2 = -r^2 \right\},
+        \end{align*}
+        which is clearly an ellipse.
+        It can be parametrised by $\alpha(t) = r \cos(t)e_1 + r \sin(t)e_2$ for $t \in [0, 2\pi)$, for which $\alpha'(t) = -r \sin(t) \frac{\partial}{\partial y^1} + r \cos(t) \frac{\partial}{\partial y^2}$.
+        Then $\langle \alpha'(t), \alpha'(t) \rangle = -r^2$, so $\alpha$ is timelike.
+        Moreover, $\tilde D_t \alpha' = - P_{\alpha(t)}$ is the opposite of the position vector, so it is normal to $\mathbb H^{n - \nu, \nu}(r)$, and hence a geodesic.
+    \end{enumerate}
+\end{proof}
+\section{Pseudoriemannian structure}
+\subsection{Pseudoriemannian structure on $\mathbb H^{p,q}$}
+Since $\hat{\mathbb H}^{p,q}$ is the unit sphere in $V$ with respect to the inner product chosen, it is a manfiold whose tangent space at $x \in \hat{\mathbb H}^{p,q}$ can be identified with the orthogonal complement of $x$ in $V$:
+\[
+T_x \hat{\mathbb H}^{p,q} = x^\perp = \{ v \in V : \langle v, x \rangle = 0 \}.
+\] 
+Since every $x \in \hat{\mathbb H}^{p,q}$ is a negative vector, the metric restricted on the tangent space is of signature $(p,q)$, which makes $\hat{\mathbb H}^{p,q}$ a pseudoriemannian manifold of signature $(p,q)$.
+
+To define a pseudoriemannian structure on 
+
+\chapter{Linear algebra}
+\section{Symplectic forms}
+Recall that for a bilinear form $\omega$ on a vector space $V$, we can define the matrix $M_B(\omega)$ of $\omega$ with respect to a basis $B = (v_1, \ldots, v_n)$ of $V$ by
+\[
+M_B(\omega)_{ij} = \omega(v_i, v_j).
+\]
+In that case, the form is given by
+\[
+\omega\left(\sum_i x_i v_i, \sum_j y_j v_j\right) = \sum_{i,j} x_i y_j M_B(\omega)_{ij} = x^t M_B(\omega) y,
+\]
+where the vectors $x, y$ in the right hand side are represented by their coordinates in the basis $B$.
+\begin{definition}
+    Let $V$ be a complex or real vector space.
+    A symplectic form $\omega: V \times V \to \R$ is a non-degenerate, skew-symmetric (i.e.\ $\omega(x,y) = - \omega(y,x)$) bilinear form.
+    Equivalently, the associated matrix $M_B(\omega)$ is skew-symmetric and nonsingular.
+\end{definition}
+\begin{proposition}
+    Every symplectic form on a finite-dimensional vector space $V$ can be written as 
+    \[
+    \omega = \begin{pmatrix}
+        0 & I_n \\
+        -I_n & 0
+    \end{pmatrix}
+    \]
+    with respect to some basis of $V$.
+\end{proposition}
+\begin{proof}
+    We proceed by induction on $\dim V$.
+    If $\dim V = 2$, then we let $e_1$ be some non-zero vector and using non-degeneracy, we let $e_2$ be such that $\omega(e_1, e_2) = 1$.
+    Then $\omega = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
+    Supposing the statement holds for $\dim V = 2n$, we consider $\dim V = 2n+2$, and using the same arguements we can find $e_1, e_2 \in V$ such that $\omega(e_1, e_2) = 1$.
+    In particular, $W = \spa \{e_1, e_2\}$ is a non-degenerate subspace, so the same will be true for $W^\perp$.
+    By the inductive hypothesis, we can find a basis of $W^\perp$ such that $\omega$ is given by
+    \[
+    \begin{pmatrix}
+        0 & I_n \\
+        -I_n & 0
+    \end{pmatrix}.
+    \]
+    Then we can extend this basis to $V$ by adding $e_1, e_2$, and after rearranging the order of the basis elements, we obtain the desired form.
+\end{proof}
+\begin{definition}
+    Let $V$ be a symplectic vector space.
+    A subspace $W \subseteq V$ is called \emph{Lagrangian} if $W = W^\perp$, while a subspace $W \subseteq V$ is called \emph{isotropic} if $W \subseteq W^\perp$.
+\end{definition}
+\begin{proposition}
+    Let $V$ be a symplectic vector space. Then:
+    \begin{enumerate}[label=(\roman*)]
+        \item A subspace is lagrangian subspace if and only if it is maximally isotropic.
+        \item Every isotropic subspace is contained in a lagrangian subspace.
+        \item Symplectic vector spaces have even-dimension. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $W$ be a Lagrangian subspace and $W'$  be an isotropic subspace containing $W$.
+        If $W \neq W'$, then there exists $v \in W' \setminus W$.
+        Then $v \in W^\perp = W$, a contradiction.
+        Letting $W$ be maximal isotropic, we have that $W \subseteq W^\perp$.
+        But for every $v \in W^\perp$, we have that $\mathbb Cv + W$ is isotropic (here we use skew-symmetry of $\omega$ to obtain that $v$ is isotropic), so $v \in W$.
+        That is $W = W^\perp$ and $W$ is Lagrangian.
+        \item Let $W'$ be isotropic and not Lagrangian.
+        Then $W$ is not maximal isotropic, that is, there exists $v \not \in W$ such that $W + \mathbb C v$ is isotropic.
+        Repeating this process, we obtain an increasing chain of isotropic subspaces containing $W$, which will terminate at a Lagrangian subspace. 
+        \item Using the identity
+        \[
+        \dim W + \dim W^\perp = \dim V
+        \]
+        that holds for all subspaces $W$, we obtain that $2 \dim W = \dim V$ for any lagrangian subspace $V$.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $\omega, \omega'$ be symplectic forms on $V$.
+    Then there exists a subspace $W\subseteq V$ that is Lagrangian with respect to both forms.
+\end{proposition}
+\begin{proof}
+    Let $A = M_B(\omega') M_B(\omega)^{-1}$ with respect to some basis $B$ of $V$.
+    This is exactly the matrix for which
+    \[
+    \omega'(v,w) = \omega(Av, w)
+    \]
+    Using skew-symmetry, it is easy to see that $A^* = A$ with respect to $\omega'$ (where the $*$ denotes the adjoint with respect to $\omega$).
+    Then we can similarly show that it is also symmetric with respect to $\omega'$, that is:
+    \[
+    \omega(Av, w) = \omega(v, Aw), \omega'(Av, w) = \omega'(v, Aw).
+    \]
+    
+    Consider the generalized eigenvalue decomposition with respect to $A$:
+    \[
+    V = \bigoplus_{\lambda} V_\lambda,
+    \]
+    where $V_\lambda = \ker\left((A - \lambda I)^{k_\lambda}\right)$ and the sum is taken over all generalized eigenvalues of $A$.
+    Moreover, the following lemma implies that the decomposition is orthogonal with respect to $\omega, \omega'$.
+
+    By counting dimensions, we see that if $W_\lambda$ is a lagrangian subspace of $V_\lambda$, then $W = \bigoplus_\lambda W_\lambda$ is a lagrangian subspace of $V$.
+    Hence it suffices to consider each $V_\lambda$ separately.
+    There, we may take $W_\lambda = \ker(A - \lambda I)^{k_\lambda - 1}$ and check that it is isotropic with respect to both forms.
+    To do this, we proceed inductively on $\dim V_\lambda$.
+    If $\dim V_\lambda = 2$, then every isotropic subspace is lagrangian, so we can take $W_\lambda$ to be the span of any vector in $V_\lambda$.
+    In particular, $W_\lambda$ is lagrangian.
+    If $\dim V_\lambda = 2n$, then the quotient space $W_\lambda^\perp / W_\lambda$ is symplectic and by the inductive hypothesis, there exist $v_1, \cdots, v_r \in W^\perp - W$ such that $W + \mathbb C v_1 \oplus \cdots \oplus W + \mathbb C v_r$ is lagrangian.
+    Then $W \oplus \mathbb C v_1 + \cdots \oplus \mathbb C v_r$ is isotropic and by dimension counting, we see it is lagrangian as well.
+\end{proof}
+\begin{lemma}
+    Let $V$ be a vector space with bilinear form $\omega$.
+    Then every matrix $A$ that is self-adjoint with respect to $\omega$ has orthogonal generalized eigenspaces.
+\end{lemma}
+\begin{proof}
+    Let $u \in V_\lambda, v \in V_\mu$ and consider polynomials $P(x) = (x - \lambda)^{k_\lambda}, Q(x) = (x - \mu)^{k_\mu}$.
+    Then $P, Q$ are prime with each other, so there exist polynomials $U, V$ such that $UP + VQ = 1$.
+    Then $\omega(u,v) = \omega((UP + VQ)(A)u, v) = \omega(VQ(A)u, v) = \omega(u, VQ(A)v) = 0 $, where we use that since $P(A),Q(A)$ are polynomials of $A$, they are self-adjoint as well.
+\end{proof}
+
+\section{Proximal elements in $\GL(n,\R)$}
+Here we will talk about basic definitions and dynamics of proximal elements in $\GL(n,\R)$ and its subgroups.
+\begin{definition}
+    We say that $g \in \PGL(d, \mathbb R)$ is \emph{proximal} (in $\mathbb P(\mathbb R^d)$) if it admits an attractive fixed point in $\mathbb P(\mathbb R^d)$, i.e. there exists a line $x_g^+ \in \mathbb P(\mathbb R^d)$ and a compact neighborhood $b^+ \subseteq \mathbb P(\mathbb R^d)$ of $x+g^+$ such that $g^n x \to x $ as $n \to \infty$ uniformly for $x \in b^+$.
+    We say that $g$ is biproximal if both $g$ and $g^{-1}$ are proximal.
+\end{definition}
+
+To better understand the dynamics of proximal elements, we will recall the Jordan decomposition of a matrix.
+Let $A \in \GL(d,\mathbb R)$.
+Then $A$ admits a Jordan canonical form $A = B J B^{-1}$, where $B \in \GL(d, \mathbb R)$ and $J$ is a block diagonal matrix with Jordan blocks $J_1, \ldots, J_k$:
+\[
+J = \begin{pmatrix}
+    J_1 & & \\
+    & \ddots & \\
+    & & J_m
+\end{pmatrix},
+\]
+where each $J_i$ is either a single real entry $j_i$, or a (real) Jordan block of the form
+\[
+J_i = \begin{pmatrix}
+    C_i & 1 & & \\
+    & C_i & \ddots & \\
+    & & \ddots & 1 \\
+    & & & C_i
+\end{pmatrix},
+\]
+with $C_i$ being a $2 \times 2$ matrix of the form
+\[
+C_i = \begin{pmatrix}
+    a_i & -b_i \\
+    b_i & a_i
+\end{pmatrix},
+\]
+and $b_i \neq 0$.
+In the latter case, we let $j_i$ be one of the complex eigenvalues $j_i = \sqrt{\det C_i} e^{i \arccos(a_i)}$ of $C_i$.
+\begin{remark}
+    Each $C_i$ is merely a similitude (in case $C_i$ is not a single entry) by $|j_i| = \sqrt{\det C_i}$ of a rotation by $\arccos a_i$, so $J_i$ rotates and multiplies the plane corresponding to its first two collumns.
+\end{remark}
+We call each $j_i$ a \emph{generalised eigenvalue} of $A$ and the subspace $E_i$ preserved by each $J_i$ the \emph{generalised eigenspace} of $j_i$.
+By changing $B$ we may assume that $|j_1| \geq \ldots \geq |j_m|$.
+
+We are now ready to describe the dynamics of a Jordan block, which is the same as the dynamics of $A$ in the respective generalised eigenspace.
+\begin{lemma}[Dynamics of a Jordan block]
+    Let $J_i$ be a Jordan block, and let $j_i, E_i$ be its generalised eigenvalue and eigenspace respectively.
+    We denote with $e_1, \cdots, e_k$ part of the standard basis that spans $E_i$.
+    \begin{enumerate}[label=(\roman*)]
+        \item There exists vectors $v \in E_i$ such that
+        \[
+        |J_i^n v| = |j_i|^n |v|.
+        \]
+        When $C_i$ is a real entry, this holds for $v \in \mathbb Rv_1$, while when $C_i$ is a $2 \times 2$ matrix, this holds for $v \in \mathbb R e_1 \oplus \mathbb R e_2$.
+        \item If $J_i$ is upper-triangular but not a single entry, then $E_i$ contains an actual eigenvector (namely $e_1$) such that for $v \in E_i$ we have $J_i^n \mathbb Rv \to \mathbb Re_1$.
+    \end{enumerate}
+    \begin{proof}
+        While we will not give a concrete proof of this fact, we can consider examples.
+        \begin{enumerate}[label=(\roman*)]
+            \item This follows by the fact that for $v$ in the respective subspaces, $J_i$ is a similitude by $j_i$ and perhaps a rotation.
+            \item 
+            Suppose $J$ is $2\times 2$, so
+            \[
+            J_i = \begin{pmatrix}
+                a_i & 1 \\
+                0 & a_i
+            \end{pmatrix}.
+            \]
+            Then for $w = w_1 e_1 + w_2 e_2 \in E_i$ we have
+            \[
+            J_i \mathbb R w = \mathbb R(w + a_i w_2 e_1).
+            \]
+            Then it is clear to see that $J_i^n \mathbb R w \to \mathbb R e_1 $ and that $J_i$ moves lines clockwise when $a_1 > 0 $ and counterclockwise when $a_1 < 0$.
+            (see \cref{fig:jordan_dynamics}).
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.7\textwidth]{jordan_dynamics.jpg}
+                \caption{Dynamics of a Jordan block}
+                \label{fig:jordan_dynamics}
+            \end{figure}
+        \end{enumerate}
+    \end{proof}
+    \begin{remark}
+        Even when a Jordan block upper triangular and is not a single entry, the eigenline may not be an attracting fixed point since the convergence is not uniform.
+        Take for example 
+        \[
+        J = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \text{ and } v_n = (n, -1).
+        \]
+        Then $J^n v_n = (0, -1)$, even though $v_n \to e_1, J^n \mathbb R v_{n_0} \to \mathbb R e_1$ as $n \to \infty$ .
+    \end{remark}
+\end{lemma}
+
+We now consider the Jordan matrix (see \cref{fig:jordan_matrix_dynamics}):
+\begin{proposition}[Dynamics of a Jordan matrix]
+    Let $J$ be a Jordan matrix with Jordan blocks $J_1, \cdots J_m$.
+    Then $J$ is proximal if and only if $|j_1| > |j_2|$ and $ J_1$ is a real entry.
+    In that case, for any $x \in \spa \{e_2, \cdots, e_d \}^c$ we have
+    \[
+    J^n x \to \mathbb R e_1,
+    \]
+    and the convergence is uniform in compact neighborhoods of $\spa \{e_2, \cdots, e_d \}^c$.
+    Similarly, $J$ is biproximal if and only if $|j_1| > |j_2|, |j_{m-1}| > |j_m|$ and $J_1, J_m$ are real entries.
+    In that case, for any $x \in \spa \{e_1, \cdots, e_{d-1} \}^c$ we have
+    \[
+    J^{-n} x \to \mathbb R e_d,
+    \]
+    and the convergence is uniform in compact neighborhoods of $\spa \{e_1, \cdots, e_{d-1} \}^c$.
+\end{proposition}
+\begin{proof}
+    Note that if $|j_1| > |j_2|$ and $J_1$ is a real entry, then for $w \not \in \spa{ e_2, \cdots, e_d}$, we can write $w = w_1 + \cdots + w_m$ with each $w_i \in E_i$.
+    Then 
+    \[
+    J^n \mathbb R w = \mathbb R (J_1^n w_1 + \cdots + J_m^n w_m) = 
+    \mathbb R (w_1 + \frac{J_2^n}{j_1^n} w_2 + \cdots + \frac{J_m^n}{j_1^n} w_m) \to \mathbb R e_1,
+    \]
+    where the last convergence holds since each of the eigenvalues $j_i$ are less than $j_1$.
+
+    If on the other hand $J$ is proximal, we have seen that in the remark above, that $J_1$ needs to be a single entry, otherwise the convergence is not uniform.
+    On the other hand, if $|j_1| = |j_2|$, then $J$ will rotate the plane spanned by $e_2, e_3$, like for instance when
+    \[
+    J = \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & \cos \theta & - \sin \theta \\
+        0 & \sin \theta & \cos \theta
+    \end{pmatrix}, v = (1, x, y), J^n v = \begin{pmatrix}
+        1\\
+        \begin{pmatrix}
+            \cos n \theta & - \sin n \theta \\
+            \sin n \theta & \cos n \theta
+        \end{pmatrix}
+        \begin{pmatrix}
+            x \\ y
+        \end{pmatrix}
+    \end{pmatrix}
+    \]
+\end{proof}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{jordan_dynamics3}
+        \caption{In the double cover $S^2$ convergence is uniform when uniformly away from the equator.}
+        \label{fig:jordan_dynamics_sphere}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{jordan_dynamics2}
+        \caption{In the affine chart $\mathbb R^2 \simeq \{ [1, x, y] \}$, convergence is uniform when uniformly away from the circle at infinity.}
+        \label{fig:jordan_dynamics_affine_chart}
+    \end{subfigure}
+    \caption{Dynamics of Jordan matrix on $\mathbb P(\mathbb R^3)$}
+    \label{fig:jordan_matrix_dynamics}
+\end{figure}
+Noting that being proximal is invariant under conjugation, we can now describe the dynamics of a proximal element in $\GL(d, \mathbb R)$:
+\begin{corollary}
+    Let $g \in \PGL(d, \mathbb R)$ and denote with $g$ any of its representatives.
+    Then the following are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item $g$ is proximal if and only if $g$ has a Jordan decomposition $g = B J B^{-1}$ with $J$ being proximal.
+        \item Denoting with $\lambda_1(g), \cdots \lambda_d(g)$ the (possibly complex) eigenvalues of $g$ in decreasing order of their modulus, $g$ is proximal if and only if $|\lambda_1(g)| > |\lambda_2(g)|$.
+    \end{enumerate}
+    and similarly for biproximal elements:
+    \begin{enumerate}[label=(\roman*)]
+        \item $g$ is biproximal if and only if $g$ has a Jordan decomposition $g = B J B^{-1}$ with $J$ being biproximal.
+        \item Denoting with $\lambda_1(g), \cdots \lambda_d(g)$ the (possibly complex) eigenvalues of $g$ in decreasing order of their modulus, $g$ is proximal if and only if $|\lambda_1(g)| > |\lambda_2(g)|$ and $|\lambda_{d-1}(g)| > |\lambda_d(g)|$.
+    \end{enumerate}
+    If this is the case, the attracting fixed point of $g$ is the line spanned by the eigenvector $Be_1$ and the convergence is uniform in compact neighborhoods of $\spa \{Be_2, \cdots, Be_d \}^c$.
+\end{corollary}
+
+Considering the case of $\PO(p, q)$ for $p, q \geq 0$, we have that every proximal element is biproximal:
+\begin{proposition}
+    In $\PO(p, q)$, proximality and biproximality are equivalent.
+\end{proposition}
+\begin{proof}
+    Let $g \in \PO(p, q)$ be proximal.
+    Then the eigenvalues of $g$ are stable under taking inverse: $\lambda(g) = \lambda(g^{-1})$.
+    Indeed, $g \in \OO(p,q)$ implies that $g^t I_{p,q} g = I_{p,q}$, so for an eigenvector $v$ of $g$ with eigenvalue $\lambda$, we multiply $gv = \lambda v$ by $I_{p,q}$ to obtain that 
+    \[
+    \lambda I_{p,q} v =I_{p,q} g v = (g^t)^{-1} I_{p,q} v,
+    \]
+    so $\sigma(g) \subseteq \sigma((g^t)^{-1}) = \sigma(g^{-1})$.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Complexification of vector spaces}
+\begin{definition}
+    Let $V$ be a real vector space and $\rho: \mathfrak g \to \mathfrak{gl}(V)$ a representation of a real Lie algebra $\mathfrak g$.
+    \begin{enumerate}[label=(\roman*)]
+        \item The complexification $V^\mathbb C$ of $V$ is the complex vector space defined setwise by $V \times V$, with the addition structure of $V \oplus V$ and the scalar multiplication rule $(x + i y) (v_1, v_2) = (x v_1 - y v_2, x v_2 + y v_1)$.
+        We write $(v_1, v_2)$ as $v_1 + i v_2$.
+        \item If $W$ is a complex vector space isomorphic to the complexification of $V$, then we say that $V$ is a real form of $W$.
+    \end{enumerate}
+\end{definition}
+
+Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{antilinear} if it it satisfies $f(u + v) = f(u) + f(v)$ and $f(\lambda v) = \overline \lambda f(v)$.
+\begin{definition}
+    Let $V$ be a complex vector space.
+    A conjugation on $V$ is an antilinear map $C: V \to V$ such that $C^2 = \id$.
+\end{definition}
+\begin{example}
+    If $E$ is a real vector space and $V= E^\mathbb C$, then we can define the conjugation $C: V \to V$ by $C(v) = \overline v$, where $\overline{u + iv} = u - iv$.
+\end{example}
+\begin{proposition}
+    Let $V$ be a complex vector space.
+    Then real forms of $V$ are in bijective correspondence with conjugations on $V$.
+\end{proposition}
+\begin{proof}
+    To each real form $E$ of $V$, we can associate the conjugation $C(u + iv) = u - iv$, for $u, v \in E$.
+    Conversely, for each conjugation $C$ on $V$, we consider the real vector space $E = \{ v \in V \mid C(v) = v \}$, which turns out to be a real form of $V$.
+\end{proof}
+
+\begin{proposition}
+    If $\mathfrak E$ is a representation of $\mathfrak g$ that is not of real type, then there exists an irreducible complex representation $V \subseteq E^\mathbb C$ of $\mathfrak g^\mathbb C$, such that
+    \[
+    E^\mathbb C = V \oplus \overline V,
+    \]
+    whre $\overline V$ is the conjugate representation of $V$, i.e. $\overline V = \{ \overline v \mid v \in V \}$ and the action of $\mathfrak g$ on $\overline V$ is given by $\rho(X)(\overline v) = \overline{\rho(X)v}$.
+\end{proposition}
+\begin{proof}
+    Let $V$ be a complex subspace of $E^\mathbb C$ that is invariant under $\mathfrak g^\mathbb C$.
+    Then $\overline V$ is also invariant under $\mathfrak g^\mathbb C$, so the same is true for $V \cap \overline V$ and $V + \overline V$.
+    Since these are invariant under the conjugation of $E^\mathbb C$, we have that $V + \overline V, V \cap \overline V$ admit real forms.
+    Moreover, because the action of $\mathfrak g^\mathbb C$ commutes with conjugation,the real forms are invariant under the action of $\mathfrak g$.
+    By irreducibility of $E$, we obtain that $V \oplus \overline V = E^\mathbb C$.
+\end{proof}
+
+\chapter{Logbook}
+\setcounter{secnumdepth}{0}
+\section{2025-02-19}
+\begin{itemize}
+    \item Consider the irreducible subrepresentation of the symmetric square of the standard representation of $\SO(p,1)$.
+    It takes values in $\SO\left(\frac{p(p-1)}{2}, p\right)$:
+    \[
+    \rho = \Sym^2 \mathrm{std}: \SO(p,1) \to \SO\left(\frac{p(p-1)}{2}, p\right)
+    \]
+    \begin{proof}
+        Denoting with $\omega(u,v) = u_1 v_1 + \cdots + u_p v_p - u_{p+1}v_{p+1}$ the form preserved by $\SO(p,1)$, we can use it to identify $\Sym^2(\R^{p+1})$ with the space of symmetric forms on $\R^{p+1}$.
+        Then the fact that the standard representation preserves $\omega$ is equivalent to the symmetric square preserving $\omega$ as an element of $\Sym^2{\mathbb R^{p+1}}$.
+        Moreover, the symmetric square preserves $\Sym^2 \omega$, so it preserves the orthogonal complement of $\mathbb R \omega$ with respect to $\Sym^2 \omega$, which we denote with $\Sym^2_0 \mathbb R^{p+1}$.
+        Using the Weyl character formula, one can show that $\rho: \SO(p,1) \to \SO(\Sym^2_0 \mathbb R^{p+1})$ is irreducible.
+        Also, the signature of $\Sym^2 \omega$ on $\Sym^2 \mathbb R^{p+1}$ is $\left(\frac{p(p-1)}{2} + 1, p\right)$, and $\omega$ is positive for $\Sym^2 \omega$.
+    \end{proof}
+    \item Let $\Gamma \subseteq \SO(p,1)$ be a uniform lattice. Then
+    $\rho: \Gamma \to \SL(\Sym_0^2(\mathbb R^{p+1}))$ is $P_1$-Anosov.
+    \begin{proof}
+        Consider the compact subgroup $K = \SO(p)$ of $\SO(p,1)$ (block diagonal matrices with a matrix of $\SO(p)$ for the first block and $1$ for the second block).
+        Then $\rho(K) \subseteq K'$ for some compact subgroup $K'$ of $\SL(\Sym^2_0 \mathbb R^{p+1})$.
+        For $A$ and $A'$ being the diagonal matrices of $\SO(p,1)$ and $\SL(\Sym^2_0 \mathbb R^{p+1})$ respectively, we have $\rho(A) \subseteq A'$.
+        Writing the Cartan decomposition $g = k e^{\mu(g)} l$ of some $g \in \SO(p,1)$, we have that $\rho(g) = \rho(k) e^{\rho_* \mu(g)} \rho(l)$, so $\mu(\rho(g)) = \rho_*(\mu(g))$.
+        Since $\rho: \SO(p,1) \to \GL(\Sym^2_0 \mathbb R^{p+1})$ is the irreducible representation of $\SO(p,1)$ whose complexification is the one having the highest weight $2L_1$, we know that $\rho_*(\mu(g))$ is the diagonal matrix whose diagonal entries are the weights of $\rho$ evaluated at $\mu(g)$.
+        In particular, the two highest weights are $2L_1$ and $L_1 + L_2$ (the latter being equal to $L_1$ for $g \in \SO(p,1)$).
+        Hence $\alpha_{12}(\rho_*(\mu(g))) = L_1(\mu(g))$.
+        Since $\SO(p,1) = \Isom(H^p)$ is of rank $1$, there exists a constant $C$ such that $L_1 = d(- \cdot o, o) \mathfrak a^*$,
+        where $o = e^{p+1}$ is the basepoint of $H^p$ for which $K = \Stab(o)$.
+        
+        On the other hand $\Gamma$ is a uniform lattice of $\Isom(\mathbb H^p)$, so the action of $\Gamma$ on $\mathbb H^p$ is cocompact and properly discontinuous.
+        By the lemma of Milnor-Svarc, the map $\gamma \mapsto \gamma \cdot o$ is a quasi-isometry, meaning that $\mu(\rho(g)) = Cd(\gamma \cdot o, o ) \geq C|\gamma| - c$ for some $C, c > 0$.
+    \end{proof}
+    \item Calculation of the limit map $\xi: \partial \mathbb H^p \to \mathbb P(\mathbb R^d)$.
+    Here we use the following description of the algebra $\sso(p,1) = \{x \in \mathfrak sl(p+1, \mathbb R): x^t M + M x = 0\}$, where 
+    \[
+    M = \begin{pmatrix}
+        0 & \cdots & 1 \\
+        \vdots & I_{p-1} & \vdots\\
+        1 & \cdots & 0
+    \end{pmatrix}.
+    \]
+    In matrix form:
+    \[
+    \sso(p,1) = \left\{
+        \begin{pmatrix}
+            X_{11} & X_{12} & 0 \\
+            X_{21} & X_{22} & -X_{12}^t \\
+            0 & -X_{21}^t & -X_{11}^t
+        \end{pmatrix}:
+        \begin{array}{c}
+            X_{11} \in \mathbb R, X_{12} \in \mathbb R^{1 \times (p-1)}, X_{21} \in \mathbb R^{(p-1) \times 1}, X_{22} \in \mathbb R^{(p-1) \times (p-1)}, \\
+            X_{22}^t = -X_{22}
+        \end{array}
+    \right\}.
+    \]
+
+    Fixing $x_0 = [e_{p+1}] \in \partial \mathbb H_\infty^p$, we have 
+    \[
+    \mathfrak p_0 = \mathrm{St}_{\mathfrak{so}(p,1)}(\mathbb R e_{p+1}) = \left\{ 
+        \begin{pmatrix}
+            -t & 0 & 0 \\
+            X_{21} & X_{22} & 0 \\
+            0 & -X_{21}^t & t
+        \end{pmatrix} : 
+        \begin{array}{c}
+            t \in \mathbb R, X_{12} \in \mathbb R^{1 \times (p-1)}, X_{21} \in \mathbb R^{(p-1) \times 1}, X_{22} \in \mathbb R^{(p-1) \times (p-1)}, \\
+            X_{22}^t = -X_{22}
+        \end{array}
+     \right\}.
+    \]
+\end{itemize}
+\section{2025-02-21}
+\begin{itemize}
+    \item $\PSL(2,\mathbb R)$ is isomorphic to the group of orientation-preserving isometries of the hyperbolic plane:
+    \[
+    \PSL(2,\mathbb R) \simeq \SO_0(2,1)
+    \]
+    In fact, the isomorphism is given by the symmetric square of the standard representation of $\SL(2,\mathbb R)$.
+    \begin{proof}
+        Consider the symmetric square $\rho = \Sym^2 \mathrm{std}: \SL(2,\mathbb R) \to \GL(\Sym^2(\mathbb R))$ of the standard representation of $\SL(2,\mathbb R)$.
+        Since the standard representation preserves the determinant, the symmetric square preserves the form $\omega = -\Sym^2\det$, which can be found to be of signature $(2,1)$.
+        We have thus a representation $\rho: \SL(2,\mathbb R) \to \SO(2,1)$.
+        Since $\SO(2,\mathbb R)$ is connected, we have that $\rho(\SL(2,\mathbb R)) \subseteq \SO_0(2,1)$.
+        Moreover, looking at the action of $\SL(2,\mathbb R)$ on the space of symmetric $2$-tensors, we see that $\rho$ factors through $\PSL(2,\mathbb R)$.
+        Since $\PSL(2,\mathbb R)$ is simple, $\rho:\PSL(2,\mathbb R) \to \SO_0(2,1)$ is injective.
+        This implies that it is surjective as well, because $\SO_0(2,1)$ is connected (injectivity implies that the image contains a neighborhood of the identity, which will generate all of $\SO_0(2,1)$).
+    \end{proof}
+\end{itemize}
+\section{2025-02-27}
+\begin{itemize}
+    \item Let $\zeta_0 = e_{p+1}^2 \in \Sym_0 \mathbb R^{p,1}$.
+    Then $P_0$ stabilizes $\mathbb R \eta_0$ when acting through $\rho: \SO(p,1) \to \SO(\Sym_0 \mathbb R^{p,1})$.
+    \begin{proof}
+        Indeed, this is equivalent to the fact that $\mathfrak{p}_0 = \mathrm{Lie}(P_0)$ stabilizes $\mathbb R \eta$ when acting by $\rho_*$, which boils down to the calculation $\rho_*(x) \eta_0 = -2 e_{p+1}^2 = -2 \eta_0$.    
+    \end{proof}
+    \item The limit map $\xi: \partial \Gamma \to \mathbb P(\Sym_0 \mathbb R^{p,1})$ is given by
+    \[
+    \xi(\gamma \cdot P_0) = \rho(\gamma) \eta_0,
+    \]
+    under the identification $\partial \Gamma \simeq \SO(p,1) / P_0$, obtained by the Milnor-Svarc lemma, and the image of the differential over $\mathbb R\eta_0$ is
+    \[
+    T_{\mathbb R \eta_0} \xi(\partial \Gamma) = \d_{P_0} \xi (T_{P_0} \partial \Gamma) = \pi \left(\rho_*(\mathfrak \sso(p,1)) \eta_0 \right)
+    \]
+    while in the general case we have for $\mathbb R \eta \in \xi(\partial \Gamma)$ that
+    \[
+    T_{\mathbb R \eta} \xi(\partial \Gamma) = \left(\rho_*(\mathfrak \sso(p,1)) \eta \right) / \mathbb R \eta.
+    \]
+    \begin{proof}
+        Let $\eta \in \Sym_0 \mathbb R^{p,1}$ and $h \in \SO(p,1)$ be such that $\xi(h P_0) = \mathbb R \eta$.
+        We know that the limit map is $\rho$-equivariant, meaning that the diagram
+        \[
+        \begin{tikzcd}
+            \SO(p,1) \arrow{r}{\rho(-) \eta} \arrow{d} & \mathbb \Sym_0 \mathbb R^{p,1} \arrow{d} \\
+            \SO(p,1)/P_0 \simeq \partial \Gamma \arrow{r}{\xi} & \mathbb P(\Sym_0 \mathbb R^{p,1})
+        \end{tikzcd}
+        \]
+        commutes, where the left vertical arrow is the map $g \mapsto gh \cdot P_0$, the right vertical arrow is the projection and $\SO(p,1)$ acts on $\partial \Gamma \simeq \SO(p,1) / P_0$ by left multiplication.
+        Differentiating the above diagram, we obtain the following commuting diagram:
+        \[
+        \begin{tikzcd}
+            \sso(p,1) \arrow{r}{\rho_*(-) \eta} \arrow{d} & T_{\eta} \Sym_0 \mathbb R^{p,1} \arrow{d} \arrow{r}{\simeq} & \hom(\mathbb R \eta, \Sym_0 \mathbb R^{p,1}) \arrow{d}{\pi} \\
+            T_{h \cdot P_0} \partial \Gamma \arrow{r}{d_{h \cdot P_0}\xi} & T_{\mathbb R \eta} \mathbb P(\Sym_0 \mathbb R^{p,1}) \arrow{r}{\simeq} & \hom(\mathbb R \eta, \Sym_0 \mathbb R^{p,1}/\mathbb R \eta)
+        \end{tikzcd}
+        \]
+        where $\pi$ is the projection.
+    \end{proof}
+    \item $\SO(p,1)$ acts transitively on pairs of distinct elements of $\partial \Gamma$, i.e.\ for every pair of discrete maximal parabolic subgroups $P, P'$ of $\SO(p,1)$, there exists $g \in \SO(p,1)$ such that $g \cdot P = P_0$ and $g \cdot P' = P_0^t$, where $P_0 = \Stab_{\SO(p,1)} \mathbb R e_{p+1}$ and $P_0^t = \Stab_{\SO(p,1)} \mathbb R e_1$.
+    Moreover, $g \cdot P_0 = P_0^t$ for 
+    \[
+    g = \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & I_{p-1} & 0 \\
+        1 & 0 & 0
+    \end{pmatrix} \in \SO(p,1).
+    \]
+    \begin{proof}
+        Recall that the maximal parabolic subgroups of $\SO(p,1)$ are exactly the stabilizers of elements in the boundary $\partial_\infty \mathbb H^p$ of the symmetric space.
+        In particular, for any maximal parabolic subgroup $P = \Stab_{\SO(p,1)}x$ with $x \in \partial_\infty \mathbb H^p$, we have that $\SO(p,1)$ acts on maximal parabolic subgroups by conjugation: $g \cdot P \equaldef g P g^{-1} = \Stab_{\SO(p,1)}(g x)$.
+        In the case of $P_0 = \Stab_{\SO(p,1)} \mathbb R e_{p+1}$ and $P_0^t = \Stab_{\SO(p,1)} \mathbb R e_1$, we have that $g \cdot e_{p+1} = e_1$ for the element $g \in \SO(p,1)$ in the statement, so $g P_0 g^{-1} = P_0^t$.
+
+        Let now $P = \Stab_{\SO(p,1)} x$ and $P' = \Stab_{\SO(p,1)} x'$ be two distinct maximal parabolic subgroups.
+        Then $\langle x, x' \rangle \neq 0$, since otherwise, $\mathbb R x \oplus \mathbb R x'$ would be a two-dimensional totally isotropic subspace, which is not possible for a form of signature $(p,1)$.
+        Thus we may assume that $\langle x, x' \rangle = 1$, i.e.\ the restriction of the form on $\mathbb R x \oplus \mathbb Rx'$ has the following matrix form:
+        \[
+        \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix}.
+        \]
+        In particular $\mathbb Rx \oplus \mathbb Rx'$ is non-degenerate, so there exists a transformation $g \in \SO(p,1)$ that sends $x$ to $e_{p+1}$ and $x'$ to $e_1$.
+        For such a transformation, we have $g \cdot P = P_0$ and $g \cdot P' = P_0^t$.
+    \end{proof}
+    \item Consider the section
+    \begin{align*}
+        \zeta: \partial \Gamma \to \mathcal F_{1, q} (\Sym_0 \mathbb R^{p,1})\\
+        \zeta(x) = \left(\xi(x), \pi^{-1}(T_{\xi(x)} \xi(\partial \Gamma))\xi(x)\right)
+    \end{align*}
+    where we recall that $\pi^{-1}(T_{\xi(x)} \xi(\partial \Gamma))\xi(x) \subseteq \hom(\xi(x), \Sym_0 \mathbb R^{p,1})$.
+    Then for any two points $x, y \in \partial \Gamma$, we have that $\zeta^q(x) \cap \zeta^q(y) \neq 0$.
+\end{itemize}
+\section{2025-02-08}
+\begin{itemize}
+    \item For $x_0 = \xi(P_0) = \eta_0 = e_1^2$, we have that 
+    \[
+    \zeta^q(x_0) = \rho_*(\sso(p,1)) \eta_0 = \mathbb R e_2 e_{p+1} \oplus \cdots \oplus \mathbb R e_{p+1}^2,
+    \]
+    and $\rho(g) \rho_*(\sso(p,1)) \eta_0 = \mathbb R e_1 e_2 \oplus \cdots \oplus \mathbb R e_1^2$.
+    In particular
+    \begin{align*}
+        \zeta^q(x_0) \cap \zeta^q(g x_0) = \zeta^q(x_0) \cap \rho(g) \zeta(x_0) = 0.
+    \end{align*} 
+\end{itemize}
+\section{2025-03-12}
+\begin{itemize}
+    \item Let $G$ be a group and $P$ be a subgroup of $G$.
+    If $P$ is self-normalizing (its normalizer is itself), then $G/P$ is in bijective correspondence with the conjugacy classes of $P$:
+    \begin{align*}
+        G/P &\simeq \{gPg^{-1} \mid g \in G\} \\
+        gP &\mapsto gPg^{-1}
+    \end{align*}
+    Recall that the normalizer of $P$ in $G$ is the subgroup $N_G(P)$ of elements $g \in G$ such that $gPg^{-1} = P$.
+    \item Let $G$ be a semisimple Lie group, and $P$ be a minimal parabolic subgroup of $G$.
+    Equivalently, $P = \mathrm{Stab}_G(x_0)$ is the stabilizer of a point $x_0 \in \partial_\infty S$ in the boundary of the symmetric space $S = G/K$.
+    We denote with $\mathfrak p$ the Lie algebra of $P$.
+    Then we have the following identification:
+    \[
+    \begin{array}{cccccccc}
+        &\partial_\infty S & \simeq & G/P & \simeq & \{\text{ Parabolic subgroups of } P\} &\simeq &\{\text{ Parabolic subalgebras of } \mathfrak p\} \\
+        &g x_0 & \mapsfrom & gP & \mapsto &g P g^{-1} &\mapsto &\Ad_g (\mathfrak p)
+    \end{array}
+    \]
+    In the above,we implicitly use the fact that the minimal parabolic subgroups of $G$ are the conjugacy classes of minimal parabolic subgroups of one fixed minimal parabolic subgroup $P$.
+    \item Let $G \subseteq \mathrm{PO}_0(p,q)$ be a subgroup of the identity component of projective orthogonal group, and denote with $q: \mathrm{O}(p,q) \to \mathrm{PO}(p,q)$ the quotient map.
+    If $G$ does not preserve a proper subspace of $\mathbb R^{p,q}$, then $q^{-1}(G) \cap \SO_0(n,1)$ does not preserve one either.
+    
+    \item
+        The connected components of $\mathrm{PO}(p,q)$ are:
+        \begin{align*}
+            &\PO(p,q) = \\
+            &\begin{cases}
+                 P(\SO_0(p,q)) \sqcup  P(\OO^+(p,q)) \sqcup  P(\OO^{(1,-1)}(p,q)) \sqcup  P(\OO^{(-1,+1)}(p,q)) & \text{ if } p, q \text{ even} \\
+                 P (\SO_0(p,q)) \sqcup  P(\OO^+(p,q)) & \text{ if } p\neq q\  \mathrm{mod}\  Z_2 \\
+                 P(\SO_0(p,q)) \sqcup  P(\OO^{(1,-1)}(p,q)) & \text{ if } p, q \text{ uneven}
+            \end{cases},
+        \end{align*}
+        where $P$ denotes the identification via the action of $\{\pm \mathrm{Id}\}$.
+        % \begin{proof}
+        %     Recall that $\OO(p,q)$ has four connected components which are:
+        %     \[
+        %     \OO(p,q) = \SO_0(p,q) \sqcup \OO^+(p,q) \sqcup \OO^{(1,-1)}(p,q) \sqcup \OO^{(-1,1)}(p,q),
+        %     \]
+        %     where $\SO_0(p,q)$ is the identity component of both $\OO(p,q)$ and $\SO(p,q)$ and consists of the matrices in $\OO(p,q)$ that preserve the orientation of each subspace in a fixed pair of maximal isotropic subspaces.
+        %     Similarly, $OO^-(p,q)$ consists of the matrices that reverse the orientation of both subspaces, while $\OO^{(1,-1)}(p,q)$ and $\OO^{(-1,1)}(p,q)$ consist of the matrices that reverse the orientation of one of the subspaces.
+        %     It is clear from this description that $\SO_0(p,q)$ preserves each component
+            
+        %     To see how these get identified with each other after projectivising, consider first the case where both $p$ and $q$ are even.
+        %     Then $-\mathrm{Id} = -\mathrm{Id}_p \oplus -\mathrm{Id}_q \in \SO_0(p,q)$, so the connected components of $\PO(p,q)$ are the projectivisation of the connected components of $\OO(p,q)$.
+            
+        %     If $p$ is even and $q$ is uneven, then $-\mathrm{Id} \in \OO^{(1,-1)}(p,q)$, and acts on the components by $-\mathrm{Id}SO_0(p,q) = \OO^{(1,-1)}(p,q)$ and $-\mathrm{Id} \OO^+(p,q) = \OO^{(-1,1)}(p,q)$.
+        %     Hence the connected components of $\PO(p,q)$ are the projectivisation of the components $\SO_0(p,q)$ and $\OO^+(p,q)$.
+        %     Similarly for the case where $p$ is uneven and $q$ is even.
+            
+        %     Finally, if both $p$ and $q$ are uneven, then $-\mathrm{Id} \in \OO^+(p,q)$, and acts on the components by $-\mathrm{Id}SO_0(p,q) = \OO^{+}(p,q)$ and $-\mathrm{Id} \OO^{(1,-1)}(p,q) = \OO^{(-1,+1)}(p,q)$.
+        %     Hence the connected components of $\PO(p,q)$ are the projectivisation of the components $\SO_0(p,q)$ and $\OO^{(1,-1)}(p,q)$.
+        % \end{proof}
+        \item 
+        For a semisimple Lie algebra $\mathfrak g$, the sum of the positive root spaces is denoted with $\mathfrak n^+$:
+        \[
+        \mathfrak n^+ = \bigoplus_{\alpha > 0} \mathfrak g_\alpha.
+        \]
+        \begin{definition}
+            Let $G$ be a semisimple Lie group and fix a Weyl chamber $\mathfrak a^+$.
+            We define the minimal parabolic subgroup of $G$ as
+            \[
+            B^+ = Z_K(\mathfrak a) A N^+,
+            \]
+            where $A = e^{\mathfrak a}, N^+ = e^{\mathfrak n^+}$ and $Z_K(\mathfrak a)$ is the centralizer of $\mathfrak a$ in $K$.
+            Its opposite parabolic subgroup is defined similarly and denoted with $B^-$.
+            Any subgroup of $G$ containing (up to conjugation) $B^+$ is called a parabolic subgroup.
+        \end{definition}
+        \item The parabolic subgroups are exactly the stabilizers of (potentially partial) flags.
+        \item  
+        In the case of $G = \SL(d,\mathbb R)$, we have
+        \begin{align*}
+            Z_K(\mathfrak a) &= \left\{ \text{ diagonal matrices with entries $\pm 1$ with an even number of ones } \right\}\\
+            A &= \left\{ \text{ diagonal matrices with positive entries and determinant } 1 \right\}\\
+            N^+ &= \left\{ \text{ upper triangular matrices with $1$ on the diagonal } \right\}.
+        \end{align*}
+        so that
+        \[
+        B^+ = \left\{ \text{ upper triangular matrices with determinant } 1 \right\},
+        \]
+        which is also the stabilizer of the full standard flag $\mathbb R e_1 \subseteq \cdots \subseteq \mathbb R e_d$.
+        In general, denoting the stabilizer of the flag $\mathbb R e_1 \subseteq \cdots \subseteq \mathbb R e_k$ as $P_k$, we have that all parabolic subgroups are conjugate to $P_k$ for some $k$.
+        \item Let $\Theta \subseteq \Pi$ be a subset of simple (positive) roots.
+        We define 
+        \[
+        \mathfrak a_\Theta = \bigcap_{\alpha \not \in \Theta} \ker \alpha.
+        \]
+        Then $P_k = Z_K(\mathfrak a_\Theta) A N^+$.
+\end{itemize}
+\section{2025-03-13}
+\begin{itemize}
+    \item Let $\mathcal S$ be the set of maximal isotropic subspaces of $\mathbb R^{d,d}$, topologized via $\OO(d)$.
+        If $d$ is even, then:
+        \begin{enumerate}[label=(\roman*)]
+            \item For every $V, W \in \mathcal S$ in different connected components:
+            \[
+            g V \cap W \neq 0, \text{ for all } g \in \SO(d,d).
+            \] 
+            \item For any $V_0 \in \mathcal S$, there exist infinitely many $g \in \SO(d,d)$ such that
+            \[
+            g V_0 \cap V_0 = 0.
+            \]
+        \end{enumerate}
+\end{itemize}
+\section{2025-03-14}
+\begin{itemize}
+    \item Let $X$ be a topological space and $\Gamma$ a group acting continuously on $X$. If $\Gamma$ acts cocompactly on $X$, then there exists a compact set $K \subseteq X$ that covers $X$ under the action of $\Gamma$. If moreover $X$ is locally compact, then the converse holds as well.
+    \begin{proof}
+        If $\Gamma$ acts cocompactly on a locally compact $X$, we consider for each $x \in X$ a neighborhood $U_x$ of $x$ and a compact subset $K_x$ such that $U_x \subseteq K_x$.
+        Denoting with $q: X \to X/\Gamma$ the quotient map, we have that $q(U_x)$ is an open covering of $X$ (here we use that quotients of continuous group actions give rise to open quotient maps), so there exist $x_1, \cdots, x_n$ such that $X = \bigcup_{i=1}^n q(U_{x_i})$.
+        Then $K = \bigcup_{i=1}^n K_{x_i}$ is a compact set that covers $X$ under the action of $\Gamma$.
+        
+        If $\Gamma \cdot K = X$ for some compact set $K$, and $\{U_i\}$ is an open covering of $X/\Gamma$, then $q^{-1}(U_i)$ is an open covering of $K$, so it admits a finite subcovering $q^{-1}(U_{i_1}), \cdots, q^{-1}(U_{i_n})$.
+        Then $U_{i_1}, \cdots, U_{i_n}$ is a finite subcovering of $X/\Gamma$.
+    \end{proof}
+    \item Let $\Gamma' \leq \Gamma$ be a subgroup of a group $\Gamma$.
+    If $\Gamma$ acts cocompactly on $X$, then $\Gamma'$ acts cocompactly on $X$ as well.
+    Assuming moreover that $\Gamma'$ is of finite index in $\Gamma$, then the converse holds as well.
+    In particular, if $\Gamma \leq \SO(p,q)$ is $\mathbb H^{p,q}$ convex-cocompact, then any finite-index subgroup of $\Gamma$ is as well.
+    \begin{proof}
+        If $\Gamma'$ acts cocompactly on $X$, then there exists some compact set $K \subseteq X$ that covers $X$ under the action of $\Gamma'$.
+        Clearly $K$ also covers $X$ under the action of $\Gamma$, so $\Gamma$ acts cocompactly on $X$.
+
+        If $\Gamma$ acts cocompactly on $X$, then there exists a compact set $K \subseteq X$ that covers $X$ under the action of $\Gamma$.
+        Since $\Gamma'$ is of finite index in $\Gamma$, there exists a finite set of elements $\gamma_1, \cdots, \gamma_n \in \Gamma$ such that $\Gamma = \Gamma \gamma_1 \sqcup \cdots \sqcup \Gamma \gamma_n$.
+        Then $K' = \bigcup_{i=1}^n \gamma_i K$ is a compact set that covers $X$ under the action of $\Gamma'$.
+    \end{proof}
+    \item The following is Corollary 1.3 from \cite{guichard2012anosov}:
+    
+    Let $\Gamma$ be a discrete subgroup, $\Gamma'$ be a finite-index subgroup of $\Gamma$, and $\rho: \Gamma \to G$ be a representation.
+    Then $\rho$ is $P_1$-Anosov if and only if the restriction of $\rho$ to $\Gamma'$ is $P_1$-Anosov.
+
+    \begin{proof}
+        For details see Corollary 1.3 of \cite{guichard2012anosov}.
+        The idea is that being Anosov is equivalent to admiting limit maps that are continuous and equivariant with certain properties.
+        Since $\Gamma'$ is of finite index, the limit sets of $\Gamma$ and $\Gamma'$ are the same (homeomorphic because the inclusion of $\Gamma'$ into $\Gamma$ is a quasi-isometry).
+        Hence we can use the limit maps for both groups.
+    \end{proof}
+\end{itemize}
+\section{2025-03-15}
+\begin{itemize}
+    \item The realification of the standard representation of $\SU(1,1)$ is not irreducible.
+    \begin{proof}
+        One can show that
+        \[
+        \SU(1,1) = \left\{ \begin{pmatrix}
+            a & b \\
+            -\overline b & \overline a 
+        \end{pmatrix}: |a|^2 - |b|^2 = 1 \right\},
+        \]
+        and check that the real subspace
+        \[
+        V = \mathbb R \begin{pmatrix} 1 \\ 1 \end{pmatrix} \oplus
+        \mathbb R i \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+        \]
+        is preserved by $\SU(1,1)$.
+    \end{proof}
+    \item $\SU(1,1)$ and $\SL(2, \mathbb R)$ are conjugate in $\GL(2, \mathbb C)$.
+    In particular, they are isomorphic groups.
+    \begin{proof}
+        We use the fact that $\SL(2,\mathbb C)$ and $\SU(1,1)$ are the subsets of $\GL(2, \mathbb C)$ (which acts by Möbius transformations on $\mathbb C^2$) that preserve the upper half-plane and the unit disk respectively.
+        By the Riemann mapping theorem, there exists a biholomorphism $f\in \GL(2,\mathbb C)$ such that $f(\mathbb D^2) = \mathbb H^2$.
+        Then for every $g \in \SU(1,1)$, we have $f g f^{-1} \in \SL(2, \mathbb R)$, so conjugation by $f$ gives an isomorphism $\SU(1,1) \simeq \SL(2, \mathbb R)$.
+    \end{proof}
+    \item $\PSL(2,\mathbb R) \times \PSL(2,\mathbb R)$ and $\PO_0(2,2)$ are isomorphic groups, and are the identity component of the isometry group of the Anti-de Sitter space $\mathrm{AdS}^3$.
+    \[
+    \PO_0(2,2) \simeq \PSL(2,\mathbb R) \times \PSL(2,\mathbb R).
+    \]
+    \begin{proof}
+        Recall that the quadric $\mathcal H^{2,1}$ is given by
+        \[
+        \mathcal H^{2,1} = \{ x \in \mathbb R^{2,2} : q_{2,2}(x,x) = x_1^2 + x_2^2 -  x_3^2 - x_4^2 = -1\},
+        \]
+        and the isometry group of $\mathcal H^{2,1}$ is $\O(2,2)$.
+        We begin by identifying the Minkowski space $\mathbb R^{2,2}$ with $(\mathcal M_2(\mathbb R), -det)$:
+        We begin in the obvious way by identifying the vector $x = (x_1, x_2, x_3, x_4)$ with the matrix
+        \[
+        X = \begin{pmatrix}
+            x_1 & x_2 \\
+            x_3 & x_4
+        \end{pmatrix},
+        \]
+        To see that this is an isometry, we note that the determinant is a $(2,2)$-quadratic form given by
+        \[
+        det(X,Y) = x_1 y_4 - x_2 y_3 - x_3 y_2 + x_4 y_1.
+        \]
+        Hence we have an identification $\OO(2,2) \simeq \mathrm{Isom}(\mathcal H^{2,1}, -\det)$.
+        Notice that $\SL(2, \mathbb R) \times \SL(2,\mathbb R)$ acts isometrically on $\mathcal H^{2,1}$ by $(A, B) \cdot X = AXB^{-1}$, giving us a homomorphism $\SL(2,\mathbb R) \times \SL(2,\mathbb R) \to \mathrm{Isom}(\mathcal H^{2,1}, -\det) \simeq \OO(2,2) \to \PO_(2,2)$.
+        Since it is a Lie group homomorphism from a connected Lie group, its image is equal to $\PO_0(2,2)$
+        On the other hand, using that $\PO(2,2)$ is centerless, we see that the kernel is equal to $\{(\pm \mathrm{Id}, \pm \mathrm{Id})\}$, which gives us the isomorphism
+        \[
+        \PSL(2,\mathbb R) \times \PSL(2,\mathbb R) \simeq \left(
+            \SL(2,\mathbb R) \times \SL(2,\mathbb R)
+        \right) / \{(\pm \mathrm{Id}, \pm \mathrm{Id})\} \simeq \PO_0(2,2).
+        \]
+        For a proof that this is the isometry group of $\mathrm{AdS}^3$, see Section 3.1 of \cite{bonsante2020anti}.
+    \end{proof}
+\end{itemize}
+\section{2025-03-18}
+\begin{itemize}
+    \item A quaternionic vector is a complex vector space $V$ equipped with a quaternionic structure, i.e.\ a conjugate-linear map $J: V \to V$ such that $J^2 = -\mathrm{Id}$.
+    For instance, the quaternions $\mathbb H$ are a quaternionic vector space, with $J: \mathbb H \to \mathbb H$ given by $J(x) = j x$.
+    \item We consider $\mathbb H^n = \mathbb C \oplus j \mathbb C = \mathbb C e_1 \oplus \cdots \oplus \mathbb C e_n \oplus \mathbb C je_1 \oplus \cdots \oplus \mathbb C j e_n$ as a complex vector space.
+    Then multiplication by $j$ gives a quaternionic structure on $\mathbb H^n$: $jz = \overline z j$ and satisfies $\overline{jz} = - jz$.
+\end{itemize}
+\section{2025-03-19}
+\begin{itemize}
+    \item Recall that for $p,q \in \mathbb H^{n \times n}: (pq)^* = q^* p^*$.
+    \item Quaternionic vector spaces:
+    \begin{definition}
+        A quaternionic vector space is a set with an addition and a scalar multiplication to the right by quaternions.
+        The linear maps $\hom_\mathbb H(V, W)$ between quaternionic vector spaces $V, W$ are the maps that commute with multiplication by quaternions on the right.
+    \end{definition}
+    In general, the space of linear maps between quaternionic vector spaces "acts on the left", just in the following two standard examples:
+    \begin{example}
+        Let $V = \mathbb H$, where scalar multiplication is defined as the usual multiplication of quaternions.
+        Then the space endhomorphisms is the space of left multiplication by quaternions: $\mathrm{End}_\mathbb H(\mathbb H) = \{ \phi_q : q \in \mathbb H\}$, where $\phi_q(x) = qx$.
+    \end{example}
+    Note that in the above example, multiplication by quaternions to the right, is not an endomorhism, since $(vq)\lambda \neq (v \lambda) q$ for $q, \lambda \in \mathbb H$.
+    \item Quaternionic hermitian forms:
+    \begin{definition}
+        A quaternionic hermitian form on a quaternionic vector space $V$ is an $\mathbb H$-conjugate symmetric map $K: V \times V \to \mathbb H$ that is $\mathbb H$-conjugate linear in the first variable and $\mathbb H$-linear in the second:
+        \[
+        K(v \lambda, w \mu) = \overline \lambda K(v, w) \mu,\quad
+        K(w, v) = \overline{K(v,w)}.
+        \]
+        A quaternionic hermitian form is positive definite if $K(v,v) > 0$ for all $v \neq 0$.
+        A quaternionic antihermitian form is an $\mathbb H$-cojugate antisymmetric map $K': V \times V \to \mathbb H$ that is $\mathbb H$-conjugate linear in the first variable and $\mathbb H$-linear in the second:
+        \[
+            K'(v \lambda, w \mu) = \overline \lambda K'(v, w) \mu,\quad
+            K'(w, v) = -\overline{K(v,w)}.
+        \]
+        We denote the space of quaternionic hermitian and antihermitian forms with $\mathrm{Herm}_\mathbb H(V)$ and $\mathrm{AntiHerm}_\mathbb H(V)$ respectively.
+    \end{definition}
+    We can identify the spaces of quaternionic hermitian and antihermitian forms with subspaces of the quaternionic matrices, by fixing a base for the vector space and identifying it with the standard space $\mathbb H^n$.
+    \begin{proposition}
+        Let $V$ be a quaternionic vector space with a basis $e_1, \cdots, e_n$.
+        Then we have the following bijection:
+        \begin{align*}
+            \mathrm{Herm}_\mathbb H(V) &\simeq \left\{ S \in \mathbb H^{n\times n} : S^* = -S \right\} \\
+            K &\mapsto \left(K(e_i, e_j)\right)_{ij} \\
+            K\left(\sum v_i e_i , \sum w_j e_j \right) = \sum_{i,j} \overline v_i S_{ij} w_j &\mapsfrom S
+        \end{align*}
+        and similarly for the antihermitian forms:
+        \begin{align*}
+            \mathrm{AntiHerm}_\mathbb H(V) &\simeq \left\{ S \in \mathbb H^{n\times n} : S^* = -S \right\} \\
+            K &\mapsto \left(K(e_i, e_j)\right)_{ij} \\
+            K\left(\sum v_i e_i , \sum w_j e_j \right) = \sum_{i,j} \overline v_i S_{ij} w_j &\mapsfrom S
+        \end{align*}
+        In both cases, identifying $V$ with $\mathbb H^n$ via the basis $e_1, \cdots, e_n$, we have that the sum on the left hand side is equal to $v^* S w$.
+    \end{proposition}
+    \item
+    From the above proposition it is clear that the space of quaternionic hermitian and antihermitian forms is a real vector space and not a quaternionic one.
+    \item Hermitian $\neq$ antihermitian for quaternions:
+    While for the field of complex numbers the hermitian forms and antihermitian forms are essentially the same (multiplying a hermitian matrix by $i$ gives an antihermitian one), this is not the case for the quaternions.
+    This is because the imaginary part of the complex numbers is one-dimensional, while the imaginary part of the quaternions is three-dimensional.
+    In particular:
+    \[
+    \dim_\mathbb R \mathrm{Herm}_\mathbb H(V) = 4\frac{n(n-1)}{2} + n, \quad
+    \dim_\mathbb R \mathrm{AntiHerm}_\mathbb H(V) = 4\frac{n(n-1)}{2} + 3n.
+    \]
+    \item We can define the action of $\GL_\mathbb H (V)$ on $\mathrm{Herm}_\mathbb H(V)$ and $\mathrm{AntiHerm}_\mathbb H(V)$ by $$(g \cdot B)(v,w) = B(g^{-1}v, g^{-1}w),$$ and we call the automorphism group of $K$ the stabilizer of $K$ in $\GL_\mathbb H(V)$:
+    \begin{align*}
+        \mathrm{Aut}(K) &= \{ g \in \GL_\mathbb H(V) : K(g^{-1}u, g^{-1}v) = K(u,v) \},\\
+        \mathrm{Lie}(\mathrm{Aut}(K)) &= \{ X \in \mathfrak{gl}_\mathbb H(V) : K(Xu, v) + K(u, Xv) = 0 \}.
+    \end{align*}
+    Then $\mathrm{Aut}(K)$ acts on $\mathrm{Lie}( \mathrm{Aut}(K))$ by conjugation:
+    \[
+    \Ad: \mathrm{Aut}(K) \to \GL(\mathrm{Lie}(\mathrm{Aut})(K)), \quad g \mapsto \Ad_g,
+    \]
+    where $\Ad_g(X) = g X g^{-1}$.
+    \item If we fix a nondegenerate quaternionic hermitian form $K$, then we can identify the antihermitian forms with the Lie algebra of the automorphism group of $K$.
+    Note that the same works for the other fields $\mathbb C, \mathbb R$.
+    This is how we obtain that the adjoint representation of $\SU(p,1)$ is in fact its action on the space of antihermitian forms.
+    \begin{proposition}\label{prop:antihermitian_action}
+        Let $K$ be a nondegenerate quaternionic hermitian form on a quaternionic vector space $V$.    
+        We have the following isomorphism of representations:
+        \begin{align*}
+            \mathrm{Lie}( \mathrm{Aut}(K)) &\simeq \mathrm{AntiHerm}_\mathbb H(V) \\
+            X &\mapsto K_X,
+        \end{align*}
+        where $K_X(u,v) = K(Xu, v)$, and whose inverse is the map that assigns to a quaternionic antihermitian form $\omega$ the unique $X \in \GL(\mathbb H^n)$ such that $K_X = \omega$.
+    \end{proposition}
+\end{itemize}
+\section{2025-03-20}
+\begin{itemize}
+    \item K-conjugates:
+    \begin{definition}
+        Let $V$ be a quaternionic vector space and $K$ a nondegenerate quaternionic hermitian form on $V$.
+        We define the conjugation with respect to $K$ as the quaternionic isomorphism $\GL(\mathbb H^n) \to \GL(\mathbb H^n)$ given by $g \mapsto g^{*_K}$, where $K(g u, v) = K(u, g^{*_K} v)$.
+    \end{definition}
+    \item With the above definition, the Lie algebra of automorphism group of $K$ is the space of anti-conjugate transformations, while the space of automorphisms is given as the transformations that are "unitary" with respect to $K$:
+    \begin{align*}
+        \mathrm{Lie}(\mathrm{Aut}(K)) &= \{ X \in \mathrm{End}_\mathbb H(\mathbb H^n) : X^{*_K} = -X \}\\
+        \mathrm{Aut}(K) &= \{ g \in \GL(V) : g^{*_K} = g^{-1} \}.
+    \end{align*}
+    If we fix a basis $e_1, \cdots, e_n$ for $V$ and use it to identify $\mathrm{End}_\mathbb H(V)$ with $\mathbb H^{n \times n}$, then the conjugation with respect to $K$ is given by
+    \[
+    \mathbb H^{n \times n} \ni g \mapsto S^{-1} g^* S \in \mathbb H^{n \times n},
+    \]
+    where $S \in \GL(\mathbb H^n)$ is the matrix corresponding to $K$, i.e.\ $K(u,v) = u^* S v$ for $u, v \in \mathbb H^n \simeq V$, and $*$ denotes the standard conjugate transpose for $\mathbb H^n$ and $\mathbb H^{n \times n}$.
+    \item Proceeding as in \cref{prop:antihermitian_action}, we can identify the space of anti-conjugate transformations with the space of hermitian forms:
+    \begin{proposition}
+        Let $K$ be a nondegenerate quaternionic hermitian form on a quaternionic vector space $V$.
+        We have the following isomorphism of representations:
+        \begin{align*}
+            \left\{ X \in \mathrm{End}_\mathbb H(V) : X^{*_K} = X \right\} &\simeq \mathrm{Herm}_\mathbb H(V) \\
+            X &\mapsto K_X,
+        \end{align*}
+        where $K_X(u,v) = K(Xu, v)$, the action of $\mathrm{Aut}(K)$ on $\mathrm{End}_\mathbb H(V)$ is by conjugation, and on Hermitian forms by $g \cdot K(u,v) = K(g^{-1}u, g^{-1}v)$.
+    \end{proposition}
+    \item Trace operator:
+    \begin{definition}
+        We define the trace of a quaternionic matrix $A \in \mathbb H^{n \times n}$ as the sum of its diagonal entries:
+        \[
+        \tr(A) = \sum_{i=1}^n A_{ii}.
+        \]
+    \end{definition}
+    For other fields (notably $\mathbb C$ and $\mathbb R$), the trace satisfies the commutativity property $\tr(AB) = \tr(BA)$. In particular, $\tr(PAP^{-1}) = \tr(A)$.
+    Because of that, letting the trace of an operator of a complex vector space be the trace of its matrix in a basis, we have that it is well-defined in the sense that it is independent of the basis. 
+    
+    However, this is not true for quaternions, that satisfy
+    \[
+    \tr(B A) = \overline{\tr(B^* A^*)}.
+    \]
+    For this reason, for a quaternionic matrix $X \in \mathbb H^{n \times n}$, we consider its realification $X_\mathbb R \in \mathbb R^{4n \times 4n}$.
+    If we denote its trace by $\tr_\mathbb R(X_\mathbb R)$, then we have that
+    \[
+    \tr_\mathbb R X_\mathbb R = 4 \mathrm{Re}(\tr_\mathbb H X).
+    \]
+    Denoting with $\Phi: \mathbb H^{n\times n} \to \mathbb R^{4n \times 4n}$ be the realification of a quaternionic matrix, we can see that it is a group morphism by the following commuting diagram.
+    \[
+    \begin{tikzcd}
+        \mathbb H^{n \times n} \arrow[hookrightarrow, r, "\Phi"] \arrow[d, "\simeq"'] & \mathbb R^{4n \times 4n} \arrow[d, "\simeq"] \\
+        \mathrm{End}_\mathbb H (\mathbb H^{n \times n}) \arrow[hookrightarrow, r] & \mathrm{End}_\mathbb R\mathbb R^{4n}
+    \end{tikzcd}
+    \]    
+    In particular, we have that $(AB)_\mathbb R = A_\mathbb R B_\mathbb R$, $(PAP^{-1})_\mathbb R = P_\mathbb R A_\mathbb R P_\mathbb R^{-1}$.
+    Hence the real part of the trace is well-defined, i.e.\ invariant under conjugation by $\GL(\mathbb H^n)$, and we may define the trace of a quaternionic transformation as the real part of its trace in any basis.
+    \begin{definition}
+        Let $V$ be a quaternionic vector space and $X \in \mathrm{End}_\mathbb H(V)$ be a quaternionic transformation.
+        The trace of a quaternionic transformation $X \in \mathrm{End}_\mathbb H(V)$ is the real part of the trace of its realification:
+        \[
+        \tr(X) = \mathrm{Re}(\tr(X)) = \mathrm{Re}\left(\sum_i X_{ii}\right),
+        \]
+        where $X_{ij}$ are the entries of the matrix of $X$ in a basis of $V$: $Xe_j = \sum_i X_{ij} e_i$.
+    \end{definition}
+\end{itemize}
+\section{2025-03-23}
+\begin{itemize}
+    \item Inner product on quaternionic transformations:
+    \begin{definition}
+        Let $V$ be a quaternionic vector space and $K$ be a nondegenerate quaternionic hermitian form on $V$.
+        We define the inner product of two quaternionic transformations $X, Y \in \mathrm{End}_\mathbb H(V)$ as the real part of the trace of their product:
+        \[
+        \langle X, Y \rangle = \mathrm{Re}\tr(X^{*_K} Y),
+        \]
+        where the trace on the right hand side can be taken in any basis of $V$.
+        It is symmetric, $\mathbb R$-linear and non-degenerate.
+    \end{definition}
+    \item Invariance under change of basis follows from the fact that the real part of the trace is invariant under conjugation by $\GL(\mathbb H^n)$:
+    $\mathrm{Re}\tr((P X^{*_K} P^{-1}) (PYP^{-1})) = \mathrm{Re}\tr(X^{*_K} Y)$.
+    \item Symmetry follows from the fact that every quaternionic transformation $K$ can be written as matrix multiplication with a quaternionic matrix $S$: $K(u,v) = u^* S v$, where $S^* = S$.
+    Then the matrix form of the $K$-conjugate is given by $X^{*_K} = S^{-1} X^* S$, so $\mathrm{Re}\tr(X^{*_K} Y) = \mathrm{Re}\tr(S^{-1} X^* S Y) = \mathrm{Re}\tr(X^* S Y S^{-1}) = \mathrm{Re}\overline{\tr(X^* S Y S^{-1})} = \mathrm{Re}\tr((S^{-1})^* Y^* S^* X) = \mathrm{Re}\tr(S^{-1} Y^* S X) = \mathrm{Re}\tr(Y^{*_K} X)$.
+    \item $\mathbb R$-linearity follows from the fact that for $\lambda \in \mathbb H$, we have $(\lambda X)^{*_{K}} = X^{*_K} \overline \lambda$ and that $\mathbb H$ is the center of $\mathrm{End}_\mathbb H(V)$.
+    \item If $K$ is a nondegerate quaternionic hermitian form, with corresponding matrix $S$, we have a commutative diagram of isomorphisms of representations:
+    \[
+    \begin{tikzcd}\label{diag:action_hermitian}
+        \left\{ T \in \mathrm{End}_\mathbb H(V) : T^{*_K} = T \right\} \arrow[r] \arrow[d] & \mathrm{Herm}_\mathbb H(V) \arrow[d] \\
+        \{ X \in \mathbb H^{n\times n} : X^* S = SX\} \arrow[r] & \left\{ H \in \mathbb H^{n\times n} : H^* = H \right\}
+    \end{tikzcd}
+    \]
+    \item Let $K = K_{p,q}$ be the nondegerate form on $\mathbb H^n$ corresponding to the matrix $I_{p,q}$, i.e.\ $K_{p,q}(u,v) = \sum_{i = 0}^p \overline u_i v_i - \sum_{i = p+1}^{p+q} \overline u_i v_i$.
+    Then
+    \begin{align*}
+        &\left\{ T \in \mathrm{End}_\mathbb H(V) : T^{*_K} = T \right\} \\
+        &= \left\{
+        \begin{pmatrix}
+            A & B \\
+            -B^* & D
+        \end{pmatrix} : A \in \mathbb H^{p \times p}, B \in \mathbb H^{p \times q}, D \in \mathbb H^{q \times q}, A^* = A, D^* = D
+    \right\}\\
+    &= \mathfrak k \overset{\perp}{\oplus} \mathfrak p,
+    \end{align*}
+    where $\mathfrak k$ and $\mathfrak p$ are given 
+    \begin{align*}
+        \mathfrak k &= \left\{
+        \begin{pmatrix}
+            A & 0 \\
+            0 & D
+        \end{pmatrix} : A \in \mathbb H^{p \times p}, D \in \mathbb H^{q \times q}, A^* = A, D^* = D
+    \right\},\\
+    \mathfrak p &= \left\{
+        \begin{pmatrix}
+            0 & B \\
+            -B^* & 0
+        \end{pmatrix} : B \in \mathbb H^{p \times q}
+    \right\}.
+    \end{align*}
+    \item $\mathfrak k$ is positive definite, $\mathfrak p$ is negative definite and they are orthogonal to each other.
+    Given that $\dim \mathfrak k = 4\left( \frac{p(p-1)}{2} + \frac{q(q-1)}{2} + p + q \right)$ and $\dim \mathfrak p = 4pq$, we have that
+    \[
+    \Sp(p,q) = \mathrm{Aut}(K_{p,q}) \subseteq \SO\left(4\left( \frac{p(p-1)}{2} + \frac{q(q-1)}{2} \right)+p+q, 4pq \right).
+    \]
+    \item Under the isomorphism of representations from \cref{diag:action_hermitian}, $K_{p,q} \in \mathrm{Herm}_\mathbb H(\mathbb H^n)$ corresponds to the identity transformation $\mathrm{Id} \in \mathrm{End}_\mathbb H(\mathbb H^n)$ and the identity matrix $I_n \in \mathbb H^{n \times n}$.
+    Clearly, the latter is invariant under the action of $\mathrm{Aut}(K_{p,q}) = \mathrm{Sp}(p,q): g^{-1} I_n g = I_n$.
+    \item Since $I_n \in \mathfrak k$, we have that $\langle I_n, I_n \rangle >0$, so in fact $\Sp(p,q)$ preserves its orthogonal complement $I_n^\perp$, and:
+    \[
+    \Sp(p,q) = \mathrm{Aut}(K_{p,q}) \subseteq \SO\left(4\left( \frac{p(p-1)}{2} + \frac{q(q-1)}{2} \right) - 1, 4pq \right).
+    \]
+    \item We have
+    \[
+    \mathfrak{sp}(p,q) = \left\{
+        \begin{pmatrix}
+            A & B \\
+            B^* & D
+        \end{pmatrix} : A \in \mathbb H^{p \times p}, B \in \mathbb H^{p \times q}, D \in \mathbb H^{q\times q},  A^* = -A, D^* = -D
+    \right\},
+    \]
+    where we use the form $K_{p,q}$ to define $\Sp(p,q)$.
+\end{itemize}
+\section{2025-03-24}
+\begin{itemize}
+    \item Identification between $\mathcal H^n$ and $\mathbb C^{2n}$:
+    Identifying $\mathcal H \simeq \mathbb C \oplus j \mathbb C$, we have the following identification between $\mathcal H^n$ and $\mathbb C^{2n}$:
+    \begin{align*}
+        \mathcal H^n &\simeq \mathbb C^{2n} \\
+        \begin{pmatrix}
+            a_1 + j b_1 \\
+            \vdots \\
+            a_n + j b_n
+        \end{pmatrix} &\mapsto \begin{pmatrix}
+            a_1 \\
+            \vdots \\
+            a_n \\
+            b_1 \\
+            \vdots \\
+            b_n
+        \end{pmatrix}.
+    \end{align*}
+    \item Identification between $\mathcal H^{n \times n} \simeq \mathbb C^{2n \times 2n}$:
+    Keeping up with the above definition, we have the following:
+    \begin{align*}
+        \mathcal H^{n \times n} &\simeq \mathbb C^{2n \times 2n} \\
+        \begin{pmatrix}
+            z_{11} + j w_{11} & \cdots & z_{1n} + j w_{1n} \\
+            \vdots & \ddots & \vdots \\
+            z_{n1} + j w_{n1} & \cdots & z_{nn} + j w_{nn}
+        \end{pmatrix} &\mapsto \begin{pmatrix}
+            z_{11} & \cdots & z_{1n} & -\overline w_{11} & \cdots & -\overline w_{1n} \\
+            \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            z_{n1} & \cdots & z_{nn} & -\overline w_{n1} & \cdots & -\overline w_{nn} \\
+            w_{11} & \cdots & w_{1n} & \overline z_{11} & \cdots & \overline z_{1n} \\
+            \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            w_{n1} & \cdots & w_{nn} & \overline z_{n1} & \cdots & \overline z_{nn}
+        \end{pmatrix}\\
+        Z + j W
+        &\mapsto \begin{pmatrix}
+            Z & -\overline W \\
+            W & \overline Z
+        \end{pmatrix}.
+    \end{align*}
+    \item Calculation of $\mathfrak{sp}(p,1)$, for $n = p+1$:
+    \begin{align*}
+        \mathfrak{sp}(p,1) &= \left\{ X \in \mathfrak{gl}(n, \mathcal H): - J X^* J = X \right\}\\
+        &==
+        \left\{
+            \begin{pmatrix}
+                X_{11} & X_{12} & X_{13} \\
+                X_{21} & X_{22} & -X_{12}^* \\
+                X_{31} & -X_{21}^* & -\overline X_{11}
+            \end{pmatrix} :
+            \begin{array}{c}
+                X_{11}, X_{13}, X_{31} \in \mathcal H, X_{12} \in \mathcal H^{1 \times p}, X_{21} \in \mathcal H^{p \times 1}, X_{22} \in \mathcal H^{p \times p},\\
+                X_{13} = -\overline X_{13}, X_{22} = -X_{22}^*, X_{31} = -\overline X_{31}
+            \end{array}
+        \right\}.
+    \end{align*}
+    \item The Cartan involution is given by $\theta(X) = -X^*$, so
+    \begin{align*}
+        \mathfrak p &= \left\{ X \in \mathfrak{sp}(p,1): X^* = X \right\} =\\
+        &=
+        \left\{
+            \begin{pmatrix}
+                X_{11} & X_{12} & X_{13} \\
+                X_{12}^* & 0 & -X_{12}^* \\
+                X_{13}^* & -X_{12} & -X_{11}
+            \end{pmatrix} :
+            \begin{array}{c}
+                X_{11} \in \mathbb R, X_{13} \in \mathcal H, X_{12} \in \mathcal H^{1 \times p},\\
+                X_{13} = -\overline X_{13}
+            \end{array}
+        \right\}.
+    \end{align*}
+    \item Cartan subalgebra of $\mathfrak{sp}(p,1)$:
+    \[
+    \mathfrak a =
+        \mathbb R \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & -1
+        \end{pmatrix} \simeq 
+        \mathbb R \mathrm{diag}(1,0, \cdots, 0, -1,1,0, \cdots, 0,-1),
+    \]
+    where on the right hand side the we have a the corresponding complex matrix under the indentification $\mathcal H^{n\times n} \simeq \mathbb C^{2n \times 2n}$.
+    \item From the above, it is clear that the first and second largest eigenvalue of the adjoint representation are equal, so the adjoint representation of $\sp(p,1)$ is not proximal.
+    Considering that the latter is isomorphic to the action of $\mathfrak{sp}(p,1)$ on the space of antihermitian forms $\mathrm{AntiHerm}_\mathbb H(\mathcal H^{p+1})$, we see that it would not give us a proximal representation of $\Sp(p,1)$.
+    This is why we consider hermitian forms.
+    \item Identifying $\mathrm{Herm}_\mathcal H (\mathcal H^{p+1})$ with the subset of $\mathcal H^{p+1 \times p+1}$ given by $A^{*_K} = J^{-1}AJ = A$, we have that
+    \begin{align*}
+        \mathrm{Herm}_\mathcal H &(\mathcal H^{p+1}) \\
+    = &\left\{
+        \begin{pmatrix}
+            A_{11} & A_{12} & A_{13} \\
+            A_{21} & A_{22} & A_{12}^* \\
+            A_{31} & A_{21}^* & \overline A_{11}
+        \end{pmatrix} :
+        \begin{array}{c}
+            A_{11} \in \mathcal H, A_{13}, A_{31} \in \mathbb R, A_{12} \in \mathcal H^{1 \times p}, A_{22} \in \mathcal H^{p \times p},\\
+            A_{22} = A_{22}^*
+        \end{array}
+    \right\}.
+    \end{align*}
+    \item Let $H_0 = \mathrm{diag}(1,0,-1) \in \mathcal \mathfrak a, A \in \mathrm{Herm}_\mathcal H (\mathcal H^{p+1})$.
+    Then 
+    \[
+    \rho_* (H_0) = [H_0, A] = \begin{pmatrix}
+        0 & A_{12} & 2A_{13} \\
+        -A_{21} & 0 & A_{12} \\
+        -2A_{31} & -A_{21}^* & 0
+    \end{pmatrix},
+    \]
+    where $\rho: \Sp(p,1) \to \GL_\mathcal H(\mathcal H^{p+1})$.
+    Hence the two largest eigenvalues of $\rho_*(H_0)$ are $2L_1, L_1$, where $L_1(H_0) = 1$. 
+\end{itemize}
+\section{2025-03-25}
+\begin{itemize}
+    \item Let $\Gamma$ be a discrete subgroup of the isometry group of a symmetric space $X$.
+    If $\Gamma$ acts properly discontinuously on $X$, then the set of accumulation points of $\Gamma$ lies in the boundary $\partial_\infty X$ of $X$ (see \cref{rem:limit_set_properly_discontinuous}).
+    \item Another way of looking at the action of $\Sp(p,q)$ on $\mathrm{Herm}_\mathcal H (\mathcal H^{p+q})$.
+    Fix a nondegenerate quaternionic hermitian form $K$, and denote with $S$ the matrix that transforms the standard inner product on $\mathcal H^n$ to $K$, i.e.\ $K(u,v) = \langle Su, v \rangle_0$.
+    Then the following to involutions of $\mathfrak{sl}(n, \mathcal H)$ commute:
+    \[
+    \theta(X) = -X^*, \quad \sigma(X) = X^{*_K} = S^{-1} X^* S.
+    \]
+    Each of these two involutions gives a decomposition of the Lie algebra:
+    \[
+    \mathfrak{sl}(n, \mathcal H) = \mathfrak k \oplus \mathfrak p = \mathfrak h \oplus \mathfrak q,
+    \]
+    where $k, h$ are the eigenspaces of $\theta, \sigma$ with eigenvalue $1$, and $p, q$ are the eigenspaces with eigenvalue $-1$.
+    By their definition, we can see that $\mathfrak k$ is the Lie algebra $\mathfrak{sp}(n)$ of the compact symplectic group .
+    If $K$ is of signature $(p,q)$, then $\mathfrak h$ is the Lie algebra $\mathfrak{sp}(p,q)$, which can be identified with the Antihermitian quaternionic forms of $\mathcal H^{p+q}$.
+    Similarly $\mathfrak q$ can be identified with the Hermitian quaternionic forms of $\mathcal H^{p+q}$.
+    Since the two involutions commute, they preserve each others eigenspaces and we have the decomposition:
+    \[
+    \mathfrak{sl}(n, \mathcal H) = (\mathfrak k \cap \mathfrak h) \oplus (\mathfrak k \cap \mathfrak q) \oplus (\mathfrak p \cap \mathfrak h) \oplus (\mathfrak p \cap \mathfrak q).
+    \]
+    Then the representation considered as the action of $\Sp(p,q)$ on Hermitian forms is the same as the restriction of the adjoint representation of $\SL(n, \mathcal H)$ to $\Sp(p,q)$ and the Hermitian forms:
+    \[
+    \rho = \Ad|_{\Sp(p,q)}: \Sp(p,q) \to \GL(\mathfrak q).
+    \]
+    Now, we know that the adjoint representation of $\Sp(p,q)$ preserves the Killing form of $\mathfrak{sl}(n, \mathcal H)$, which is nondegenerate and usually given by $(X,Y) \mapsto \mathrm{Re}\tr(XY)$.
+    Thus it will preserve the inner product
+    \[
+    \langle X, Y \rangle = -\mathrm{Re}\tr(X Y), \quad X, Y \in \mathfrak{sl}(n, \mathcal H).
+    \]
+    Since $\theta$ is a Cartan involution, $\mathfrak k$ is positive definite, $\mathfrak p$ is negative definite, and they are orthogonal to each other with respect to this product.
+    The same properties carry on to $\rho$, being a restriction:
+    \[
+    \rho: \Sp(p,q) \to \SO((\mathfrak q \cap \mathfrak k) \overset{\perp}{\oplus} (\mathfrak q \cap \mathfrak p), \langle \cdot, \cdot \rangle). 
+    \]
+    Following the definitions:
+    \begin{align*}
+        \mathfrak k \cap \mathfrak q &= \left\{ T \in \mathfrak{sl}(n, \mathcal H) : T^* = T = T^{*_K} \right\} \simeq 
+        \left\{ 
+            \begin{pmatrix}
+                0 & B \\
+                -B^* & 0
+            \end{pmatrix} : B \in \mathcal H^{p \times q}
+         \right\}\\
+         \mathfrak p \cap \mathfrak q &= \left\{ T \in \mathfrak{sl}(n, \mathcal H) : T^* = -T, T = T^{*_K} \right\} \simeq 
+        \left\{ 
+            \begin{pmatrix}
+                A & 0 \\
+                0 & D
+            \end{pmatrix} : 
+            \begin{array}{c}
+                A \in \mathcal H^{p \times p}, D \in \mathcal H^{q \times q},\\
+                 A^* = A, D^* = D, \tr(A) = -\tr(D)    
+            \end{array}
+         \right\}\\
+    \end{align*}
+    We can now calculate the dimsensions and see that
+    \[
+    \rho: \Sp(p,q) \to \SO\left(4pq, 4\left(\frac{p(p-1)}{2} + \frac{q(q-1)}{2}\right) + p + q - 1\right)
+    \]
+\end{itemize}
+\section{2025-03-26}
+\begin{itemize}
+    \item Consider $\Sp(p,1) = \left\{ g \in \SL(p + 1, \mathcal H) : g^{*_{I_p,1}} = g^{-1} \right\} \simeq \left\{ \begin{pmatrix}
+    A & B \\
+    B^* & D
+    \end{pmatrix}: A^* = -A, D^* = -D \right\}$,
+    where we use the identification of $\SL(p+1, \mathcal H)$ as a subset of $\mathcal H^{p+1 \times p+1}$ via the standard basis.
+    Then we have that the maximal compact subgroup of $\Sp(p,1)$ is 
+    \begin{align*}
+        \Sp(p,1) \cap \Sp(p+1) &= \left\{ g \in \Sp(p,1) : g^* = g^{-1} \right\}\\
+        &= \left\{ \begin{pmatrix}
+            A & 0 \\
+            0 & D
+            \end{pmatrix}: A^* = A^{-1}, |D|^2 = 1 \right\} \simeq \Sp(p) \times \Sp(1).
+    \end{align*}
+    $\Sp(p,1) \cap \Sp(p+1)$, which has Lie algebra:
+    \begin{align*}
+        \mathfrak k &= \mathfrak{sp}(p,1) \cap \mathfrak{sp}(p+1)\\
+        &= \left\{ X \in \mathfrak{sp}(p,1) : X^* = -X \right\} =
+    \left\{
+        \begin{pmatrix}
+            A & 0 \\
+            0 & D
+        \end{pmatrix} : A^* = -A, D^* = -D
+    \right\}.
+    \end{align*}
+    On the other hand, the tangent space of the symmetric space $\Sp(p,1)/K$ is identified with the Lie algebra
+    \begin{align*}
+        \mathfrak p = \left\{ X \in \mathfrak{sp}(p,1) : X^* = X \right\} =
+        \left\{
+        \begin{pmatrix}
+            0 & B \\
+            B^* & 0
+        \end{pmatrix} : B \in \mathcal H^{p \times 1}
+    \right\}.
+    \end{align*}
+    \item Using the form $I_{p,1}$, we can identify the space of quaternionic hermitian forms with a subspace of endomorphisms of $\mathcal H^{p+1}$, which can be again identified with a matrix subspace of $\mathcal H^{p+1 \times p+1}$ using the standard basis:
+    \begin{align*}
+        \mathrm{Herm}_\mathcal H (\mathcal H^{p+1}) &= \left\{ X \in \mathfrak{gl}(p+1, \mathcal H) : X^{*_{I_{p,1}}} = X \right\} =
+        \left\{
+        \begin{pmatrix}
+            A & B \\
+            -B^* & D
+        \end{pmatrix} : A^* = A, D^* = D
+        \right\},
+    \end{align*}
+    which is equipped with the inner product $\langle X, Y \rangle = -\mathrm{Re}\tr(XY)$.
+    \item In particular, we fix the following form, that satisfies $\langle x_0, x_0 \rangle = -1$:
+    \[
+    x_0 = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    \]
+    \item In the following, we will consider the pseudohyperbolic space
+    \[
+    \mathbb H^{4p, 2p(p-1)+p} = \left\{ l \in \mathbb P(\mathrm{Herm}_\mathcal H(\mathcal H^{p+1})) : \langle l, l\rangle < 0 \right\},
+    \]
+    with double cover 
+    \[
+    \hat{\mathbb H}^{4p, 2p(p-1)+p} = \left\{ X \in \mathrm{Herm}_\mathcal H(\mathcal H^{p+1}) : \langle X, X\rangle = -1 \right\}.
+    \]
+    \item We would like to find a map
+    \[
+    f : \Sp(p,1)/K \to \mathbb H^{4p, 2p(p-1)+p}
+    \]
+    that is $\rho$-equivariant and it pulls back the metric of $\mathbb H^{4p, 2p(p-1)+p}$ to a positive definite metric on $\Sp(p,1)/K$.
+    \item It suffices for us to find a $\rho$-equivariant map $\tilde f: \Sp(p,1) \to \hat{\mathbb H}^{4p, 2p(p-1)+p}$ to the double cover with the same properties.
+    \item $\rho$-equivariance is equivalent to finding some $v \in \hat{\mathbb H}^{4p, 2p(p-1)+p}$ that is invariant under the action of $K$ through $\rho$, since then we can define $\tilde f(gK) = \rho(g)\cdot v$.
+    \item This is the case for $v = x_0$, since:
+    \[
+    \rho(k) \cdot x_0 = k x_0 k^{-1} = x_0, \text{ for all } k \in \Sp(p) \times \Sp(1),
+    \] 
+    so $\rho(k) \cdot \mathbb R x_0 = \mathbb R x_0$.
+    \item We calculate the derivative of $f$ over the tangent space $\d_K (\Sp(p,1)/K) \simeq \mathfrak{sp}(p,1) / \mathfrak k \simeq \mathfrak p$:
+    \[
+    d_K f(X + \mathfrak k) = \rho_*(X) \cdot \mathbb R x_0 = \mathbb R [X, x_0] = \mathbb R \begin{pmatrix}
+        0 & B \\
+        -B^* & 0
+    \end{pmatrix}
+    \text{, for } X = \begin{pmatrix}
+        0 & B \\
+        B^* & 0
+    \end{pmatrix}
+    \in \mathfrak p.
+    \]
+    In particular $\langle d_K f(X + \mathfrak k), d_K f(X + \mathfrak k) \rangle = 2\mathrm{Re}\tr(B B^*) > 0$.
+\end{itemize}
+\section{2025-03-27}
+\begin{itemize}
+    \item Characterisation of properness.
+    \begin{lemma}
+        Let $f: X \to Y$ be a continuous map between topological spaces.
+        Then $f$ is proper if and only if it maps sequences that escape to infinity to sequences that escape to infinity.
+    \end{lemma}
+\end{itemize}
+\section{2025-03-31}
+\begin{itemize}
+    \item The adjoint action of $\Sp(p,q)$ on $\mathrm{Herm}^0_\mathcal H(\mathcal H^{p+q})$ is proximal and takes values in $\SO(p',q')$:
+    \[
+    \rho : \Sp(p,q) \to \SO\left(4pq, 4\left(\frac{p(p-1)}{2} + \frac{q(q-1)}{2}\right) + p + q - 1\right)
+    \]
+\end{itemize}
+\section{2025-04-04}
+\begin{itemize}
+    \item There exist no groups of Beyrer-Kassel in $\SL(d,\mathbb R)$
+    \begin{lemma}
+        Let $\rho: \SL(d,\mathbb R) \to \SO(p,q)$ be irreducible with $p>q$.
+        Then there exists no $\Gamma \leq \SL(d, \mathbb R)$ discrete such that $\rho_{|\Gamma}$ is $\mathbb H^{p,q}$-convex cocompact of maximal dimension.
+    \end{lemma}
+    \begin{proof}
+        Assume for the sake of contradiction the contrary, and denote with $V$ the vector space on which $\rho$ acts irreducibly.
+        Since $\rho$ is irreducible, we know that it is a subrepresentation of
+        \[
+            \bigotimes_{i=1}^{d-1} \mathrm{Sym}^{a_i} \mathbb \bigwedge^{i} \mathrm{std}: \SL(d, \mathbb R) \to \GL\left(
+        \bigotimes_{i=1}^{d-1} \mathrm{Sym}^{a_i} \mathbb \bigwedge^{i} \mathbb R^d
+        \right)
+        \]
+        Since it is self-dual, we know that $a_i = a_{d-i}$ for $i= 1, \ldots, d-1$.
+
+        We denote with $\mathfrak a_0$ the Cartan subalgebra of $\mathfrak{sl}(d, \mathbb R)$ consisting of traceless real diagonal matrices.
+        Let $\mathcal P_+$ be the set of positive weights of $\rho$.
+        Fix some $i$ for which $a_i > 0$ and let $\mathcal P_+^i$ be the set of weights of $\mathrm{Sym}^{a_i} \mathbb \bigwedge^{i} \mathbb R^d$.
+        
+        The weights of $\Sym^{a_i} \mathbb \bigwedge^{i} \mathbb R^d \otimes \Sym^{a_{d-i}} \mathbb \bigwedge^{d-i} \mathbb R^d$ are the differences of the weights of $\Sym^{a_i} \mathbb \bigwedge^{i} \mathbb R^d$.
+    \end{proof}
+\end{itemize}
+\section{2025-04-05}
+\begin{itemize}
+    \item Real representations in $\sso(p,q)$ come from complex representations in $\sso(p+q, \mathbb C)$.
+    \begin{lemma}\label{lem:real_irreducible_representations}
+        Let $\mathfrak g_0$ be a real simple Lie algebra that complexifies to $\mathfrak g$ and $\rho_0: \mathfrak g_0 \to \gl(V_0)$ be an irreducible real representation of $\mathfrak g_0$.
+        Then there exists an irreducible complex subrepresentation $\rho: \mathfrak g \to \gl(V)$ of the complexification $\rho_0(\mathbb C): \mathfrak g \to \gl(V_0(\mathbb C))$ such that $\rho_0$ is either $\left(\rho_{|\mathfrak g_0}\right)_\mathbb R: \mathfrak g_0 \to \gl(V_\mathbb R)$, or a subrepresentation of $\left(\rho_{|\mathfrak g_0}\right)_\mathbb R$.
+        
+        If moreover $\rho_0(\mathfrak g_0) \subseteq \sso(p,q)$, then $\rho(\mathfrak g) \subseteq \sso(p+q, \mathbb C)$.
+    \end{lemma}
+    \begin{proof}
+        We know that either the complexification $(\rho_0)(\mathbb C): \mathfrak g \to \gl(V_0(\mathbb C))$ is irreducible, or there exists a complex structure $J: V_0 \to V_0$ on $V_0$, and an irreducible complex representation $\rho': \mathfrak g \to \gl(V_0, J)$ such that $\rho_0 = \left(\rho'_{|\mathfrak g_0}\right)_{\mathbb R}$.
+        In the first case, letting $\rho = \rho_0(\mathbb C)$, we have that $\rho_0$ is the subrepresentation of $(\rho_{|\mathfrak g_0})_\mathbb R$ in the real form $V_0$ of $V_0(\mathbb C)$.
+        Note that in this case, $\rho$ is exactly the complexification of $\rho_0$.
+        In the second case, we can take $\rho = \rho'$, and we have that $\rho_0$ is $(\rho_{|\mathfrak g_0})_\mathbb R$.
+        Moreover, we have that $\rho^\mathbb C = ((\rho'_{|\mathfrak g_0})_\mathbb R)^\mathbb C = \rho'+ \overline \rho'$.
+        In particular, $\rho'_{|\mathfrak g_0}$ is a subrepresentation of $\rho_0^\mathbb C: \mathfrak g_0 \to \gl(V_0(\mathbb C))$, and hence $\rho'$ is a subrepresentation of $\rho_0(\mathbb C)$.
+        
+        Assuming now that $\rho_0$ preserves a form $\omega$, we can consider $\omega$ as a complex form on $V_0(\mathbb C)$, and we have that the complexification $\rho_0(\mathbb C)$ preserves this complex form.
+        In particular, $\rho$ will also preserve it, since it is a subrepresentation of $\rho_0(\mathbb C)$.
+    \end{proof}
+    \item Bound on positive weights
+    \begin{lemma}\label{lem:bound_positive_weights}
+        Let $\mathfrak g_0$ be a real simple Lie algebra that complexifies to $\mathfrak g$.
+        We denote with $\mathfrak a$ the Cartan subalgebra of $\mathfrak g$ and define 
+        \[
+        \mathfrak a_0 = \left\{ H \in \mathfrak a: \alpha(H) \in \mathbb R \text{ for all } \alpha \in \Delta \right\}.
+        \]
+        We assume that $\mathfrak g_0 \cap \mathfrak a \subseteq \mathfrak a_0$.
+        We consider a connected component $D$ of the set
+        \[
+        \mathfrak a \cap \mathfrak g_0 - \bigcup_{\substack{\alpha \in \mathcal P(V)\\ \alpha_{|\mathfrak a \cap \mathfrak g_0} \not \equiv 0}} \mathrm{ker} \alpha,
+        \]
+        and consider the set of weights that are positive on $D$:
+        \[
+        \mathcal P_{++} = \left\{ \alpha \in \mathcal P(V) : \alpha_{|D} > 0 \right\}.
+        \]
+
+        Let $\rho: \mathfrak g_0 \to \sso(p,q) \subseteq \mathfrak{gl}(V_0)$ be an irreducible real representation of $\mathfrak g_0$.
+        Then there exists a complex irreducible representation $\rho: \mathfrak g \to \sso(p+q, \mathbb C) \subseteq \gl(V)$ such that $\rho_0$ is a (possibly nonstrict) subrepresentation of its realification $\left(\rho_{|\mathfrak g_0}\right)_\mathbb R$.
+        
+        Then
+        \[
+        p,q \geq \sharp \mathcal P_{++}
+        \]
+    \end{lemma}
+    \begin{proof}
+        The existence of the representation $\rho: \mathfrak g \to \sso(p+q, \mathbb C)$ follows from \cref{lem:real_irreducible_representations}.
+        For every positive weight $\alpha \in \mathcal P_+$, we denote with $V_\alpha$ the corresponding weight space.
+        As in \cref{lem:real_irreducible_representations}, we consider two cases for the representation $\rho_0$:
+        
+        The first case is when the complexification $\rho = \rho_0(\mathbb C): \mathfrak g_0 \to \gl(V_0(\mathbb C))$ is irreducible.
+        We denote with $\mathrm{Re}, \mathrm{Im} : V_0(\mathbb C) = V_0 \oplus i V_0 \to V_0$ the projections that satisfy $v = \mathrm{Re}v + i \mathrm{Im}v$ for $v \in V_0(\mathbb C)$.
+        Then we have that 
+        \[
+        \bigoplus_{\alpha \in \mathcal P_{++}} \mathrm{Re}V_\alpha
+        \]
+        is a totally isotropic subspace of $V_0$.
+        
+        We begin by showing
+        \[
+        \mathrm{Re}V_\alpha \subseteq V_\alpha \cap V_0.
+        \]
+        For this, it suffices that $\rho(H_0) v_\alpha = \langle \alpha, H_0 \rangle v_\alpha$ for $H_0 \in \mathfrak a_0$, because $\mathfrak a_0$ is a real form of $\mathfrak a$.
+        Let $H \in \mathfrak a_0$ and $ v_\alpha \in V_\alpha$.
+        Then $\mathrm{Re}v_\alpha \in V_\alpha$, since
+        \begin{align*}
+            \rho(H) \mathrm{Re}v_\alpha &= \rho(H)\left(\frac{v_\alpha + \sigma v_\alpha}{2}\right) = \frac{1}{2}\left(\langle \alpha, H \rangle + \langle \overline \alpha, H \rangle \right)v_\alpha = \mathrm{Re}v_\alpha
+        \end{align*}
+        On the other hand we have that $\mathrm{Im}V_\alpha = \mathrm{Re}V_\alpha$.
+        Thus we have that $V_\alpha = \left(\mathrm{Re}V_\alpha\right)^\mathbb C$.
+        In particular, since $\mathrm{Re}V_\alpha \subseteq V_\alpha$, and the weight spaces are linearly independent, the real parts $\mathrm{Re}V_\alpha$ are linearly independent as well and their real dimension is the same as the complex dimension of the weight spaces:
+        \[
+        \dim_\mathbb R \bigoplus_{\alpha \in \mathcal P_{++}} \mathrm{Re}V_\alpha = \dim_\mathbb C \bigoplus_{\alpha \in \mathcal P_{++}} V_\alpha \geq \sharp \mathcal P_{++}.
+        \]
+
+        To see that they are isotropic, consider 
+        To see that they are isotropic, take for instance $v_\alpha \in V_\alpha, v_\beta \in V_\beta$ be two weight vectors for $\alpha, \beta \in \mathcal P_{++}$.
+        Fix some $H_0 \in D$, in which case $\langle \alpha, H_0 \rangle, \langle \beta, H_0 \rangle > 0$ and 
+        Then we have that 
+        \[
+        e^{\langle \alpha + \beta, H_0 \rangle} \langle \mathrm{Re}v_\alpha, \mathrm{Re}v_\beta \rangle = \langle e^{\rho_0(H_0)} \mathrm{Re}v_\alpha, e^{\rho_0(H_0)} \mathrm{Re}v_\beta \rangle = \langle \mathrm{Re}v_\alpha, \mathrm{Re}v_\beta \rangle.
+        \]
+        But $\langle \alpha + \beta, H_0 \rangle > 0$, so $e^{\langle \alpha + \beta, H_0 \rangle} > 1$, and $\langle \mathrm{Re}v_\alpha, \mathrm{Re}v_\beta \rangle = 0$.
+
+        The second case is when $\rho(\mathbb C)$ is not irreducible, and we have that there exists a complex structure $J: V_0 \to V_0$ which commutes with $\rho_0$ and renders its extension $\rho: \mathfrak g_0 \to \gl(V_0, J)$ to $\mathfrak g$ an irreudible complex representation.
+        Denoting with $(V_0, J) = \oplus_\alpha V_\alpha$ the weight decomposition of $\rho$, we have that the (real) vector space
+        \[
+        \bigoplus_{\alpha \in \mathcal P_{++}} (V_\alpha)_\mathbb R
+        \]
+        is a totally isotropic subspace of $V_0$.
+        Indeed, the same arguements as before show that it is isotropic.
+        In that case, the bound on the dimension is given by
+        \[
+        \dim_\mathbb R \bigoplus_{\alpha \in \mathcal P_{++}} (V_\alpha)_\mathbb R = 2 \dim_\mathbb C \bigoplus_{\alpha \in \mathcal P_{++}} V_\alpha \geq 2 \sharp \mathcal P_{++}.
+        \]
+    \end{proof}
+\end{itemize}
+\section{2025-04-06}
+\begin{itemize}
+    \item
+    \begin{lemma}
+        Let $\rho: \mathfrak g \to \gl(V)$ be an irreducible complex representation of a real simple Lie algebra $\mathfrak g$.
+        Let $\mathfrak a \subseteq \mathfrak g$ be a Cartan subalgebra.
+        Then for every weight vector $v_\alpha \in V_\alpha$, there exists some $H \in \mathfrak a$ such that $\langle \alpha, H \rangle > 0$.
+    \end{lemma}
+    \begin{proof}
+        Let $\alpha \in \mathcal P(V)$ be a weight and $v_\alpha$ be a weight vector.
+        Clearly there exists some $H \in \mathfrak a$ such that $\langle \alpha, H \rangle \neq 0$.
+        Then there exists some $\theta \in [0, 2\pi)$ such that $e^{i \theta} \langle \alpha, H \rangle = \langle \alpha, e^{i \theta} H \rangle > 0$.
+    \end{proof}
+\end{itemize}
+\section{2025-04-07}
+\begin{itemize}
+    \item The weights of a complex representation of a complex semisimple Lie algebra are real valued on the split Cartan subalgebra.
+    \begin{lemma}
+        Let $\mathfrak g$ be a complex semisimple Lie algebra and $\mathfrak a$ be a Cartan subalgebra.
+        We define the subalgebra $\mathfrak a_0$ as the set of elements of $\mathfrak a$ that will be real valued on the roots:
+        \[
+        \mathfrak a_0 = \left\{ H \in \mathfrak a : \alpha(H) \in \mathbb R \text{ for all } \alpha \in \Delta \right\}.
+        \]
+        Then the weights of any complex representation $\rho: \mathfrak g \to \gl(V)$ are real valued on $\mathfrak a_0$.
+    \end{lemma}
+    \begin{proof}
+        Denoting with $B$ the Killing form of $\mathfrak g$, we define for each root $\alpha$ a corresponding element $H_\alpha \in \mathfrak a$ through the isomorphism $\mathfrak a \simeq \mathfrak a^*$ given by the Killing form (possible since $B$ is nondegenerate on $\mathfrak h \times \mathfrak h$).
+        
+        Let $X_\alpha, X_{-\alpha}$ be root vectors corresponding to $\alpha$ and $-\alpha$, scaled so that $B(X_\alpha, X_{-\alpha}) = 1$.
+        Then we have that
+        \[
+            H_\alpha = [X_\alpha, X_{-\alpha}].
+        \]
+        Indeed, we have $B([X_\alpha, X_{-\alpha}], H) = -B(X_{-\alpha}, [X_\alpha, H]) = + B(X_{-\alpha}, \langle \alpha, H \rangle X_{\alpha}) = \langle \alpha, H \rangle$, for $H \in \mathfrak a$.
+        Renormalizing
+        \[
+        H_\alpha' = \frac{2}{\langle \alpha, H_\alpha \rangle} H_\alpha,\quad
+        X_\alpha' = \frac{2}{\langle \alpha, H_\alpha \rangle} X_\alpha,\quad
+        X_{-\alpha'} = X_{-\alpha},
+        \]
+        we have that
+        \[
+        \begin{aligned}
+            [H_\alpha', X_\alpha'] &= 2 X_\alpha', & [h, e] &= 2e, \\
+            [H_\alpha', X_{-\alpha'}] &= -2 X_{-\alpha'}, & [h, f] &= -2f, \\
+            [X_\alpha', X_{-\alpha'}] &= H_\alpha', & [e, f] &= h.
+        \end{aligned}
+        \]
+        Thus we have that the subalgebra $\mathfrak{sl}_\alpha (2, \mathbb C) = \mathbb C\{H_\alpha, X_\alpha, X_{-\alpha}\}$ is isomorphic to $\mathfrak{sl}(2, \mathbb C)$, via the map taking $H_\alpha', X_\alpha', X_{-\alpha'}$ to $H, e, f$.
+        Restricting $\rho$ to $\mathfrak{sl}_\alpha(2, \mathbb C)$, we obtain a representation $\rho_\alpha$ of $\mathfrak{sl}(2, \mathbb C)$, for which it is known that the eigenvalues of $\rho(H_\alpha')$ are integers.
+        In particular, we have that the eigenvalues of $\rho(H_\alpha)$ are real.
+        Since for any weight $\beta \in \mathcal P$, with a weight vector $v_\beta \in V_\beta$, we have $\rho(H_\alpha)v_\beta = \langle \beta, H_\alpha \rangle v_\beta$, we have that $\langle \beta, H_\alpha \rangle$ is real.
+        But
+        \[
+        \mathfrak a_0 = \oplus_{\alpha \in \Delta} \mathbb R H_\alpha,
+        \]
+        so $\beta$ will be real valued on $\mathfrak a_0$.
+    \end{proof}
+    \item Weight decomposition for real representations:
+    \begin{lemma}
+        Let $\mathfrak g_0$ be a real simple Lie algebra that complexifies to $\mathfrak g$.
+        We denote with $\mathfrak a$ the Cartan subalgebra of $\mathfrak g$ and define 
+        \[
+        \mathfrak a_0 = \left\{ H \in \mathfrak a: \alpha(H) \in \mathbb R \text{ for all } \alpha \in \Delta \right\}.
+        \]
+        We assume that $\mathfrak g_0 \cap \mathfrak a \subseteq \mathfrak a_0$.
+
+        Let $\rho: \mathfrak g_0 \to \sso(p,q) \subseteq \mathfrak{gl}(V_0)$ be an irreducible real representation of $\mathfrak g_0$.
+        Then there exists a complex irreducible representation $\rho: \mathfrak g \to \sso(p+q, \mathbb C) \subseteq \gl(V)$ such that $\rho_0$ is a (possibly nonstrict) subrepresentation of its realification $\left(\rho_{|\mathfrak g_0}\right)_\mathbb R$.
+        If we denote with $\mathcal P$ the weights of $\rho$ and $V_\alpha$ its weight spaces, then we have the following weight decomposition for $\rho_0$:
+        \[
+        V_0 = \bigoplus_{\alpha \in \mathcal P} V_\alpha \cap V_0,
+        \]
+        in the sense that for all $H \in \mathfrak a \cap \mathfrak g_0$, we have $\rho_0(H) = \langle \alpha, H \rangle \mathrm{Id}$ over $V_\alpha \cap V_0$.
+    \end{lemma}
+    \begin{proof}
+        We distinguish two cases.
+        The first case is when the complexification $\rho = \rho_0(\mathbb C): \mathfrak g_0 \to \gl(V_0(\mathbb C))$ is irreducible.
+        In \cref{lem:bound_positive_weights} we saw that $\mathrm{Re}V_\alpha = V_\alpha \cap V_0$.
+        In particular $\mathrm{Re}V_\alpha \subseteq V_\alpha$, so $\mathrm{Re}V_\alpha$ is a weight space of $\rho_0$.
+        To see that $V_0$ is the sum of the $\mathrm{Re}V_\alpha$, we consider the weight decopmosition of some $v = \sum_\alpha c_\alpha v_\alpha \in V_0$ and apply the projection $\mathrm{Re}$ to get that $v = \sum_\alpha c_\alpha \mathrm{Re}v_\alpha$.
+
+        In the second case where $\rho(\mathbb C)$ is not irreducible, we have that there exists a complex structure $J: V_0 \to V_0$ which commutes with $\rho_0$ and renders its extension $\rho: \mathfrak g \to \gl(V_0, J)$ to $\mathfrak g$ an irreudible complex representation.
+        Then the weight decomposition of $\rho_0$ is the same as the one of $\rho$.
+    \end{proof}
+\end{itemize}
+\section{2025-04-10}
+\begin{itemize}
+    \item Spacelike cocompact groups
+    \begin{definition}
+        A representation $\rho: \Gamma \to \SO(p,q)$ of a discrete group $\Gamma$ is spacelike cocompact if it is injective and $\rho(\Gamma)$ acts properly discontinuously and cocompactly on a surface-like submanifold $\tilde M$ of $\mathbb H^{p,q}$ with dimension $\dim \tilde M = p$.
+        In that case $\Gamma = \pi_1(M)$, where $M = \tilde M / \rho(\Gamma)$.
+    \end{definition}
+    \item Criteria for $\mathbb H^{p,q}$-convex cocompactness
+    \begin{lemma}
+        Let $\rho: \Gamma \to \SO(p,q)$ be a spacelike cocompact representation of a discrete group $\Gamma$.
+        The following are equivalent:
+        \begin{enumerate}[label=(\roman*)]
+            \item $\Gamma$ is Gromov hyperbolic.
+            \item $\rho$ is $\mathbb H^{p,q}$-convex cocompact.
+            \item $\rho$ is $\mathbb H^{p,q}$-convex cocompact of maximal dimension.
+            \item $\rho$ is Anosov.
+            \item $\partial_\infty \tilde M$ contains no segments.
+        \end{enumerate}
+        In that case, if $q=1$, then $\tilde M$ can be taken to be convex.
+    \end{lemma}
+    \item Proper embeddings in $\mathbb H^{p,q}$ (see Seppi, Smith, Toulisse).
+    \begin{lemma}
+        Let $f: M^p \to \mathbb H^{p,q}$ be a spacelike immersion of a manifold $M^p$ into $\mathbb H^{p,q}$, i.e.\ $f^* g_{p,q}$ is a Riemannian metric on $M^p$.
+        If one of the following two conditions holds:
+        \begin{enumerate}[label=(\roman*)]
+            \item $f^* g_{p,q}$ is complete
+            \item $f$ is proper
+        \end{enumerate}
+        then $M \simeq \mathbb D^p$ is diffeomorphic to a disk, and $f$ is a proper embedding.
+    \end{lemma}
+    \item Criterion for spacelike cocompact.
+    \begin{lemma}
+        Let $G$ be a real semisimple Lie group with maximal compact subgroup $K$ and $\Gamma \leq G$ a discrete subgroup acting cocompactly on $G/K$, admitting an injective representaiton $\rho: \Gamma \to \SO(p,q)$.
+        If there exists a $\rho$-equivariant spacelike immersion $f: G/K \to \mathbb H^{p,q}$, then $\rho$ is spacelike cocompact.
+    \end{lemma}
+    \begin{proof}
+        Denote with $\tilde M = f(G/K)$ the image of $G/K$ under $f$.
+        By equivariance, $f$ factors through the quotient $\Gamma \backslash G/K$, as in the following commutative diagram:
+        \[
+        \begin{tikzcd}
+            G/K \arrow[r, "f"] \arrow[d] &\tilde M \arrow[d] \\
+            \Gamma \backslash G/K \arrow[r, dashed]  & M
+        \end{tikzcd}
+        \]
+        Since $\Gamma$ acts cocompactly, $\Gamma \backslash G/K$ is compact, so $f$ is proper.
+        By the previous lemma, we have that $f$ is a proper embedding, so $\tilde M$ is a spacelike submanifold.
+        To see that $\rho(\Gamma)$ acts properly discontinuously, we argue by absurd and consider an injective sequence $\{g_n\} \subseteq \Gamma$ such that $\rho(\gamma_n)K \cap K \neq \emptyset$, for some $K \subseteq \tilde M$ compact.
+        The set $K' = f^{-1}(K)$ is compact, because $f$ is proper, and there exist $k_n' \in K'$ such that $f(k_n') = k_n$.
+        Then $f(\gamma_n k_n') = \rho(\gamma_n) k_n \in K$, so the sequence $\gamma_n$ satisfies also that $\gamma_n K' \cap K' \neq \emptyset$, so $\gamma_n$ is not properly discontinuous, which is absurd.
+        Finally, $M = f(\Gamma \backslash G/K)$ is compact, because $\Gamma \backslash G/K$ is compact.
+    \end{proof}
+\end{itemize}
+\section{2025-05-06}
+\begin{itemize}
+    \item
+    \begin{proposition}
+        Let $\rho: \Gamma \to \GL(d,\mathbb R)$ be a proximal irreducible representation of a discrete group $\Gamma$.
+        Then $\rho$ is $P_1$-Anosov if and only if $\rho$ is $\Theta$-Anosov with $\Theta = \left\{ \alpha \in \Pi: \langle \alpha, \lambda \rangle \neq 0 \right\}$.
+    \end{proposition}
+    \begin{proof}
+        Let $\lambda_1, \cdots, \lambda_m$ be the weights of $\rho$ with $\lambda_1$ being the highest weight.
+        Then for every $H \in \mathfrak a^+$, we have that $\lambda_1(H) \geq \lambda_i(H)$ for $i = 1, \cdots, m$.
+        Fix some $v \in \mathfrak a^+$.
+        Then we have that for $\alpha \in \Pi$ 
+        \[
+        \lambda_1 - \alpha \text{ is a weight of } \rho \text{ if and only if } \langle \alpha, \lambda_1 \rangle \neq 0.
+        \]
+        To see this, we let $s_\alpha \in \mathcal W$ be the reflection with respect to $\ker \alpha$.
+        Then $s_\alpha(\lambda_1)$ is a weight of $\rho$ and is among the extremal points on the set of weights of $\rho$.
+        Moreover, there exists $k \geq 0$ such that $\lambda_1, \lambda_1 - \alpha, \cdots, \lambda_1 - k\alpha$ are all weights of $\rho$ and $k = 0$ if and only if $\langle \alpha, \lambda_1 \rangle = 0$, i.e.\ $\lambda$ lies on a wall of the Weyl chamber of $\alpha$.
+        Thus $\langle \alpha, \lambda_1 \rangle \neq 0$ if and only if $\lambda_1 - \alpha$ is a weight of $\rho$.
+
+        On the other hand, qe have that $\rho$ is $P_1$-Anosov if and only if there exist $C, c >0$ such that for every $\gamma \in \Gamma$, $\alpha_{12}(\mu(\rho(\gamma))) \geq C |\gamma| - c$.
+        However, we know that $\alpha_{12}(\mu(\rho(\gamma)))$ is the difference between the first two largest eigenvalues of $\rho(\gamma)$, which is the same as the difference between the first two largest weights of $\rho$ evaluated at $\rho(\gamma)$:
+        \begin{align*}
+            \alpha_{12}(\mu(\rho(\gamma))) &= \lambda_1(\mu(\rho(\gamma))) - \max_{\alpha \in \Theta} (\lambda_1 - \alpha)(\mu(\rho(\gamma)))\\
+            &= \min_{\alpha \in \Theta} \alpha(\mu(\rho(\gamma))),
+        \end{align*}
+        where $\Theta = \left\{ \alpha \in \Pi: \langle \alpha, \lambda_1 \rangle \neq 0 \right\}$.
+        Here we make use of the fact that any other weight of $\rho$ is obtained by substracting a positive integral combination of the simple roots, so the weight with the second largest value in $\mu(\rho(\gamma))$ is the one that is obtained by substracting a simple root $\alpha \in \Theta$.
+
+        Clearly, this quantity grows linearly with respect to the length of $\gamma$, if and only if $\alpha(\mu(\rho(\gamma)))$ does for all $\alpha \in \Theta$, which is equivalent to $\rho$ being $\Theta$-Anosov.
+    \end{proof}
+\end{itemize}
+\section{2025-05-12}
+\begin{itemize}
+    \item Let $\mathfrak g$ be a real semisimple Lie algebra and fix a Cartan subalgebra $\mathfrak a$.
+    Then for any two roots $\alpha, \beta \in \Delta$, we have that
+    \[
+    n_{\alpha \beta} = 2\frac{(\beta, \alpha)}{(\alpha, \alpha)} \in \mathbb Z.
+    \]
+    \begin{proof}
+        Consider the subalgebra $\mathfrak{sl}_\alpha = \mathbb C{\{H_\alpha, X_\alpha, X_{-\alpha}\}} \simeq \mathfrak{sl}(2, \mathbb C)$.
+        Then the the subspace
+        \[
+        W = \oplus_{k \in \mathbb Z} V_{\beta + k \alpha}
+        \]
+        is a representation of $\mathfrak{sl}_\alpha$, where we consider $V = \mathfrak g$ as the adjoint representation of $\mathfrak g$
+        In particular, up to substituting $\beta$ by some $\beta + k \alpha$, we have that $W = V_\beta \oplus \cdots \oplus V_{\beta + m\alpha}$, where $m$ is a positive integer.
+        But being a representation of $\mathfrak{sl}_\alpha$, we have that the eigenvalues of $\Ad(H_\alpha)$ is a string of integers that is symmetric arround zero.
+        But these are exactly $\beta(H_\alpha), \beta(H_\alpha) + 2, \cdots, \beta(H_\alpha) + 2m$, so $2(\beta, \alpha)/ (\alpha, \alpha) = \beta(H_\alpha) = -m \in \mathbb Z$.
+    \end{proof}
+\end{itemize}
+\section{2025-05-13}
+\begin{itemize}
+    \item The irreducible representation of $\so(2n+1, \mathbb C)$ with highest weight $2L_1$ is the kernel of the representation morphism:
+    \[
+    \phi: \mathrm{Sym}^2(\mathbb C^{2n+1}) \to \mathbb C, \quad vw \mapsto \langle v, w \rangle
+    \]
+\end{itemize}
+\begin{proof}
+    We have that $(\mathrm{Sym}^2(\mathbb C^{2n+1}))_{2L_1} = e_1^2$, which lies in the kernel of $\phi$ (here we do not use the standard form on $\mathbb C^{2n+1}$), so the kernel of $\phi$ contains the irreducible representation $\Gamma_{2L_1}$ with highest weight $2L_1$.
+    On the other hand, due to dimensional reasons, $\Sym^2(\mathbb C^{2n+1}) = \ker \phi \oplus \mathbb C$, where $\mathbb C$ is the trivial representation, and $\Gamma_{2L_1} \subseteq \ker \phi$.
+    Since $\mathrm{Sym}^2(\mathbb C^{2n+1})$ has weights $0, \pm 2L_i, \pm L_i$ for $i = 1, \cdots, n$ and $2(\pm L_i \pm L_j)$ for $i \neq j$, with all but $0$ being simple, we have that the kernel of $\phi$ is either $\Gamma_{2L_1}$ or $\Gamma_{2L_1}$ along with trivial factors. 
+    However, since $\mathrm{Sym}^2(\mathbb C^{2n+1}) \simeq \mathrm{Sym}^2((\mathbb C^{2n+1})^*)$, we have that invariant bilinear forms of the standard representation are equivalent to trivial summands of $\mathrm{Sym}^2(\mathbb C^{2n+1})$.
+    Since every irreducible representation admits at most one (up to scalar multiplication) invariant bilinear form, we have that $\Sym^2(\mathbb C^{2n+1})$ contains exactly one trivial summand.
+    Hence $\Gamma_{2L_1} = \ker \phi$.
+\end{proof}
+\chapter{Proper actions on homogeneous spaces}
+This are notes from the lecture given at IHP Higher rank structures on 28 April 2025 to 30 April 2025, by Yosuke Morita: \url{https://indico.math.cnrs.fr/event/11551/sessions/1831/}.
+Certain important theorems presented below are:
+\begin{theorem*}[Calabi-Markus - \cref{thm:calabi_markus}]
+    Let $G/H$ be a reductive homogeneous space, and assume that $\mathrm{rank}G = \mathrm{rank}H$.
+    \begin{enumerate}[label=(\roman*)]
+        \item A closed subgroup of $G$ acts properly on $G/H$ if and only if it is compact.
+        \item A discrete subgroup of $G$ acts properly on $G/H$ if and only if it is finite.
+    \end{enumerate}
+\end{theorem*}
+
+\begin{theorem*}[Properness criterion - \cref{thm:properness_criterion}]
+    Let $G$ be a reductive Lie group and $H, L \subseteq G$ closed subgroups.
+    Then the following are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item $H$ acts properly on $G/L$.
+        \item $L$ acts properly on $G/H$.
+        \item $H \pitchfork L$.
+        \item $\mu(H) \pitchfork \mu(L)$.
+        \item $W \cdot \mathfrak a_H \pitchfork W \cdot \mathfrak a_L$.
+        \item For all $R \geq 0 : \overline{N_R(\mu(H))} \cap \mu(L)$ is compact.
+    \end{enumerate}
+\end{theorem*}
+\begin{theorem}[Kobayashi - \cref{thm:kobayashi}]
+    Let $G/H$ be a reductive homogeneous space.
+    Then the following are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\exists \Gamma \leq G$ discrete such that $\Gamma$ acts properly on $G/H$ and $\Gamma \simeq \mathbb Z$.
+        \item $\exists L \subseteq G$ a reductive subgroup such that $L$ acts properly on $G/H$ and $L \simeq \mathbb R$.
+        \item $\mathrm{rank}_\mathbb R G > \mathrm{rank}_\mathbb R H$.
+    \end{enumerate}
+\end{theorem}
+\section{Proper actions}
+\begin{definition}
+    Let $L$ be a locally compact group and $X$ a locally compact space.
+    An $L$-action on $X$ is proper if one of the following two equivalent conditions holds:
+    \begin{enumerate}[label=(\roman*)]
+        \item For every compact subset $K \subseteq X$, the set $\{l \in L: lK \cap K \neq \emptyset\}$ is compact.
+        \item The map $\alpha: L \times X \to X \times X, (l,x) \mapsto (lx, x)$ is proper.
+    \end{enumerate}
+\end{definition}
+To show that the first condition implies the second, we first note that the first condition is equivalent to having $\alpha^{-1}(K \times K)$ compact for every compact $K \subseteq X$, which holds if $\alpha$ is proper.
+If on the other hand we assume the first condition, then for every compact $L \subseteq X \times X$, we have that $\alpha^{-1}(L) \subseteq \alpha^{-1}\left((\pi_1(L) \times \pi_2(L))^2\right)$.
+The larger set is compact because of the first condition, and hence $\alpha^{-1}(L)$ is compact as well, being closed in a compact set. 
+
+The importance of proper actions is that they define a topology on the quotient space $X/L$:
+\begin{proposition}
+    Let $X$ be a smooth manifold, $\Gamma$ a discrete group acting my diffeomorphisms on $X$.
+    Under any of the two following conditions, the quotient space $X/\Gamma$ has a unique smooth structure such that the projection $\pi: X \to X/\Gamma$ is a smooth covering map:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Gamma$ acts properly and freely on $X$.
+        \item $\Gamma$ is torsion-free and acts properly on $X$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For the first condition, one can consult the book on smooth manifolds by Lee.
+    One can also show that the second condition implies the first one.
+    Indeed, if there exists $\gamma \in \Gamma - \{e \}$ and $x \in X$ such that $\gamma x = x$, then the set $\{ g \in \Gamma: g K \cap K\}$ is compact and contains the sequence $\{\gamma^n\}_n$, so up to a subsequence, we have that $\gamma^n \to \alpha \in \Gamma$. 
+    However, $\Gamma$ being discrete, we have that $\gamma^n = \alpha$ for $n$ large enough, which would imply that $\Gamma$ has torsion.
+\end{proof}
+\begin{remark}
+    Even if the action is not free, properness implies that the quotient space $X/\Gamma$ is an orbifold.
+\end{remark}
+\begin{definition}
+    Let $G/H$ be a homogeneous space, $\Gamma \leq G$ a discrete subgroup acting freely and properly on $G/H$.
+    Then the quotient space $\Gamma \backslash G/H$ is a smooth manifold locally modelled on $G/H$, called a Clifford-Klein form.
+    If it is compact, then we call it a compact quotient.
+\end{definition}
+\begin{example}
+    We consider the pseudohyperbolic space of signature $(p,q)$
+    \[
+    \mathbb H^{p,q} = \left\{ x \in \mathbb{P}(\mathbb R^{p+q+1}): \langle x, x \rangle_{p,q+1} < 0 \right\}.
+    \]
+    As a special case for values of $p$ or $q$ equal to $0$, we have the hyperbolic space $\mathbb H^p$ and the projective space $\mathbb{RP}^q$.
+    It is a homogeneous space
+    \[
+    \mathbb H^{p,q} = \PO(p,q+1)/\mathrm{P}\left(\OO(p,q) \times \OO(1)\right).
+    \]
+    Note that $\mathrm{P}(\OO(p,q) \times \OO(1))$ is in fact the stabilizer of the point $\mathbb R e_{p+q+1} \in \mathbb H^{p,q}$, and being non-compact, the resulting homegenous space is pseudoriemannian.
+    The universal cover of $\mathbb H^{p,q}$ is
+    \begin{align*}
+        \hat{\mathbb H}^{p,q} &= \OO(p,q+1)/\OO(p,q)\\
+        &= \left\{ x \in \mathbb R^{p+q+1}: \langle x, x \rangle_{p,q+1} = -1 \right\}
+    \end{align*}
+    One can show that the Clifford-Klein forms of $\hat{\mathbb H}^{p,q}$ are in bijective correspondence with the pseudoriemannian manifolds of signature $(p,q)$ and constant sectional curvature $-1$.
+\end{example}
+\begin{remark}
+    In the Riemannian case, where $H = K$ is compact, every discrete subgroup $\Gamma \leq G$ acts properly on $G/H$, since $G$ does.
+\end{remark}
+\begin{definition}
+Let $G$ be a locally compact Lie group and $H, L \subseteq G$ closed subsets.
+Then
+\begin{enumerate}[label=(\roman*)]
+    \item $H \prec L$ if there exists a compact $C \subseteq G$ such that $H \subseteq C L C^{-1}$.
+    \item $H \sim L$ if $H \prec L$ and $L \prec H$.
+    \item $H \pitchfork L$ if for all $C \subseteq G$ compact, $CHC^{-1} \cap L$ is compact.
+\end{enumerate}
+\end{definition}
+\begin{lemma}
+    Let $G$ be a locally compact Lie group and $H, H', L \subseteq G$ closed subsets.
+    Then
+    \begin{enumerate}[label=(\roman*)]
+        \item If $G' \subseteq G$ is a closed subgroup of $G$, then $H \prec L$ and $H \pitchfork L$ in $G'$ imply $H \prec L$ and $H \pitchfork L$ in $G$ respectively.
+        In general, the converse is not true.
+        \item For every closed subset $H \subseteq G$, we have $H \prec G$.
+        \item If $H' \prec L$, then $H \pitchfork L \implies H' \pitchfork L$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item We have $CLC^{-1} \cap H \subseteq C\left(L \cap C^{-1} H C\right) C^{-1}$, which is compact, being a closed subset of a compact set.
+        \item
+        \item We have that $CH'C^{-1} \cap L \subseteq H \cap L = \{e\}^{-1} H \{e\} \cap L$ which is compact.
+    \end{enumerate}
+\end{proof}
+The next proposition shows how tranversaltiy of closed subgroups is equivalent to properness of the action.
+
+\begin{proposition}
+Let $G$ be a locally compact Lie group and $H, L \subseteq G$ closed subgroups.
+\begin{enumerate}[label=(\roman*)]
+    \item $H \pitchfork L$ if and only if $H$ acts properly on $G/L$.
+    \item $H$ acts properly on $G/L$ if and only if $L$ acts properly on $G/H$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item We denote with $\pi: G \to G/H$ the projection map.
+        Since $G$ is locally compact, we have that for every compact $K \subseteq G/H$, there exists some compact $C \subseteq G$ such that $K = \pi(C)$.
+        Then we have that the set $\{l \in L: lK \cap K \neq \emptyset\}$ is equal to $CHC^{-1} \cap L$, which is compact if and only if $H \pitchfork L$.
+        To see the equality, we note that $lK \cap K = l\pi(C) \cap \pi(C) \neq \emptyset$ if and only if $lC \cap CH \neq \emptyset$.
+    \end{enumerate}
+\end{proof}
+\begin{theorem}[Calabi-Markus]\label{thm:calabi_markus}
+    Let $G/H$ be a reductive homogeneous space, and assume that $\mathrm{rank}G = \mathrm{rank}H$.
+    \begin{enumerate}[label=(\roman*)]
+        \item A closed subgroup of $G$ acts properly on $G/H$ if and only if it is compact.
+        \item A discrete subgroup of $G$ acts properly on $G/H$ if and only if it is finite.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We outline the proof in the specific case of $G/H = \GL(p+q, \mathbb R)/(GL(p, \mathbb R) \times GL(q, \mathbb R))$.
+    \begin{enumerate}[label=(\roman*)]
+        \item Let $K = \OO(p+q) \subseteq G$, so that $K\cap H = \OO(p) \times \OO(q)$.
+        Let also $A = \{\mathrm{diag}(a_1, \cdots, a_{p+q}) : a_i > 0\}$.
+        Since $\mathrm{rank} H = \mathrm{rank} G$, we have that up to conjugation, the Cartan subgroup of $H$ is $A$.
+        Thus we have the Cartan decomposition of $G$ and $H$ as 
+        \[
+        G = KAK, \quad H = (K \cap H) A (K \cap H),
+        \]
+        which implies that $G \sim A \sim H$.
+        Hence $L$ acts properly on $G/H$ if and only if $H \pitchfork L$, which is equivalent to $G \pitchfork L$.
+        Clearly the last condition is equivalent to $L$ being compact.
+        \item Follows from the following lemma and the fact that discrete compact subgroups of $G$ are finite.
+    \end{enumerate}
+\end{proof}
+\begin{lemma}
+    Discrete subgroups of Lie groups are closed.
+\end{lemma}
+\begin{proof}
+    Let $G$ be a Lie group and $\Gamma \leq G$ a discrete subgroup.
+    Take $g \in G - \Gamma$. By discreteness, there exist neighborhoods $U, V$ of the identity $e \in G$ such that $U \cap \Gamma = \{e\}$ and $V V^{-1} \subseteq U$.
+    We will show that $gV \cap H$ is either empty or contains at most one point.
+    Picking then a smaller neighborhood $W \subseteq V$ of $g$, we have that $gW \cap H = \emptyset$, and hence $\Gamma$ is closed.
+    Indeed, if $\gamma_1, \gamma_2 \in \Gamma \cap gV$, then $\gamma_1^{-1} \gamma_2^{-1} \in V^{-1}V \cap \Gamma$, so $\gamma_1 = \gamma_2$. 
+\end{proof}
+
+\section{Reductive Lie groups}
+Morally, reductive Lie groups are Lie groups that behave like $\GL(n, \mathbb R)$.
+\begin{definition}
+    We let the standard Cartan involution $\theta_{\mathrm{std}}: \GL(n, \mathbb R) \to \GL(n, \mathbb R)$ be the map that sends $g$ to $(g^T)^{-1}$.
+    We denote the corresponding Cartan involution $X \to -X^T$ on $\mathfrak{gl}(n, \mathbb R)$ by the same symbol.
+\end{definition}
+\begin{definition}
+    Let $G$ be a linear Lie group and $\theta: G \to G$ be an involution.
+    Then $(G, \theta)$ is a reductive Lie group if there exists an embedding $i: G \to \GL(n, \mathbb R)$ such that the following conditions hold:
+    \begin{enumerate}[label=(\roman*)]
+        \item $i \circ \theta = \theta_{\mathrm{std}}$.
+        \item $i(G) \subseteq \GL(n, \mathbb R)$ is Euclidean open in its Zariski-closure.
+    \end{enumerate}
+    In that case, we say that $\theta$ is the Cartan involution of $G$.
+    We will use the notation $K = G^\theta, \mathfrak k = \mathrm{Lie}(K) = \mathfrak g^\theta$, $\mathfrak p = \mathfrak g^{-\theta}$.
+    When we fix a maximal abelian subspace $\mathfrak a$ of $\mathfrak p$, we will let $A = e^{\mathfrak a}$.
+    The dimension of $\mathfrak a$ is called the real rank of $G$.
+\end{definition}
+The second condition is added to exclude groups like $\SL(n, \mathbb Z)$.
+Note that the decomposition $\mathfrak g = \mathfrak k \oplus \mathfrak p$ is $K$-invariant.
+\begin{example}
+    \begin{enumerate}
+        \item $G = \GL(n, \mathbb K)$ or $\SL(n, \mathbb K)$, where $\mathbb K$ is $\mathbb R$, $\mathbb C$, or $\mathbb H$.
+        \item $G = \OO(p,q)$
+        \item Exceptional Lie groups
+        \item Products and projectivisations of reductive groups.
+    \end{enumerate}
+\end{example}
+\begin{definition}
+    We define the (restricted) Weyl group $W$ of $G$ as $W = W(\mathfrak g, \mathfrak a)$ by
+    \[
+    W = N_K(\mathfrak a) / Z_K(\mathfrak a),
+    \]
+    where $N_K(\mathfrak a) = \{k \in K: \Ad(k)(\mathfrak a) = \mathfrak a\}$ is the normalizer of $\mathfrak a$ in $K$ and $Z_K(\mathfrak a) = \{k \in K: \Ad(k)(a) = a \text{ for all } a \in \mathfrak a\}$ is the centralizer of $\mathfrak a$ in $K$.
+\end{definition}
+\begin{remark}
+    If $G_0$ is the identity component of $G$ and $K_0 = K \cap G_0$, then $W_0 = N_{K_0}(\mathfrak a) / Z_{K_0}(\mathfrak a)$ is the Weyl group of $G_0$ that embeds into $W$, and is canonically isomorphic to the root-theoretic Weyl group of $\mathfrak g$.
+\end{remark}
+\begin{example}
+    For $G = \OO(n,n), G_0 = \SO_0(n,n)$, we have that $W = \mathbb Z_2^n \ltimes S_n$, and 
+    \[
+    W_0 = \left\{ (\epsilon_i)_{1\leq i \leq n} \ltimes \sigma \in W : \prod_1^n \epsilon_i = 1 \right\}.
+    \]
+\end{example}
+\begin{lemma}
+    Let $(G, \theta)$ be a reductive Lie group.
+    \begin{enumerate}[label=(\roman*)]
+        \item $\mathfrak p \times K \to G, (X, k) \mapsto \exp(X)k$ is a diffeomorphism.
+        \item $K \times \mathfrak a \to \mathfrak p, (k, a) \mapsto \mathrm{Ad}(k)(a)$ is surjective.
+        \item $K \times A \times K \to G, (k_1, a, k_2) \mapsto k_1 a k_2$ is surjective.
+        \item Up to conjugation by $K$, every abelian subalgebra of $\mathfrak p$ is contained in $\mathfrak a$.
+        \item Up to conjugation by $G$, every compact subgroup of $G$ is contained in $K$.
+        \item The Cartan decomposition is unique up to the action of the Weyl group: for $X, X' \in \mathfrak a$, the following are equivalent:
+        \begin{enumerate}[label=(\alph*)]
+            \item $W \cdot X = W \cdot X'$. 
+            \item $\Ad(k)X = \Ad(k)X' \in \mathfrak p$ for some $k \in K$.
+            \item $K e^X K = K e^{X'} K$
+        \end{enumerate}
+    \end{enumerate}
+\end{lemma}
+Note that the second result implies for $G = \GL(n, \mathbb R)$ that symmetric matrices are orthogonally diagonalizable.
+Also the last result implies that this diagonalization is unique up to permutation of the diagonal entries.
+\begin{definition}
+    We define the Cartan projection $\mu: G \to \mathfrak a/W$ as $\mu(k_1 e^X k_2) = W \cdot X$.
+\end{definition}
+
+\begin{definition}
+    Let $(G, \theta)$ be a reductive Lie group.
+    \begin{enumerate}[label=(\roman*)]
+        \item A closed subgroup $H \subseteq G$ is a reductive subgroup if $\theta(H) = H$ and $(H, \theta_{|H})$ is a reductive group.
+        In thtat case, we denote $K_H = H \cap K$ and $\mathfrak k_H = \mathfrak k \cap \mathfrak h, \mathfrak p_H = \mathfrak p \cap \mathfrak h, \mathfrak a_H = \mathfrak a \cap \mathfrak h$.
+        \item A homogeneous space $G/H$ is reductive if $H$ is a reductive subgroup of $G$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    If $H \subseteq G$ is a reductive subgroup, then up to conjugation by $G$, $\mathfrak a_H$ is a maximal abelian subspace of $\mathfrak p_H$.
+    We will henceforth always assume that this is true.
+    Then $H = K_H e^{\mathfrak a_H} K_H$ and $\mu(H) = W \cdot \mathfrak a_H \subseteq \mathfrak a/W$.
+\end{remark}
+\begin{example}
+    Consider $G = \OO(p,q)$, with $p \geq q \geq 1$.
+    Then $\mathfrak a \simeq \mathbb R^q$, and $W \simeq S_q \ltimes \mathbb Z_2^q$.
+    We will identify $\mathfrak a/W$ with
+    \[
+    \mathfrak a^+ = \left\{ (t_1, \cdots, t_q) \in \mathbb R^q: t_1 \geq t_2 \geq \cdots \geq t_q \right\}.
+    \]
+    For instance, for $q = 2$, we have the \cref{fig:o_n_2_chamber}:
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.7\textwidth]{weyl_chambers/O(n,2)_chamber.png}
+        \caption{Weyl chamber of $\OO(n,2)$}
+        \label{fig:o_n_2_chamber}
+    \end{figure}
+    \begin{enumerate}
+        \item $H = O(p, q-1)$:
+        Then $\mathfrak a_H \simeq \mathbb R^{q-1} \times \{0\}$, and $\mu(H) = \{(\tau_1, \cdots, \tau_{q-1}, 0): \tau_1 \geq \cdots \geq \tau_{q-1} \geq 0 \}$.
+        \item $L = U(p',q')$, where $p = 2p', q=2q'$.
+        Then $\mathfrak a_L = \{ (\tau_1, \tau_1, \cdots, \tau_{q'}, \tau_{q'}) : \tau_i \in \mathbb R \}, \mu(L) = \{(\tau_1, \cdots, \tau_{q'}, \tau_{q'}) : \tau_1 \geq \cdots \geq \tau_{q'}\geq 0\}$.
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.7\textwidth]{weyl_chambers/o(n,1), u(p,q) chambers.png}
+            \caption{$\mu(H)$ and $\mu(L)$}
+            \label{fig:o(n,1)_u(p,q)_chambers}
+        \end{figure}
+        In general, the Weyl chamber of a reductive subgroup does not need to lie in the wall of a Weyl chamber of $G$.
+        This is the case for example for $H = \SL(3,\mathbb R) \subseteq G = \SL(4,\mathbb R)$.
+    \end{enumerate}
+\end{example}
+\section{Properness criterion and applications}
+\begin{theorem}[Properness criterion]\label{thm:properness_criterion}
+    Let $G$ be a reductive Lie group and $H, L \subseteq G$ closed subgroups.
+    Then the following are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item $H \pitchfork L$.
+        \item $\mu(H) \pitchfork \mu(L)$.
+        \item $W \cdot \mathfrak a_H \pitchfork W \cdot \mathfrak a_L$.
+        \item For all $R \geq 0 : \overline{N_R(\mu(H))} \cap \mu(L)$ is compact.
+    \end{enumerate}
+\end{theorem}
+The final condition is more practical to check.
+\begin{example}
+    For $\mathbb H^{p,q-1} = \PO(p,q)/\mathrm{P}(\OO(p,q-1) \times \OO(1))$, with $p \geq q \geq 1$ we have that a discrete subgroup $\Gamma \leq \PO(p,q)$ acts properly on $\mathbb H^{p,q-1}$ if and only if for all $R \geq 0$, $\mu(\Gamma) \cap \{t_q \leq R\} \subseteq \mathfrak a^+$ is finite (see \cref{fig:proper_action_o_p_q})
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.7\textwidth]{weyl_chambers/proper_action_o(p,q).png}
+        \caption{Proper action of discrete group on $\mathbb H^{p,q-1}$}
+        \label{fig:proper_action_o_p_q}
+    \end{figure}
+\end{example}
+\begin{definition}
+    Let $G/H$ be a reductive homogeneous space and $\Gamma \leq G$ a discrete subgroup.
+    \begin{enumerate}[label=(\roman*)]
+        \item The action of $\Gamma$ on $G/H$ is a standard proper action if there exists a reductive subgroup $L \subseteq G$ that contains $\Gamma$ and that acts properly on $G/H$.
+        \item An exotic proper action is a proper action that is not the deformation of a standard proper action.
+    \end{enumerate}
+\end{definition}
+\begin{theorem}[Kobayashi]\label{thm:kobayashi}
+    Let $G/H$ be a reductive homogeneous space.
+    Then the following are equivalent:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\exists \Gamma \leq G$ discrete such that $\Gamma$ acts properly on $G/H$ and $\Gamma \simeq \mathbb Z$.
+        \item $\exists L \subseteq G$ a reductive subgroup such that $L$ acts properly on $G/H$ and $L \simeq \mathbb R$.
+        \item $\mathrm{rank}_\mathbb R G > \mathrm{rank}_\mathbb R H$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The implication $(i) \implies (iii)$ follows from the Calabi-Markus theorem (\cref{thm:calabi_markus}).
+    For the implication $(ii) \implies (i)$, we may take $\Gamma$ to be a copy of $\mathbb Z$ in $L \simeq \mathbb R$.
+    Finally, for the implication $(iii) \implies (ii)$, we note that $\mathcal W \cdot \mathfrak a_H$ is a finite union of proper subspaces of $\mathfrak a$, so we may choose a line $l \subseteq \mathfrak a$ that is transverse to $\mathcal W \cdot \mathfrak a_H$.
+    Then $L = e^l$ is isomorphic to $\mathbb R$ and the properness criterion of \cref{thm:properness_criterion} implies that $L$ acts properly on $G/H$. 
+\end{proof}
+\section{Proper cocompact actions}
+\begin{definition}
+    Let $\R$ be a commutative ring with unit, and $\Gamma \leq R$ be a virtually torsion-free group.
+    We define the virtual cohomological dimension of $\Gamma$ as
+    \[
+    \mathrm{vcd}_R(\Gamma) = \sup\left\{ p \in \mathbb N: H^p(\Gamma_0; E) \neq 0 \text{ for some } R \cdot \Gamma_0 - \text{module } E \right\},
+    \]
+    where $\Gamma_0$ is a torsion-free subgroup of finite index in $\Gamma$.    
+\end{definition}
+As it is implied by the definition, the virtual cohomological dimension does not depend on the choice of $\Gamma_0$.
+
+When an action is proper, we obtain a bound on the virtual cohomological dimension, and its critical case provides a criterion for the cocompactness of the action:
+\begin{theorem}
+    Let $R$ be a commutative ring with unit, $G/H$ a reductive homogeneous space, and $\Gamma \leq G$ a discrete subgroup of $G$.
+    If $\Gamma$ acts properly on $G/H$, then
+    \[
+    \mathrm{vcd}_R(\Gamma) \leq \dim \mathfrak p - \dim \mathfrak p_H
+    \]
+    with equality if and only if the action of $\Gamma$ on $G/H$ is cocompact.
+\end{theorem}
+On the other hand, we can relate the virtual cohomological dimension with the topological dimension:
+\begin{theorem}[Bestvina - Mess]
+    Let $\Gamma$ be a virtually torsion-free, Gromov hyperbolic group.
+    If the covering dimension $\dim \partial_\infty \Gamma$ is finite, then
+    \[
+    \mathrm{vcd}_\mathbb Z(\Gamma) = \dim \partial_\infty \Gamma + 1.
+    \]
+\end{theorem}
+\begin{example}
+    Let $G = \OO(2m, 2)$ for $m \geq 1$, $H = \mathrm{U}(m,1)$ and $L = \OO(2m,1)$.
+    Then any uniform lattice $\Gamma$ of $L$ acts properly on $G/H$ and similarly for uniform lattices $\Gamma$ of $H$.
+    Indeed, $H \pitchfork L$ (see \cref{fig:cocompactness_criterion}), so $\Gamma$ acts properly on $G/H$.
+    On the other hand, cocompactness implies that $\mathrm{vcd}(\Gamma) = \dim \mathfrak p_L = 2m = \dim \mathfrak p - \dim \mathfrak p_H$, so $\Gamma$ acts properly and cocompactly on $G/H$.
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.3\textwidth]{weyl_chambers/cocompactness_criterion.png}
+        \label{fig:cocompactness_criterion}
+    \end{figure}
+\end{example}
+\begin{definition}
+    Let $G$ be a reductive Lie group, $\Gamma \leq G$ a finitely generated subgroup and $S \subseteq \mathfrak a/W$ a closed subset.
+    Then $j: \Gamma \to G$ is a sharp embedding with respect to $S$ if the distance of $\mu(\gamma)$ to $S$ grows linearly with respect to the length of $\gamma$, i.e.\ there exist $C, c > 0$ such that for every $\gamma \in \Gamma$,
+    \[
+        d(\mu(\gamma), S) \geq C \cdot |\gamma| - c,
+    \]
+    If $H$ is a closed subgroup of $G$, then we say that $j$ is a sharp embedding with respect to $H$ if it is a sharp embedding with respect to $\mu(H)$.
+\end{definition}
+\begin{remark}
+    By the properness criterion \cref{thm:properness_criterion}, if $j$ is a sharp embedding with respect to $H$, then $\Gamma$ acts properly on $G/H$.
+\end{remark}
+\begin{theorem}[Kassel-Tholozan]
+    Let $\Gamma$ act properly and cocompactly on $G/H$.
+    Then $\Gamma \hookrightarrow G$ is a sharp embedding with respect to $H$.
+\end{theorem}
+\begin{proposition}
+    Let $\Theta \subseteq \Delta$ be a set of simple roots and $\Gamma$ a discrete group.
+    A representation $\rho: \Gamma \to G$ is $\Theta$-Anosov if and only if it is a sharp embedding with respect to $\mathfrak a^+ \cap \cup_{\alpha \in \Theta} \ker \alpha$.
+\end{proposition}
+\printbibliography
+\end{document}
