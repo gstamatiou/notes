@@ -1536,7 +1536,7 @@ Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{ant
         \mathbb R \mathrm{diag}(1,0, \cdots, 0, -1,1,0, \cdots, 0,-1),
     \]
     where on the right hand side the we have a the corresponding complex matrix under the indentification $\mathcal H^{n\times n} \simeq \mathbb C^{2n \times 2n}$.
-    \item From the above, it is clear that the first and second largest eigenvalue of the adjoint representation are equal, so the adjoint representation of $\sp(p,1)$ is not proximal.
+    \item From the above, it is clear that the first and second largest eigenvalue of the adjoint representation are equal, so the adjoint representation of $\mathfrak{sp}(p,1)$ is not proximal.
     Considering that the latter is isomorphic to the action of $\mathfrak{sp}(p,1)$ on the space of antihermitian forms $\mathrm{AntiHerm}_\mathbb H(\mathcal H^{p+1})$, we see that it would not give us a proximal representation of $\Sp(p,1)$.
     This is why we consider hermitian forms.
     \item Identifying $\mathrm{Herm}_\mathcal H (\mathcal H^{p+1})$ with the subset of $\mathcal H^{p+1 \times p+1}$ given by $A^{*_K} = J^{-1}AJ = A$, we have that
@@ -1995,8 +1995,10 @@ Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{ant
 \begin{itemize}
     \item
     \begin{proposition}
-        Let $\rho: \Gamma \to \GL(d,\mathbb R)$ be a proximal irreducible representation of a discrete group $\Gamma$.
-        Then $\rho$ is $P_1$-Anosov if and only if $\rho$ is $\Theta$-Anosov with $\Theta = \left\{ \alpha \in \Pi: \langle \alpha, \lambda \rangle \neq 0 \right\}$.
+        Let $\rho: \Gamma \to \SL(d,\mathbb R)$ be a proximal irreducible representation of a discrete subgroup $\Gamma$ of some semisimple Lie group $G$.
+        Then $\rho$ is $P_1$-Anosov if and only if $\Gamma$ is $\Theta$-Anosov with $\Theta = \left\{ \alpha \in \Pi: \langle \alpha, \lambda \rangle \neq 0 \right\}$.
+
+        In particular, if $\rho$ is $P_1$-Anosov, then $\Gamma$ is $P_i$-Anosov for some $i$.
     \end{proposition}
     \begin{proof}
         Let $\lambda_1, \cdots, \lambda_m$ be the weights of $\rho$ with $\lambda_1$ being the highest weight.
@@ -2011,10 +2013,20 @@ Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{ant
         Moreover, there exists $k \geq 0$ such that $\lambda_1, \lambda_1 - \alpha, \cdots, \lambda_1 - k\alpha$ are all weights of $\rho$ and $k = 0$ if and only if $\langle \alpha, \lambda_1 \rangle = 0$, i.e.\ $\lambda$ lies on a wall of the Weyl chamber of $\alpha$.
         Thus $\langle \alpha, \lambda_1 \rangle \neq 0$ if and only if $\lambda_1 - \alpha$ is a weight of $\rho$.
 
-        On the other hand, qe have that $\rho$ is $P_1$-Anosov if and only if there exist $C, c >0$ such that for every $\gamma \in \Gamma$, $\alpha_{12}(\mu(\rho(\gamma))) \geq C |\gamma| - c$.
-        However, we know that $\alpha_{12}(\mu(\rho(\gamma)))$ is the difference between the first two largest eigenvalues of $\rho(\gamma)$, which is the same as the difference between the first two largest weights of $\rho$ evaluated at $\rho(\gamma)$:
+        Before continuing, we note that we can pick the Cartan subalgebras $\mathfrak a \subseteq \mathfrak g$, $\mathfrak h \subseteq \mathfrak{sl}(d,\mathbb R)$ such that $\rho_*(\mathfrak a^+) = \mathfrak h^+$, where $\mathfrak g$ is the Lie algebra of $G$.
+        Then, using the Cartan decompositions of $G$ and $\SL(d,\mathbb R)$ we can show that
+        \[
+        \mu(\rho(\gamma)) = \rho_*(\gamma)
+        \]
+
+        Recall that $\rho$ is $P_1$-Anosov if and only if there exist $C, c >0$ such that for every $\gamma \in \Gamma$, $\alpha_{12}(\mu(\rho(\gamma))) \geq C |\gamma| - c$.
+        However, we know that $\alpha_{12}(\mu(\rho(\gamma))) = \alpha_{12}(\rho_*(\mu(\gamma)))$ is the difference between the first two largest eigenvalues of $\rho_*(\mu(\gamma)) \in \mathfrak h^+$.
+        Clearly, the first largest eigenvalue of $\rho_*(\mu(\gamma))$ is given by the highest weight $\lambda_1(\rho_*(\mu(\gamma)))$.
+        Since the representation $\rho$ is assumed to be proximal, the second largest eigenvalue is given by another weight of $\rho$.
+        Hence we have that:
         \begin{align*}
-            \alpha_{12}(\mu(\rho(\gamma))) &= \lambda_1(\mu(\rho(\gamma))) - \max_{\alpha \in \Theta} (\lambda_1 - \alpha)(\mu(\rho(\gamma)))\\
+            \alpha_{12}(\mu(\rho(\gamma))) &= \alpha_{12}(\rho_*(\mu(\gamma)))\\
+            &= \lambda_1(\mu(\rho(\gamma))) - \max_{\alpha \in \Theta} (\lambda_1 - \alpha)(\mu(\rho(\gamma)))\\
             &= \min_{\alpha \in \Theta} \alpha(\mu(\rho(\gamma))),
         \end{align*}
         where $\Theta = \left\{ \alpha \in \Pi: \langle \alpha, \lambda_1 \rangle \neq 0 \right\}$.
@@ -2057,380 +2069,161 @@ Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{ant
     Since every irreducible representation admits at most one (up to scalar multiplication) invariant bilinear form, we have that $\Sym^2(\mathbb C^{2n+1})$ contains exactly one trivial summand.
     Hence $\Gamma_{2L_1} = \ker \phi$.
 \end{proof}
-\chapter{Proper actions on homogeneous spaces}
-This are notes from the lecture given at IHP Higher rank structures on 28 April 2025 to 30 April 2025, by Yosuke Morita: \url{https://indico.math.cnrs.fr/event/11551/sessions/1831/}.
-Certain important theorems presented below are:
-\begin{theorem*}[Calabi-Markus - \cref{thm:calabi_markus}]
-    Let $G/H$ be a reductive homogeneous space, and assume that $\mathrm{rank}G = \mathrm{rank}H$.
-    \begin{enumerate}[label=(\roman*)]
-        \item A closed subgroup of $G$ acts properly on $G/H$ if and only if it is compact.
-        \item A discrete subgroup of $G$ acts properly on $G/H$ if and only if it is finite.
-    \end{enumerate}
-\end{theorem*}
-
-\begin{theorem*}[Properness criterion - \cref{thm:properness_criterion}]
-    Let $G$ be a reductive Lie group and $H, L \subseteq G$ closed subgroups.
-    Then the following are equivalent:
-    \begin{enumerate}[label=(\roman*)]
-        \item $H$ acts properly on $G/L$.
-        \item $L$ acts properly on $G/H$.
-        \item $H \pitchfork L$.
-        \item $\mu(H) \pitchfork \mu(L)$.
-        \item $W \cdot \mathfrak a_H \pitchfork W \cdot \mathfrak a_L$.
-        \item For all $R \geq 0 : \overline{N_R(\mu(H))} \cap \mu(L)$ is compact.
-    \end{enumerate}
-\end{theorem*}
-\begin{theorem}[Kobayashi - \cref{thm:kobayashi}]
-    Let $G/H$ be a reductive homogeneous space.
-    Then the following are equivalent:
-    \begin{enumerate}[label=(\roman*)]
-        \item $\exists \Gamma \leq G$ discrete such that $\Gamma$ acts properly on $G/H$ and $\Gamma \simeq \mathbb Z$.
-        \item $\exists L \subseteq G$ a reductive subgroup such that $L$ acts properly on $G/H$ and $L \simeq \mathbb R$.
-        \item $\mathrm{rank}_\mathbb R G > \mathrm{rank}_\mathbb R H$.
-    \end{enumerate}
-\end{theorem}
-\section{Proper actions}
+\section{2025-06-05: Patterson-Sullivan in rank 1}
+\begin{assumption}
+Throughout, $X$ will be a complete, connected Riemannian manifold with sectional curvature bounded below by a negative constant.
+\end{assumption}
 \begin{definition}
-    Let $L$ be a locally compact group and $X$ a locally compact space.
-    An $L$-action on $X$ is proper if one of the following two equivalent conditions holds:
-    \begin{enumerate}[label=(\roman*)]
-        \item For every compact subset $K \subseteq X$, the set $\{l \in L: lK \cap K \neq \emptyset\}$ is compact.
-        \item The map $\alpha: L \times X \to X \times X, (l,x) \mapsto (lx, x)$ is proper.
-    \end{enumerate}
-\end{definition}
-To show that the first condition implies the second, we first note that the first condition is equivalent to having $\alpha^{-1}(K \times K)$ compact for every compact $K \subseteq X$, which holds if $\alpha$ is proper.
-If on the other hand we assume the first condition, then for every compact $L \subseteq X \times X$, we have that $\alpha^{-1}(L) \subseteq \alpha^{-1}\left((\pi_1(L) \times \pi_2(L))^2\right)$.
-The larger set is compact because of the first condition, and hence $\alpha^{-1}(L)$ is compact as well, being closed in a compact set. 
-
-The importance of proper actions is that they define a topology on the quotient space $X/L$:
-\begin{proposition}
-    Let $X$ be a smooth manifold, $\Gamma$ a discrete group acting my diffeomorphisms on $X$.
-    Under any of the two following conditions, the quotient space $X/\Gamma$ has a unique smooth structure such that the projection $\pi: X \to X/\Gamma$ is a smooth covering map:
-    \begin{enumerate}[label=(\roman*)]
-        \item $\Gamma$ acts properly and freely on $X$.
-        \item $\Gamma$ is torsion-free and acts properly on $X$.
-    \end{enumerate}
-\end{proposition}
-\begin{proof}
-    For the first condition, one can consult the book on smooth manifolds by Lee.
-    One can also show that the second condition implies the first one.
-    Indeed, if there exists $\gamma \in \Gamma - \{e \}$ and $x \in X$ such that $\gamma x = x$, then the set $\{ g \in \Gamma: g K \cap K\}$ is compact and contains the sequence $\{\gamma^n\}_n$, so up to a subsequence, we have that $\gamma^n \to \alpha \in \Gamma$. 
-    However, $\Gamma$ being discrete, we have that $\gamma^n = \alpha$ for $n$ large enough, which would imply that $\Gamma$ has torsion.
-\end{proof}
-\begin{remark}
-    Even if the action is not free, properness implies that the quotient space $X/\Gamma$ is an orbifold.
-\end{remark}
-\begin{definition}
-    Let $G/H$ be a homogeneous space, $\Gamma \leq G$ a discrete subgroup acting freely and properly on $G/H$.
-    Then the quotient space $\Gamma \backslash G/H$ is a smooth manifold locally modelled on $G/H$, called a Clifford-Klein form.
-    If it is compact, then we call it a compact quotient.
-\end{definition}
-\begin{example}
-    We consider the pseudohyperbolic space of signature $(p,q)$
+    We define the Busemann function $b: \overline X \times X \times X \to \mathbb R$ as follows:
     \[
-    \mathbb H^{p,q} = \left\{ x \in \mathbb{P}(\mathbb R^{p+q+1}): \langle x, x \rangle_{p,q+1} < 0 \right\}.
+    b_z(x,y) = d(x,z) - d(y,z), b_\xi(x,y) = \lim_{X \ni z \to \xi} b_z(x,y).
     \]
-    As a special case for values of $p$ or $q$ equal to $0$, we have the hyperbolic space $\mathbb H^p$ and the projective space $\mathbb{RP}^q$.
-    It is a homogeneous space
+    For each $x \in X$, we define the Gromov product as seen from $x$ by
     \[
-    \mathbb H^{p,q} = \PO(p,q+1)/\mathrm{P}\left(\OO(p,q) \times \OO(1)\right).
+    (\xi | \eta)_x = \frac{1}{2}\left(b_\xi(x,y) + b_\eta(x,y)\right),
     \]
-    Note that $\mathrm{P}(\OO(p,q) \times \OO(1))$ is in fact the stabilizer of the point $\mathbb R e_{p+q+1} \in \mathbb H^{p,q}$, and being non-compact, the resulting homegenous space is pseudoriemannian.
-    The universal cover of $\mathbb H^{p,q}$ is
-    \begin{align*}
-        \hat{\mathbb H}^{p,q} &= \OO(p,q+1)/\OO(p,q)\\
-        &= \left\{ x \in \mathbb R^{p+q+1}: \langle x, x \rangle_{p,q+1} = -1 \right\}
-    \end{align*}
-    One can show that the Clifford-Klein forms of $\hat{\mathbb H}^{p,q}$ are in bijective correspondence with the pseudoriemannian manifolds of signature $(p,q)$ and constant sectional curvature $-1$.
-\end{example}
-\begin{remark}
-    In the Riemannian case, where $H = K$ is compact, every discrete subgroup $\Gamma \leq G$ acts properly on $G/H$, since $G$ does.
-\end{remark}
-\begin{definition}
-Let $G$ be a locally compact Lie group and $H, L \subseteq G$ closed subsets.
-Then
-\begin{enumerate}[label=(\roman*)]
-    \item $H \prec L$ if there exists a compact $C \subseteq G$ such that $H \subseteq C L C^{-1}$.
-    \item $H \sim L$ if $H \prec L$ and $L \prec H$.
-    \item $H \pitchfork L$ if for all $C \subseteq G$ compact, $CHC^{-1} \cap L$ is compact.
-\end{enumerate}
+    where $y \in X$ is a point on the geodesic joining $\xi$ and $\eta$.
+    We may now equip the boundary $\partial_\infty X$ with the distance $d_x: \partial X \times \partial X \to \mathbb R$ as seen from $x$:
+    \[
+    d_x(\xi, \eta) = e^{-(\xi | \eta)_x}.
+    \]
 \end{definition}
+It turns out that for any two points $x, y \in X$, the respective distances on the boundary are conformally equivalent:
 \begin{lemma}
-    Let $G$ be a locally compact Lie group and $H, H', L \subseteq G$ closed subsets.
-    Then
+    Let $x \in X, \xi, \eta \in \partial_\infty X$ and $g \in \Isom(X)$.
     \begin{enumerate}[label=(\roman*)]
-        \item If $G' \subseteq G$ is a closed subgroup of $G$, then $H \prec L$ and $H \pitchfork L$ in $G'$ imply $H \prec L$ and $H \pitchfork L$ in $G$ respectively.
-        In general, the converse is not true.
-        \item For every closed subset $H \subseteq G$, we have $H \prec G$.
-        \item If $H' \prec L$, then $H \pitchfork L \implies H' \pitchfork L$.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    \begin{enumerate}[label=(\roman*)]
-        \item We have $CLC^{-1} \cap H \subseteq C\left(L \cap C^{-1} H C\right) C^{-1}$, which is compact, being a closed subset of a compact set.
-        \item
-        \item We have that $CH'C^{-1} \cap L \subseteq H \cap L = \{e\}^{-1} H \{e\} \cap L$ which is compact.
-    \end{enumerate}
-\end{proof}
-The next proposition shows how tranversaltiy of closed subgroups is equivalent to properness of the action.
-
-\begin{proposition}
-Let $G$ be a locally compact Lie group and $H, L \subseteq G$ closed subgroups.
-\begin{enumerate}[label=(\roman*)]
-    \item $H \pitchfork L$ if and only if $H$ acts properly on $G/L$.
-    \item $H$ acts properly on $G/L$ if and only if $L$ acts properly on $G/H$.
-\end{enumerate}
-\end{proposition}
-\begin{proof}
-    \begin{enumerate}
-        \item We denote with $\pi: G \to G/H$ the projection map.
-        Since $G$ is locally compact, we have that for every compact $K \subseteq G/H$, there exists some compact $C \subseteq G$ such that $K = \pi(C)$.
-        Then we have that the set $\{l \in L: lK \cap K \neq \emptyset\}$ is equal to $CHC^{-1} \cap L$, which is compact if and only if $H \pitchfork L$.
-        To see the equality, we note that $lK \cap K = l\pi(C) \cap \pi(C) \neq \emptyset$ if and only if $lC \cap CH \neq \emptyset$.
-    \end{enumerate}
-\end{proof}
-\begin{theorem}[Calabi-Markus]\label{thm:calabi_markus}
-    Let $G/H$ be a reductive homogeneous space, and assume that $\mathrm{rank}G = \mathrm{rank}H$.
-    \begin{enumerate}[label=(\roman*)]
-        \item A closed subgroup of $G$ acts properly on $G/H$ if and only if it is compact.
-        \item A discrete subgroup of $G$ acts properly on $G/H$ if and only if it is finite.
-    \end{enumerate}
-\end{theorem}
-\begin{proof}
-    We outline the proof in the specific case of $G/H = \GL(p+q, \mathbb R)/(GL(p, \mathbb R) \times GL(q, \mathbb R))$.
-    \begin{enumerate}[label=(\roman*)]
-        \item Let $K = \OO(p+q) \subseteq G$, so that $K\cap H = \OO(p) \times \OO(q)$.
-        Let also $A = \{\mathrm{diag}(a_1, \cdots, a_{p+q}) : a_i > 0\}$.
-        Since $\mathrm{rank} H = \mathrm{rank} G$, we have that up to conjugation, the Cartan subgroup of $H$ is $A$.
-        Thus we have the Cartan decomposition of $G$ and $H$ as 
+        \item For $y \in X$:
         \[
-        G = KAK, \quad H = (K \cap H) A (K \cap H),
+        d_y(\xi, \eta) = e^{\frac{1}{2}\left(b_\xi(x,y) + b_\eta(x,y)\right)} d_x(\xi, \eta).
         \]
-        which implies that $G \sim A \sim H$.
-        Hence $L$ acts properly on $G/H$ if and only if $H \pitchfork L$, which is equivalent to $G \pitchfork L$.
-        Clearly the last condition is equivalent to $L$ being compact.
-        \item Follows from the following lemma and the fact that discrete compact subgroups of $G$ are finite.
-    \end{enumerate}
-\end{proof}
-\begin{lemma}
-    Discrete subgroups of Lie groups are closed.
-\end{lemma}
-\begin{proof}
-    Let $G$ be a Lie group and $\Gamma \leq G$ a discrete subgroup.
-    Take $g \in G - \Gamma$. By discreteness, there exist neighborhoods $U, V$ of the identity $e \in G$ such that $U \cap \Gamma = \{e\}$ and $V V^{-1} \subseteq U$.
-    We will show that $gV \cap H$ is either empty or contains at most one point.
-    Picking then a smaller neighborhood $W \subseteq V$ of $g$, we have that $gW \cap H = \emptyset$, and hence $\Gamma$ is closed.
-    Indeed, if $\gamma_1, \gamma_2 \in \Gamma \cap gV$, then $\gamma_1^{-1} \gamma_2^{-1} \in V^{-1}V \cap \Gamma$, so $\gamma_1 = \gamma_2$. 
-\end{proof}
-
-\section{Reductive Lie groups}
-Morally, reductive Lie groups are Lie groups that behave like $\GL(n, \mathbb R)$.
-\begin{definition}
-    We let the standard Cartan involution $\theta_{\mathrm{std}}: \GL(n, \mathbb R) \to \GL(n, \mathbb R)$ be the map that sends $g$ to $(g^T)^{-1}$.
-    We denote the corresponding Cartan involution $X \to -X^T$ on $\mathfrak{gl}(n, \mathbb R)$ by the same symbol.
-\end{definition}
-\begin{definition}
-    Let $G$ be a linear Lie group and $\theta: G \to G$ be an involution.
-    Then $(G, \theta)$ is a reductive Lie group if there exists an embedding $i: G \to \GL(n, \mathbb R)$ such that the following conditions hold:
-    \begin{enumerate}[label=(\roman*)]
-        \item $i \circ \theta = \theta_{\mathrm{std}}$.
-        \item $i(G) \subseteq \GL(n, \mathbb R)$ is Euclidean open in its Zariski-closure.
-    \end{enumerate}
-    In that case, we say that $\theta$ is the Cartan involution of $G$.
-    We will use the notation $K = G^\theta, \mathfrak k = \mathrm{Lie}(K) = \mathfrak g^\theta$, $\mathfrak p = \mathfrak g^{-\theta}$.
-    When we fix a maximal abelian subspace $\mathfrak a$ of $\mathfrak p$, we will let $A = e^{\mathfrak a}$.
-    The dimension of $\mathfrak a$ is called the real rank of $G$.
-\end{definition}
-The second condition is added to exclude groups like $\SL(n, \mathbb Z)$.
-Note that the decomposition $\mathfrak g = \mathfrak k \oplus \mathfrak p$ is $K$-invariant.
-\begin{example}
-    \begin{enumerate}
-        \item $G = \GL(n, \mathbb K)$ or $\SL(n, \mathbb K)$, where $\mathbb K$ is $\mathbb R$, $\mathbb C$, or $\mathbb H$.
-        \item $G = \OO(p,q)$
-        \item Exceptional Lie groups
-        \item Products and projectivisations of reductive groups.
-    \end{enumerate}
-\end{example}
-\begin{definition}
-    We define the (restricted) Weyl group $W$ of $G$ as $W = W(\mathfrak g, \mathfrak a)$ by
-    \[
-    W = N_K(\mathfrak a) / Z_K(\mathfrak a),
-    \]
-    where $N_K(\mathfrak a) = \{k \in K: \Ad(k)(\mathfrak a) = \mathfrak a\}$ is the normalizer of $\mathfrak a$ in $K$ and $Z_K(\mathfrak a) = \{k \in K: \Ad(k)(a) = a \text{ for all } a \in \mathfrak a\}$ is the centralizer of $\mathfrak a$ in $K$.
-\end{definition}
-\begin{remark}
-    If $G_0$ is the identity component of $G$ and $K_0 = K \cap G_0$, then $W_0 = N_{K_0}(\mathfrak a) / Z_{K_0}(\mathfrak a)$ is the Weyl group of $G_0$ that embeds into $W$, and is canonically isomorphic to the root-theoretic Weyl group of $\mathfrak g$.
-\end{remark}
-\begin{example}
-    For $G = \OO(n,n), G_0 = \SO_0(n,n)$, we have that $W = \mathbb Z_2^n \ltimes S_n$, and 
-    \[
-    W_0 = \left\{ (\epsilon_i)_{1\leq i \leq n} \ltimes \sigma \in W : \prod_1^n \epsilon_i = 1 \right\}.
-    \]
-\end{example}
-\begin{lemma}
-    Let $(G, \theta)$ be a reductive Lie group.
-    \begin{enumerate}[label=(\roman*)]
-        \item $\mathfrak p \times K \to G, (X, k) \mapsto \exp(X)k$ is a diffeomorphism.
-        \item $K \times \mathfrak a \to \mathfrak p, (k, a) \mapsto \mathrm{Ad}(k)(a)$ is surjective.
-        \item $K \times A \times K \to G, (k_1, a, k_2) \mapsto k_1 a k_2$ is surjective.
-        \item Up to conjugation by $K$, every abelian subalgebra of $\mathfrak p$ is contained in $\mathfrak a$.
-        \item Up to conjugation by $G$, every compact subgroup of $G$ is contained in $K$.
-        \item The Cartan decomposition is unique up to the action of the Weyl group: for $X, X' \in \mathfrak a$, the following are equivalent:
-        \begin{enumerate}[label=(\alph*)]
-            \item $W \cdot X = W \cdot X'$. 
-            \item $\Ad(k)X = \Ad(k)X' \in \mathfrak p$ for some $k \in K$.
-            \item $K e^X K = K e^{X'} K$
-        \end{enumerate}
+        \item $d_{gx}(\xi, \eta) = e^{d(x, gx)} d_x(\xi, \eta)$.\label{item:conformality}
     \end{enumerate}
 \end{lemma}
-Note that the second result implies for $G = \GL(n, \mathbb R)$ that symmetric matrices are orthogonally diagonalizable.
-Also the last result implies that this diagonalization is unique up to permutation of the diagonal entries.
-\begin{definition}
-    We define the Cartan projection $\mu: G \to \mathfrak a/W$ as $\mu(k_1 e^X k_2) = W \cdot X$.
-\end{definition}
-
-\begin{definition}
-    Let $(G, \theta)$ be a reductive Lie group.
-    \begin{enumerate}[label=(\roman*)]
-        \item A closed subgroup $H \subseteq G$ is a reductive subgroup if $\theta(H) = H$ and $(H, \theta_{|H})$ is a reductive group.
-        In thtat case, we denote $K_H = H \cap K$ and $\mathfrak k_H = \mathfrak k \cap \mathfrak h, \mathfrak p_H = \mathfrak p \cap \mathfrak h, \mathfrak a_H = \mathfrak a \cap \mathfrak h$.
-        \item A homogeneous space $G/H$ is reductive if $H$ is a reductive subgroup of $G$.
-    \end{enumerate}
-\end{definition}
-\begin{remark}
-    If $H \subseteq G$ is a reductive subgroup, then up to conjugation by $G$, $\mathfrak a_H$ is a maximal abelian subspace of $\mathfrak p_H$.
-    We will henceforth always assume that this is true.
-    Then $H = K_H e^{\mathfrak a_H} K_H$ and $\mu(H) = W \cdot \mathfrak a_H \subseteq \mathfrak a/W$.
-\end{remark}
-\begin{example}
-    Consider $G = \OO(p,q)$, with $p \geq q \geq 1$.
-    Then $\mathfrak a \simeq \mathbb R^q$, and $W \simeq S_q \ltimes \mathbb Z_2^q$.
-    We will identify $\mathfrak a/W$ with
-    \[
-    \mathfrak a^+ = \left\{ (t_1, \cdots, t_q) \in \mathbb R^q: t_1 \geq t_2 \geq \cdots \geq t_q \right\}.
-    \]
-    For instance, for $q = 2$, we have the \cref{fig:o_n_2_chamber}:
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.7\textwidth]{weyl_chambers/O(n,2)_chamber.png}
-        \caption{Weyl chamber of $\OO(n,2)$}
-        \label{fig:o_n_2_chamber}
-    \end{figure}
-    \begin{enumerate}
-        \item $H = O(p, q-1)$:
-        Then $\mathfrak a_H \simeq \mathbb R^{q-1} \times \{0\}$, and $\mu(H) = \{(\tau_1, \cdots, \tau_{q-1}, 0): \tau_1 \geq \cdots \geq \tau_{q-1} \geq 0 \}$.
-        \item $L = U(p',q')$, where $p = 2p', q=2q'$.
-        Then $\mathfrak a_L = \{ (\tau_1, \tau_1, \cdots, \tau_{q'}, \tau_{q'}) : \tau_i \in \mathbb R \}, \mu(L) = \{(\tau_1, \cdots, \tau_{q'}, \tau_{q'}) : \tau_1 \geq \cdots \geq \tau_{q'}\geq 0\}$.
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.7\textwidth]{weyl_chambers/o(n,1), u(p,q) chambers.png}
-            \caption{$\mu(H)$ and $\mu(L)$}
-            \label{fig:o(n,1)_u(p,q)_chambers}
-        \end{figure}
-        In general, the Weyl chamber of a reductive subgroup does not need to lie in the wall of a Weyl chamber of $G$.
-        This is the case for example for $H = \SL(3,\mathbb R) \subseteq G = \SL(4,\mathbb R)$.
-    \end{enumerate}
-\end{example}
-\section{Properness criterion and applications}
-\begin{theorem}[Properness criterion]\label{thm:properness_criterion}
-    Let $G$ be a reductive Lie group and $H, L \subseteq G$ closed subgroups.
-    Then the following are equivalent:
-    \begin{enumerate}[label=(\roman*)]
-        \item $H \pitchfork L$.
-        \item $\mu(H) \pitchfork \mu(L)$.
-        \item $W \cdot \mathfrak a_H \pitchfork W \cdot \mathfrak a_L$.
-        \item For all $R \geq 0 : \overline{N_R(\mu(H))} \cap \mu(L)$ is compact.
-    \end{enumerate}
-\end{theorem}
-The final condition is more practical to check.
-\begin{example}
-    For $\mathbb H^{p,q-1} = \PO(p,q)/\mathrm{P}(\OO(p,q-1) \times \OO(1))$, with $p \geq q \geq 1$ we have that a discrete subgroup $\Gamma \leq \PO(p,q)$ acts properly on $\mathbb H^{p,q-1}$ if and only if for all $R \geq 0$, $\mu(\Gamma) \cap \{t_q \leq R\} \subseteq \mathfrak a^+$ is finite (see \cref{fig:proper_action_o_p_q})
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.7\textwidth]{weyl_chambers/proper_action_o(p,q).png}
-        \caption{Proper action of discrete group on $\mathbb H^{p,q-1}$}
-        \label{fig:proper_action_o_p_q}
-    \end{figure}
-\end{example}
-\begin{definition}
-    Let $G/H$ be a reductive homogeneous space and $\Gamma \leq G$ a discrete subgroup.
-    \begin{enumerate}[label=(\roman*)]
-        \item The action of $\Gamma$ on $G/H$ is a standard proper action if there exists a reductive subgroup $L \subseteq G$ that contains $\Gamma$ and that acts properly on $G/H$.
-        \item An exotic proper action is a proper action that is not the deformation of a standard proper action.
-    \end{enumerate}
-\end{definition}
-\begin{theorem}[Kobayashi]\label{thm:kobayashi}
-    Let $G/H$ be a reductive homogeneous space.
-    Then the following are equivalent:
-    \begin{enumerate}[label=(\roman*)]
-        \item $\exists \Gamma \leq G$ discrete such that $\Gamma$ acts properly on $G/H$ and $\Gamma \simeq \mathbb Z$.
-        \item $\exists L \subseteq G$ a reductive subgroup such that $L$ acts properly on $G/H$ and $L \simeq \mathbb R$.
-        \item $\mathrm{rank}_\mathbb R G > \mathrm{rank}_\mathbb R H$.
-    \end{enumerate}
-\end{theorem}
 \begin{proof}
-    The implication $(i) \implies (iii)$ follows from the Calabi-Markus theorem (\cref{thm:calabi_markus}).
-    For the implication $(ii) \implies (i)$, we may take $\Gamma$ to be a copy of $\mathbb Z$ in $L \simeq \mathbb R$.
-    Finally, for the implication $(iii) \implies (ii)$, we note that $\mathcal W \cdot \mathfrak a_H$ is a finite union of proper subspaces of $\mathfrak a$, so we may choose a line $l \subseteq \mathfrak a$ that is transverse to $\mathcal W \cdot \mathfrak a_H$.
-    Then $L = e^l$ is isomorphic to $\mathbb R$ and the properness criterion of \cref{thm:properness_criterion} implies that $L$ acts properly on $G/H$. 
+    \begin{enumerate}[label=(\roman*)]
+        \item One can show that for $z \in X$ a point on the geodesic joining $\xi$ and $\eta$, we have
+        \begin{align*}
+            (\xi | \eta)_y &= (\xi | \eta)_x + \frac{1}{2}\left(b_\xi(x,z) - b_\eta(x,z)\right)+ \frac{1}{2}\left(b_\xi(y,z) - b_\eta(y,z)\right) \\
+            &= (\xi | \eta)_x + \frac{1}{2}\left(b_\xi(x,y) + b_\eta(x,y)\right),
+        \end{align*}
+        where we used that $b_\xi(y,z) - b_\xi(x,z) = -b_\xi(x,y)$.
+        \item First we show that $d_{gx}(\xi, \eta) \leq e^{d(x, gx)} d_x(\xi, \eta)$ by using the previous point and that $b_\xi(gx, x) \leq d(gx, x)$.
+        Using this relation we establish the reverse inequality: $d_x(\xi, \eta) = d_{g^{-1}gx}(\xi, \eta) \leq e^{d(gx, g^{-1}g x )}d_{gx}(\xi, \eta) = e^{d(x, gx)} d_{gx}(\xi, \eta)$.
+    \end{enumerate}
 \end{proof}
-\section{Proper cocompact actions}
+We begin by recalling the definition of a conformal density:
 \begin{definition}
-    Let $\R$ be a commutative ring with unit, and $\Gamma \leq R$ be a virtually torsion-free group.
-    We define the virtual cohomological dimension of $\Gamma$ as
-    \[
-    \mathrm{vcd}_R(\Gamma) = \sup\left\{ p \in \mathbb N: H^p(\Gamma_0; E) \neq 0 \text{ for some } R \cdot \Gamma_0 - \text{module } E \right\},
-    \]
-    where $\Gamma_0$ is a torsion-free subgroup of finite index in $\Gamma$.    
+    Let $\Gamma$ be a nonelementary discrete group of isometries of $X$ and $\beta \in \mathbb R$.
+    A $\Gamma$-conformal density is a family of Radon measures $\{\nu_x\}_{x \in X}$ on $\partial X $ such that
+    \begin{enumerate}[label=(\roman*)]
+        \item It is $\Gamma$-equivariant, i.e.\ for all $g \in \Gamma$ and $x \in X$, we have that $\nu_{gx} = g_* \nu_x$.
+        \item For all $x, y \in X$, we have that $\nu_x, \nu_y$ are equivalent with density
+        \[
+        \frac{d\nu_y}{d\nu_x}(\xi) = e^{-\beta b_\xi(y,x)}.
+        \]
+    \end{enumerate}
 \end{definition}
-As it is implied by the definition, the virtual cohomological dimension does not depend on the choice of $\Gamma_0$.
+Since the distances on the boundary are conformally equivalent, the corresponding Hausdorff measures $\mathcal H_x$ are equivalent as well.
+In particular, the Hausdorff dimension of $\partial X$ is well-defined.
+\begin{lemma}
+    Denote with $\mathcal H^s_x$ to be the $s$-dimensional Hausdorff measure on $\partial X$ that is induced by the distance $d_x$, for $x \in X$:
+    \[
+    H^s_x(A) = \lim_{\delta \to 0} \inf \left\{ \sum_i \mathrm{diam}(U_i)^s : A \subseteq \bigcup_i U_i, \mathrm{diam}(U_i) < \delta \right\}.
+    \]
+    Then the Hausdorff measures $\mathcal H_x$ are equivalent under the action of $\Isom(X)$ by
+    \[
+    \mathcal H^s_y (A) = e^{\frac{s}{2} \left( b_\xi(x,y) + b_\eta(x,y) \right)} \mathcal H^s_x(A),
+    \]
+    and in particular, for $g \in \Isom(X)$, we have that
+    \[
+    \mathcal H^s_{gx} (A) = e^{s d(x, gx)} \mathcal H^s_x(A), 
+    \]
+    In particular, the Hausdorff dimension of $\partial X$ is the same for every distance, and we will refer to it as the Hausdorff dimension of $\partial X$.
+\end{lemma}
+\section{2025-06-20}
+\begin{itemize}
+\item Let $\mathfrak g_0 = \su(2,1)$ and $\mathfrak h_0 = \mathbb R \cdot \diag(1,0,-1)$ be a Cartan subalgebra for $\mathfrak g_0$ and $\mathfrak a_0 = \left\{ \diag(a,b,-a-b) : a, b \in \mathbb R \right\}$.
+Then the functionals of $\mathfrak a_0^*$ that vanish when restricted to $\mathfrak h_0$ are in duality with the orthogonal complement $\mathfrak h_0^\perp$ with respect to the Killing form, here given by 
+\[
+\mathfrak h_0^\perp = \left\{ \diag(a, -2a, a) : a \in \mathbb R \right\} \simeq \mathbb R (\alpha_1 - \alpha_2) = \mathbb R (L_2 + \mathbb R (L_1 + L_2 + L_3)).
+\]
+\item The only spacelike cocompact representation of $\SL(d,\mathbb R)$ with $p = \dim(G/K)$ is the symmetric cube
+\[
+\rho:\SL(2,\mathbb R) \to \Sym^3(\mathbb R^2) \to \SO(2,2).
+\]
+\begin{proof}
+To see this, recall that for $G = \SL(d,\mathbb R)$, we have
+\[
+\dim(G/K) = \frac{d(d+1)}{2}-1.
+\]
+We know that if $\rho: G \to \SO(p,q)$ gives rise to a spacelike cocompact representation, then the number of positive weights is at most $\min\{p,q\}=p$.
+Since in our case this is equal to $\dim(G/K)$, we need to show that $p > d(d+1)/2 - 1$.
+Indeed, the fundamental weights of self-dual representations of $\SL(d,\mathbb R)$ are given by $\omega_i + \omega_{d-i}$ for $i<d/2$ and $\omega_{d/2}$ for $d$ even.
+Assuming that $2\leq i \neq d/2$, half of the orbit of $\Lambda = \omega_i + \omega_{d-i}$ under the action of the Weyl group $\mathcal W$ has cardinality
+\[
+\frac{1}{2} \cdot \frac{d!}{i!(d-2i)!} \geq \frac{1}{2} \cdot \frac{d!}{2!(d-4)!} > \frac{d(d+1)}{2} - 1, \text{ for } d \geq 4.
+\]
+On the other hand, if $i = d/2$, then half of the orbit of $\Lambda = \omega_{d/2}$ has cardinality
+\[
+\frac{1}{2} (2k)!/(k!) > \frac{2k(2k+1)}{2} -1, \text{ for } k \geq 3
+\]
+Hence it suffices to check the case $d = 2,3$, $i=1$ and $(i,d) = (1,2), (2,4)$.
+The case $(i,d) = (2,4)$ corresponds to the isomorphism $\SL(4,\mathbb R) \to \SO(3,3)$, which is not spacelike cocompact.
+The case $i = 1$ corresponds to the adjoint representation 
+\[
+\Ad: \SL(d,\mathbb R) \to \SO(\frac{d(d+1)}{2}-1, \frac{d(d-1)}{2}),
+\]
+which is not spacelike cocompact becase there exists no element of the Lie algebra $\mathfrak{sl}(d,\mathbb R)$ that is commutes with all elements of $K = \SO(d)$.
+This handles also the case of $d = 3$.
+Finally, for the case $d = 2$, we have that only the symmetric cube $\Sym^3(\mathbb R^2)$ which is in $\SO(2,2)$.
+More concretely, we have that $\Sym^3(\mathbb R^2) \simeq \Sp(4, \mathbb R)$, but composing with the exceptional isomorphism $\Sp(4, \mathbb R) \to \SO(2,2)$, we obtain a representation $\rho: \SL(2,\mathbb R) \to \SO(2,2)$.
+This is a Hitchin representation (and thus maximal), which is known to be spacelike cocompact, since maximal representations are spacelike cocompact.
+\end{proof}
+\end{itemize}    
 
-When an action is proper, we obtain a bound on the virtual cohomological dimension, and its critical case provides a criterion for the cocompactness of the action:
-\begin{theorem}
-    Let $R$ be a commutative ring with unit, $G/H$ a reductive homogeneous space, and $\Gamma \leq G$ a discrete subgroup of $G$.
-    If $\Gamma$ acts properly on $G/H$, then
-    \[
-    \mathrm{vcd}_R(\Gamma) \leq \dim \mathfrak p - \dim \mathfrak p_H
-    \]
-    with equality if and only if the action of $\Gamma$ on $G/H$ is cocompact.
-\end{theorem}
-On the other hand, we can relate the virtual cohomological dimension with the topological dimension:
-\begin{theorem}[Bestvina - Mess]
-    Let $\Gamma$ be a virtually torsion-free, Gromov hyperbolic group.
-    If the covering dimension $\dim \partial_\infty \Gamma$ is finite, then
-    \[
-    \mathrm{vcd}_\mathbb Z(\Gamma) = \dim \partial_\infty \Gamma + 1.
-    \]
-\end{theorem}
-\begin{example}
-    Let $G = \OO(2m, 2)$ for $m \geq 1$, $H = \mathrm{U}(m,1)$ and $L = \OO(2m,1)$.
-    Then any uniform lattice $\Gamma$ of $L$ acts properly on $G/H$ and similarly for uniform lattices $\Gamma$ of $H$.
-    Indeed, $H \pitchfork L$ (see \cref{fig:cocompactness_criterion}), so $\Gamma$ acts properly on $G/H$.
-    On the other hand, cocompactness implies that $\mathrm{vcd}(\Gamma) = \dim \mathfrak p_L = 2m = \dim \mathfrak p - \dim \mathfrak p_H$, so $\Gamma$ acts properly and cocompactly on $G/H$.
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.3\textwidth]{weyl_chambers/cocompactness_criterion.png}
-        \label{fig:cocompactness_criterion}
-    \end{figure}
-\end{example}
+
+\section{2025-06-24}
+\subsection{Volume entropy for complex hyperbolic spaces}
 \begin{definition}
-    Let $G$ be a reductive Lie group, $\Gamma \leq G$ a finitely generated subgroup and $S \subseteq \mathfrak a/W$ a closed subset.
-    Then $j: \Gamma \to G$ is a sharp embedding with respect to $S$ if the distance of $\mu(\gamma)$ to $S$ grows linearly with respect to the length of $\gamma$, i.e.\ there exist $C, c > 0$ such that for every $\gamma \in \Gamma$,
+    The complex hyperbolic space $\mathbb H^n_\mathbb C$ is defined as
     \[
-        d(\mu(\gamma), S) \geq C \cdot |\gamma| - c,
+    \mathbb H^n_\mathbb C = \left\{ z \in \mathbb P(\mathbb C^{n,1}): \langle z, z \rangle < 0 \right\}, 
     \]
-    If $H$ is a closed subgroup of $G$, then we say that $j$ is a sharp embedding with respect to $H$ if it is a sharp embedding with respect to $\mu(H)$.
+    where the inner product $\langle \cdot, \cdot \rangle$ is the standard Hermitian inner product on $\mathbb C^{n,1}$:
+    \[
+    \langle z, w \rangle = z_1 \overline{w_1} + z_2 \overline{w_2} + \cdots + z_n \overline{w_n} - z_{n+1} \overline{w_{n+1}}.
+    \]
 \end{definition}
-\begin{remark}
-    By the properness criterion \cref{thm:properness_criterion}, if $j$ is a sharp embedding with respect to $H$, then $\Gamma$ acts properly on $G/H$.
-\end{remark}
-\begin{theorem}[Kassel-Tholozan]
-    Let $\Gamma$ act properly and cocompactly on $G/H$.
-    Then $\Gamma \hookrightarrow G$ is a sharp embedding with respect to $H$.
-\end{theorem}
-\begin{proposition}
-    Let $\Theta \subseteq \Delta$ be a set of simple roots and $\Gamma$ a discrete group.
-    A representation $\rho: \Gamma \to G$ is $\Theta$-Anosov if and only if it is a sharp embedding with respect to $\mathfrak a^+ \cap \cup_{\alpha \in \Theta} \ker \alpha$.
-\end{proposition}
+The induced metric on $\mathbb H^n_\mathbb C$ is the Bergman metric, given by the relation
+\[
+\cosh^2(\frac{d(z,w)}{2}) = \frac{\langle z,w \rangle \langle w,z \rangle}{\langle z,z \rangle \langle w,w \rangle}.
+\]
+We can identify $\mathbb H^n_\mathbb C$ with the unit ball in $\mathbb C^{n,1}$:
+\[
+\mathbb H^n_\mathbb C \to \mathbb B^n_\mathbb C = \left\{ z \in \mathbb C^{n}: |z_1|^2 + \cdots + |z_n|^2 < 1 \right\}, \quad z = (z_1, \cdots, z_n, z_{n+1}) \mapsto (z_1/z_{n+1}, \cdots, z_n/z_{n+1}).
+\]
+In these coordinates, the ball of radius $R$ is given by the $z \in \mathbb C^n$ such that
+\[
+\frac{1}{\left((1-|z|^2)^2\right)(-1)} < \cosh^2(R/2) \text{ or equivalently } |z|^2 < 1 - \cosh^{-2}(R/2).
+\]
+and the volume element is given by
+\[
+\d \mathrm{vol} = \frac{c}{\left(1 - |z|^2\right)^{2n-1}} \d x_1 \wedge \d y_1 \wedge \cdots \wedge \d x_n \wedge \d y_n,
+\]
+where $c$ is a positive constant, which does not matter when computing the volume entropy.
+Thus we calculate (up to a constant factor)
+\begin{align*}
+    \mathrm{Vol} B_R([0:\cdots:0:1]) &\simeq
+    \int_{|z|^2 < 1 - \cosh^{-2}(R/2)} \frac{1}{\left(1 - |z|^2\right)^{2n-1}} \d x_1 \d y_1 \cdots \d x_n \d y_n\\
+\end{align*}
+Then the volume of a ball is given by
+\[
+\mathrm{Vol} B_R([0:\cdots:0:1]) = c \sinh^4(R/2)
+\]
+which exponentially behaves like $e^{2R}$.
+So the volume entropy is given by
+\[
+\lim_{R \to \infty} \frac{\log \mathrm{Vol} B_R([0:\cdots:0:1])}{R} = 2.
+\]
 \printbibliography
 \end{document}
