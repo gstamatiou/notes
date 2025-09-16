@@ -248,6 +248,19 @@ Then we have:
         are closed.
     \end{enumerate}
 \end{theorem}
+\section{Various facts}
+\begin{proposition}
+    Let $\Gamma$ be a discrete group and $\rho: \Gamma \to G$ be a $P_\Theta$-Anosov in a semisimple Lie group $G$.
+    Then the image $\rho(\Gamma)$ is discrete.
+\end{proposition}
+\begin{proof}
+    Suppose $\rho(\Gamma)$ were not discrete.
+    Since $G$ is Hausdorff, this is equivalent to the existence of a sequence ${\rho(\gamma_n)}_n$ of distinct elements of $\rho(\Gamma)$ such that $\rho(\gamma_n) \to e$.
+    In particular, $\gamma_n$ is a sequence of distinct elements of $\Gamma$.
+    But by the continuity of the Cartan projection, we have that $\alpha(\mu(\rho(\gamma_n))) \to \alpha(\mu(e)) = 0$, for $\alpha \in \Theta$.
+    Hence the sequence $\mu(\rho(\gamma_n))$ is bounded, which given the $P_\Theta$-Anosov property of $\rho$, means that the word-lengths of ${\gamma_n}_n$ are bounded.
+    However, this implies that the sequence ${\gamma_n}_n$ is finite, which is a contradiction.
+\end{proof}
 
 \chapter{Lorentzian spaces}
 Here we recall some basic facts on Lorentzian spaces.
@@ -690,6 +703,9 @@ We are now ready to describe the dynamics of a Jordan block, which is the same a
         \]
         When $C_i$ is a real entry, this holds for $v \in \mathbb Rv_1$, while when $C_i$ is a $2 \times 2$ matrix, this holds for $v \in \mathbb R e_1 \oplus \mathbb R e_2$.
         \item If $J_i$ is upper-triangular but not a single entry, then $E_i$ contains an actual eigenvector (namely $e_1$) such that for $v \in E_i$ we have $J_i^n \mathbb Rv \to \mathbb Re_1$.
+        \item If $J_i$ is not upper-triangular, then the generalized eigenspace $E_i$ contains no eigenvalues, and there exists no attracting point in $\mathbb P(E_i)$.
+        \item If $J_i$ is upper-triangular but not a single entry, then the convergence in the eigenspace $E_i$ is not uniform.
+        \item A Jordan matrix $J$ is proximal if and only if $|j_1| > |j_2|$ and $J_1$ is a real entry.
     \end{enumerate}
     \begin{proof}
         While we will not give a concrete proof of this fact, we can consider examples.
@@ -703,28 +719,45 @@ We are now ready to describe the dynamics of a Jordan block, which is the same a
                 0 & a_i
             \end{pmatrix}.
             \]
-            Then for $w = w_1 e_1 + w_2 e_2 \in E_i$ we have
+            Let $w \in E_2$, we can write $\mathbb R w = \mathbb R(w_1 e_1 + e_2)$.
+            Inductively we show that 
             \[
-            J_i \mathbb R w = \mathbb R(w + a_i w_2 e_1).
+            J_i^n \mathbb R w = \mathbb R((w_1 j + n)e_1 + j e_2),
             \]
-            Then it is clear to see that $J_i^n \mathbb R w \to \mathbb R e_1 $ and that $J_i$ moves lines clockwise when $a_1 > 0 $ and counterclockwise when $a_1 < 0$.
-            (see \cref{fig:jordan_dynamics}).
-            \begin{figure}[ht]
-                \centering
-                \includegraphics[width=0.7\textwidth]{jordan_dynamics.jpg}
-                \caption{Dynamics of a Jordan block}
-                \label{fig:jordan_dynamics}
-            \end{figure}
+            which clearly converges to $\mathbb R e_1$ as $n \to \infty$.
+            \item It is clear that $\mathbb P(E_i)$ contains no eigenvalues.
+            To see that it contains no attracting fixed points, assume that $J_i$ is $2\times 2$.
+            Then $J_i$ acts on $\mathbb R e_1 \oplus \mathbb R e_2$ as a rotation and a similitude by, so any point line there does not converge.
+            \item Let 
+            \[
+            J = \begin{pmatrix}
+                j & 1 \\
+                0 & j
+            \end{pmatrix} \text{ and } v_n = (n, -j).
+            \]
+            Then 
+            \[
+            J^n = \begin{pmatrix}
+                j & n\\
+                0 & j
+                \end{pmatrix} \text{ in } \PGL(2, \mathbb R), \text{ and } J^n \mathbb R v_n = \begin{pmatrix}
+                    0\\
+                    -1
+                \end{pmatrix}.
+            \]
+            \item If $|j_1| > |j_2|$ and $J_1$ is a real entry, then for $w \in \mathbb R^d$, we can write $w = w_1 + \cdots + w_m$ with each $w_i \in E_i$.
+            Then in the projective space, we have
+            \[
+            J^n w = \frac{1}{|j_1|^n} J_1 w_1 + \cdots + \frac{1}{|j_1|^n} J_m w_m,
+            \]
+            with
+            \[
+            |\frac{1}{|j_1|^n} J^n w_i| = \left(\frac{j_i}{j_1}\right)^n |w_i| \to 0 \text{ for } i \geq 2 \text{ uniformly on compact sets.}
+            \]
+            So $J^n w \to \mathbb R e_1$ uniformly on compact neighborhoods of $\mathbb R e_1$.
+            If on the other hand $|j_1| = |j_2|$, then the same arguement shows that $J^n$ does not converge for $w \in E_1 \oplus E_2$, while for $|j_1| > |j_2|$, not being a single entry means that either there is no attractive fixed point or that the convergence is not uniform.
         \end{enumerate}
     \end{proof}
-    \begin{remark}
-        Even when a Jordan block upper triangular and is not a single entry, the eigenline may not be an attracting fixed point since the convergence is not uniform.
-        Take for example 
-        \[
-        J = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \text{ and } v_n = (n, -1).
-        \]
-        Then $J^n v_n = (0, -1)$, even though $v_n \to e_1, J^n \mathbb R v_{n_0} \to \mathbb R e_1$ as $n \to \infty$ .
-    \end{remark}
 \end{lemma}
 
 We now consider the Jordan matrix (see \cref{fig:jordan_matrix_dynamics}):
@@ -2147,9 +2180,13 @@ Then the functionals of $\mathfrak a_0^*$ that vanish when restricted to $\mathf
 \[
 \mathfrak h_0^\perp = \left\{ \diag(a, -2a, a) : a \in \mathbb R \right\} \simeq \mathbb R (\alpha_1 - \alpha_2) = \mathbb R (L_2 + \mathbb R (L_1 + L_2 + L_3)).
 \]
-\item The only spacelike cocompact representation of $\SL(d,\mathbb R)$ with $p = \dim(G/K)$ is the symmetric cube
+\item The only spacelike cocompact representations of $\SL(d,\mathbb R)$ with $p = \dim(G/K)$ are the symmetric cube
 \[
-\rho:\SL(2,\mathbb R) \to \Sym^3(\mathbb R^2) \to \SO(2,2).
+\rho:\SL(2,\mathbb R) \to \Sym^3(\mathbb R^2) \to \SO(3,2),
+\]
+and the symmetric square of the wedge square of the standard representation of $\SL(4,\mathbb R)$, i.e.\ 
+\[
+\rho: \SL(4,\mathbb R) \to \SO(\Sym^2 \wedge^2 \mathbb R^4) \simeq \SO(12,9).
 \]
 \begin{proof}
 To see this, recall that for $G = \SL(d,\mathbb R)$, we have
@@ -2161,69 +2198,406 @@ Since in our case this is equal to $\dim(G/K)$, we need to show that $p > d(d+1)
 Indeed, the fundamental weights of self-dual representations of $\SL(d,\mathbb R)$ are given by $\omega_i + \omega_{d-i}$ for $i<d/2$ and $\omega_{d/2}$ for $d$ even.
 Assuming that $2\leq i \neq d/2$, half of the orbit of $\Lambda = \omega_i + \omega_{d-i}$ under the action of the Weyl group $\mathcal W$ has cardinality
 \[
-\frac{1}{2} \cdot \frac{d!}{i!(d-2i)!} \geq \frac{1}{2} \cdot \frac{d!}{2!(d-4)!} > \frac{d(d+1)}{2} - 1, \text{ for } d \geq 4.
+\frac{1}{2} \cdot \frac{d!}{i!(d-2i)!} \geq \frac{1}{2} \cdot \frac{d!}{2!(d-4)!} > \frac{d(d+1)}{2} - 1, \text{ for } d \geq 5.
 \]
 On the other hand, if $i = d/2$, then half of the orbit of $\Lambda = \omega_{d/2}$ has cardinality
 \[
 \frac{1}{2} (2k)!/(k!) > \frac{2k(2k+1)}{2} -1, \text{ for } k \geq 3
 \]
-Hence it suffices to check the case $d = 2,3$, $i=1$ and $(i,d) = (1,2), (2,4)$.
-The case $(i,d) = (2,4)$ corresponds to the isomorphism $\SL(4,\mathbb R) \to \SO(3,3)$, which is not spacelike cocompact.
-The case $i = 1$ corresponds to the adjoint representation 
+Hence it suffices to check the case $d = 2,3,4$, $i=1$ and $(i,d) = (1,2), (2,4)$.
+The case $i = 1, d \geq 3$ corresponds to the adjoint representation 
 \[
-\Ad: \SL(d,\mathbb R) \to \SO(\frac{d(d+1)}{2}-1, \frac{d(d-1)}{2}),
+\Ad: \SL(d,\mathbb R) \to \SO\left(\frac{d(d+1)}{2}-1, \frac{d(d-1)}{2}\right),
 \]
 which is not spacelike cocompact becase there exists no element of the Lie algebra $\mathfrak{sl}(d,\mathbb R)$ that is commutes with all elements of $K = \SO(d)$.
+On the other hand, since it admits the zero weight, its symmetric powers have at least $\binom{d}{2}$ positive weights, which is larger than $\dim(G/K)$ for $d \geq 3$.
 This handles also the case of $d = 3$.
-Finally, for the case $d = 2$, we have that only the symmetric cube $\Sym^3(\mathbb R^2)$ which is in $\SO(2,2)$.
-More concretely, we have that $\Sym^3(\mathbb R^2) \simeq \Sp(4, \mathbb R)$, but composing with the exceptional isomorphism $\Sp(4, \mathbb R) \to \SO(2,2)$, we obtain a representation $\rho: \SL(2,\mathbb R) \to \SO(2,2)$.
+
+For the case $d=4$, we note that $(i,d) = (2,4)$ corresponds to the isomorphism $\SL(4,\mathbb R) \to \SO(3,3)$, which is not spacelike cocompact.
+On the other hand, the symmetric square of the exterior square of the standard representation takes values in  $\SO(\Sym^2(\wedge^2\mathbb R^4)) \simeq \SO(12,9)$, and all its weights are simple, so it is irreducible.
+To see that it is spacelike cocompact, we note that the wedge product of the standard representation $\wedge^2 \mathbb R^4$ is a special isomorphism of $\SL(4,\mathbb R)$ and $\SO(3,3)$.
+Thus the symmetric square $\wedge^2 \mathbb R^4$ is the same representation as the symmetric square of the standard representation $\Sym^2(\mathbb R^{3,3})$ of $\SO(3,3)$. 
+Since $\Sym^2(\mathbb R^6)$ is the isomorphic to the space of symmetric bilinear forms on $\mathbb R^6$, we know that the action of $\SO(3,3)$ is in fact the adjoint action of $\SO(3,3)$ on the space of symmetric bilinear forms on $\mathbb R^6$, which we have shown to be spacelike cocompact.
+
+Finally, for the case $d = 2$, we have that $\Sym^2(\mathbb R^2)$ has signature $(2,1)$, so it is not spacelike cocompact.
+On the other hand, $\Sym^4(\mathbb R^2)$ has signature $(3,2)$, so it could be spacelike cocompact.
+Seeing this representation in another way, we have that $\Sym^3(\mathbb R^2) \simeq \Sp(4, \mathbb R)$, but composing with the exceptional isomorphism $\Sp(4, \mathbb R) \to \SO(3,2)$, we obtain a representation $\rho: \SL(2,\mathbb R) \to \SO(3,2)$.
 This is a Hitchin representation (and thus maximal), which is known to be spacelike cocompact, since maximal representations are spacelike cocompact.
 \end{proof}
 \end{itemize}    
 
 
-\section{2025-06-24}
-\subsection{Volume entropy for complex hyperbolic spaces}
-\begin{definition}
-    The complex hyperbolic space $\mathbb H^n_\mathbb C$ is defined as
-    \[
-    \mathbb H^n_\mathbb C = \left\{ z \in \mathbb P(\mathbb C^{n,1}): \langle z, z \rangle < 0 \right\}, 
-    \]
-    where the inner product $\langle \cdot, \cdot \rangle$ is the standard Hermitian inner product on $\mathbb C^{n,1}$:
-    \[
-    \langle z, w \rangle = z_1 \overline{w_1} + z_2 \overline{w_2} + \cdots + z_n \overline{w_n} - z_{n+1} \overline{w_{n+1}}.
-    \]
-\end{definition}
-The induced metric on $\mathbb H^n_\mathbb C$ is the Bergman metric, given by the relation
-\[
-\cosh^2(\frac{d(z,w)}{2}) = \frac{\langle z,w \rangle \langle w,z \rangle}{\langle z,z \rangle \langle w,w \rangle}.
-\]
-We can identify $\mathbb H^n_\mathbb C$ with the unit ball in $\mathbb C^{n,1}$:
-\[
-\mathbb H^n_\mathbb C \to \mathbb B^n_\mathbb C = \left\{ z \in \mathbb C^{n}: |z_1|^2 + \cdots + |z_n|^2 < 1 \right\}, \quad z = (z_1, \cdots, z_n, z_{n+1}) \mapsto (z_1/z_{n+1}, \cdots, z_n/z_{n+1}).
-\]
-In these coordinates, the ball of radius $R$ is given by the $z \in \mathbb C^n$ such that
-\[
-\frac{1}{\left((1-|z|^2)^2\right)(-1)} < \cosh^2(R/2) \text{ or equivalently } |z|^2 < 1 - \cosh^{-2}(R/2).
-\]
-and the volume element is given by
-\[
-\d \mathrm{vol} = \frac{c}{\left(1 - |z|^2\right)^{2n-1}} \d x_1 \wedge \d y_1 \wedge \cdots \wedge \d x_n \wedge \d y_n,
-\]
-where $c$ is a positive constant, which does not matter when computing the volume entropy.
-Thus we calculate (up to a constant factor)
+\section{2025-07-02 - Classification of real subgroups of Lie group}
+Let $G$ be a Lie group.
+Then the classification of simple subgroups of $G$ is the same as classifying the representations $\rho:H \to G$ where $H$ is a simple Lie group, in the sense that the following correspondence is \underline{NOT} a bijection:
 \begin{align*}
-    \mathrm{Vol} B_R([0:\cdots:0:1]) &\simeq
-    \int_{|z|^2 < 1 - \cosh^{-2}(R/2)} \frac{1}{\left(1 - |z|^2\right)^{2n-1}} \d x_1 \d y_1 \cdots \d x_n \d y_n\\
+\left\{ \text{Simple subgroups of } G \right\} &\leftrightarrow \left\{ \rho: H \to G : H \text{ simple}, \rho \text{ not trivial} \right\} \\
+H &\mapsto H \hookrightarrow G, \\
+\rho(H) &\mapsfrom \rho: H \to G.
 \end{align*}
-Then the volume of a ball is given by
-\[
-\mathrm{Vol} B_R([0:\cdots:0:1]) = c \sinh^4(R/2)
-\]
-which exponentially behaves like $e^{2R}$.
-So the volume entropy is given by
-\[
-\lim_{R \to \infty} \frac{\log \mathrm{Vol} B_R([0:\cdots:0:1])}{R} = 2.
-\]
-\printbibliography
+Here, simplicity of $G$ and nontriviality imply that $\rho$ is injective, so $\rho(H) \simeq H$.
+\begin{itemize}
+    \item LRL $= \mathrm{Id}$.
+    \item Right to left direction is surjective, since we can take the injections.
+    \item RLR $ \neq \mathrm{Id}$ since $\rho \mapsto \rho(H) \mapsto i_{\rho(H)} \neq H$. We could try fixing this by considering a map 
+    \[
+    \left\{ \text{Simple subgroups of } G \right\}/\simeq \leftrightarrow \left\{ \rho: H \to G : H \text{ simple}, \rho \text{ not trivial} \right\} / \sim
+    \]
+    where $\rho: H \to G$ is equivalent to $\rho': H' \to G$ if there exists an isomorphism $\phi: H \to H'$ such that $\rho' \simeq \rho \circ \phi$ as representations.
+    But then, the left to right direction is not well defined, since for $\phi: H \to H'$ an isomorphism, we have that $\phi \circ i_H \not \simeq i_{H'}$ in general.
+    On the other hand, if we consider a map 
+    \[
+    \left\{ \text{Simple subgroups of } G \right\} \leftrightarrow \left\{ \rho: H \to G : H \text{ simple}, \rho \text{ not trivial} \right\} / \sim
+    \]
+    it is not well defined either because for $\rho \sim \rho'$, we only have $\rho(H) \simeq H \simeq H' \simeq \rho(H')$ and not equality.
+\end{itemize}
+\section{2025-08-07}
+\begin{itemize}
+    \item Irreducible representations of $\PSL(2,\mathbb R)$:\\
+    It is known that the irreducible representations of $\SL(2,\mathbb R)$ are exactly the symmetric products of the standard representation.
+    Seen differently, $\rho_d: \SL(2,\mathbb R) \to \SL(\Sym^{d-1}\mathbb R^2)$ acts on the space of homogeneous polynomials of degree $d-1$ in two variables as
+    \[
+    \rho\left(\begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}\right) x^i y^j = (ax + cy)^i (by + dy)^j,
+    \]
+    for $i+j = d-1$.
+    Clearly this representation factors factors through a projective representation $\PSL(2,\mathbb R) \to \PSL(\mathbb R^d)$, which is irreducible, since the projection $\SL(i, \mathbb R) \to \PSL(i, \mathbb R)$ is a covering map and the differential is an irreducible representation of the Lie algebra $\mathfrak{sl}(2,\mathbb R)$.
+    \item Quasifuchsian representation\\
+    Let $\Gamma$ be a discrete subgroup of $\PSL(2,\mathbb R)$.
+    Then a representation $\rho:\Gamma \to \PSL(d,\mathbb R)$ is a quasifuchsian representation if it is the restriction of the irreducible representation $\PSL(2,\mathbb R) \to \PSL(d,\mathbb R)$ to $\Gamma$.
+    \item Hitchin representations\\
+    A representation of a hyperbolic surface group $\pi_1(S) \leq \SL(2,\mathbb R)$ is Hitchin if it is in the same connected compoment of $\hom(\pi_1(S), \SL(2,\mathbb R))$ as the Fuchsian representation of $\pi_1(S)$.
+    \item Discrete subgroups of $\SL(2,\mathbb R)$\\
+    Let $\Gamma \leq \SL(2,\mathbb R)$ be a discrete torsion-free subgroup.
+    Then we have the following cases (see \cref{fig:quotients_SL2R}):
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Gamma$ is a uniform lattice: Then $\mathbb H^2 / \Gamma$ is a closed hyperbolic surface.
+        \item $\Gamma$ is a nonuniform lattice: Then $\mathbb H^2 / \Gamma$ is a noncompact hyperbolic surface, which contains cusps (volume stays finite).
+        \item $\Gamma$ is not a lattice: Then $\mathbb H^2 / \Gamma$ is a noncompact hyperbolic surface, which contains funnels and possibly cusps.
+    \end{enumerate}
+    \begin{figure}[ht]
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+            \includegraphics[width=\textwidth]{figures/uniform_lattice.png}
+            \caption{Quotient with uniform lattice}
+            \label{fig:uniform_lattice}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \includegraphics[width=\textwidth]{figures/non_uniform_lattice.png}
+            \caption{Quotient with nonuniform lattice}
+            \label{fig:nonuniform_lattice}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.3\textwidth}
+            \includegraphics[width=\textwidth]{figures/non_lattice.png}
+            \caption{Quotient with nonlattice}
+            \label{fig:nonlattice}
+        \end{subfigure}
+        \caption{Quotients with discrete subgroups of $\SL(2,\mathbb R)$}
+        \label{fig:quotients_SL2R}
+    \end{figure}
+    \item Irreducibility assumption for $\mathbb H^{p,q}$-convex-cocompact and spacelike cocompact representations
+    \begin{lemma}
+        Let $\rho: \Gamma \to \SO(p,q)$.
+        Under certain conditions on $\rho$, exactly one of the three occurs:
+        \begin{enumerate}[label=(\roman*)]
+            \item $\rho$ is irreducible.
+            \item $\rho$ is reducible, with $p \neq q$.\\
+            In this case, $\rho(G) \subseteq \mathrm{S}(\OO(p, q') \times \OO(q - q'))$, and the projection of $\rho$ onto $\SO(p,q')$ satisfies some of the certain conditions.
+            \item $\rho$ is reducible, with $p = q$.\\
+            In this case, $\rho(G)$ preserves two isotropic transverse isotropic subspaces of dimension~$p$.
+        \end{enumerate}
+    \end{lemma}
+    The conditions could include that $\rho$ is $\mathbb H^{p,q}$-convex cocompact or spacelike cocompact.
+    \item If $\rho: \Gamma \to \SO(p,q)$ is reducible, $\mathbb H^{p,q}$-convex cocompact, and preserves a \underline{non-degenerate} subspace $V \subseteq \mathbb R^{p,q}$, then $\rho(\Gamma) \subseteq \mathrm{S}(\OO(p,q') \times \OO(q - q'))$.\\
+    The idea is to note that since $\rho$ is $\mathbb H^{p,q}$-convex cocompact, it is Anosov, with limit set $\Lambda_\rho$ being negative.
+    Since the limit set $\Lambda_\rho$ is contained in $\partial \mathbb H^{p,q}$, we have that $W = \mathrm{span}_\mathbb R (\pi^{-1}(\Lambda_\rho))$ is non-degenerate (since it is generated by negative lines), where $\pi: \mathbb R^{p,q} \to \mathbb H^{p,q}$.
+    Thus (by semisimplicity of the representation) there exists a non-degenerate subspace $V \subseteq W$ such that $\rho(\Gamma)$ preserves $V$.
+    Letting $q-q'= \dim W$, we have that $\mathrm{sgn}(W) = (0, q-q')$ and $\mathrm{sgn}(V) = (p, q-q')$, implying that $\rho(\Gamma) \subseteq \mathrm{S}(\OO(p,q') \times \OO(q - q'))$.\todo{Not used non-degeneracy of preserved subspace}
+    Moreover, when we consider the projection onto V, the limit set does not change and it is negative, and it still satisfies the Anosov property, so it is still $\mathbb H^{p,q'-1}$-convex cocompact.
+\end{itemize}
+\section{2025-07-10}
+\begin{itemize}
+    \item The span of the limit set for an Anosov representation is irreducible.
+    \begin{lemma}
+        Let $\Gamma$ be a non-elementary hyperbolic group and $\rho: \Gamma \to G$ be a $\Theta$-Anosov representation into a linear group $G$.
+        Then the span $\mathrm{span}(\Lambda_\rho)$ of the limit set $\Lambda_\rho$ is an invariant subspace of $\rho(\Gamma)$, on which $\rho(\Gamma)$ acts irreducibly.
+    \end{lemma}
+    \begin{proof}\todo{Do we really need that $\mathrm{vcd}(\Gamma) = p$ and that $\rho$ is $\mathbb H^{p,q}$-convex cocompact?}
+        \todo{Maybe we just need (and should somehow use) that $\Lambda_\rho$ is connected?}
+        Let $\xi^+(x) \in \Lambda_\rho$ be a point in the limit set, where $x \in \partial_\infty \Gamma$.
+        Then by the equivariance of the limit map, we have that $\rho(\gamma) \xi^+(x) = \xi^+(\gamma x) \in \Lambda_\rho$ for all $\gamma \in \Gamma$, so $\Lambda_\rho$ is invariant under the action of $\rho(\Gamma)$.
+
+        To see that $\rho(\Gamma)$ acts irreducibly on $V = \mathrm{span}(\Lambda_\rho)$, we assume the contrary for the sake of contradiction.
+        Let $W \subseteq V$ be an invariant subspace of $\rho(\Gamma)$.
+        Consider some $\xi^+(\gamma^+) \in \Lambda_\rho$ for $x \in \partial_\infty \Gamma$, and let $\gamma^- \in \Gamma - \{\gamma^+\}$.
+        Then there exists a geodesic $\gamma_n$ such that $\lim_{n \to \pm \infty} \gamma_n = \gamma^\pm$.
+        If $w \in W - \xi^-(\gamma^-)$, we have that
+        \[
+        \rho(\gamma_n) w \to \xi^+(\gamma^+) \in W,
+        \]
+        meaning that $\xi^+(\gamma^+) \in W$.
+        This will imply that $\spa(\Lambda_\rho) \subseteq W$, unless every element $w \in W$ is contained in $\xi^-(\gamma^-)$, for all $\gamma^- \in \Gamma - \{\gamma^+\}$.
+        In other words, it suffices to exclude the case that 
+        \[
+        W \subseteq \bigcap_{\gamma^- \in \Gamma - \{\gamma^+\}} \xi^-(\gamma^-) = \left(\xi(\partial_\infty \Gamma-x)\right)^\perp,
+        \]
+        where the last equality follows from the fact that $\xi^-(y) = \xi^+(y)^\perp$ for all $y \in \partial_\infty \Gamma$.
+        
+        We claim that the element on the right-hand side is trivial, i.e.\ $W = \{0\}$.
+        Indeed, for each two distinct $y, z \in \partial_\infty \Gamma$, we have that $\xi^-(y) \cap \xi^-(z)$ is a subspace of codimension at most one in the hyperplane $\xi^-(y)$.
+        This follows from the fact that $\xi^-(y) \neq \xi^-(z)$ for $y \neq z$, since $\xi^+(y) \in \xi^-(y)$ and $\xi^+(y) \cap \xi^-(z) = \{0\}$.
+        The same argument applies to the intersection of a finite number of hyperplanes $\xi^-(y_1), \cdots, \xi^-(y_n)$, where $y_i \in \partial_\infty \Gamma$ are distinct.
+        Since $\Gamma$ is non-elementary, $\partial_\infty \Gamma$ is infinite and due to finite-dimensionality, we have that the intersection of all hyperplanes $\xi^-(y)$ for $y \in \partial_\infty \Gamma$ is trivial, i.e.\ $W = \{0\}$.
+    \end{proof}
+    \item A claim for $\mathbb H^{p,q}$-convex cocompact representations of maximal dimension:\todo{Could have something to do with the $j$-crowns in \cite{beyrer2023mathbb}}  
+    \begin{claim}
+        Let $\rho:\Gamma \to \SO(p,q) \to \mathbb H^{p,q}$ be a $\mathbb H^{p,q}$-convex cocompact representation of maximal dimension.
+        Then there exist points $x_1, \cdots, x_{p+1}$ in $\Lambda_\rho$ that span a subspace of signature $(p,1)$, i.e.\ 
+        \[
+        \spa\{x_1, \cdots, x_{p+1}\} \simeq \mathbb R^{p,1}.
+        \]
+    \end{claim}
+    \item If the above claim is true, then we can deduce the following:
+    Reducible $\mathbb H^{p,q}$-convex cocompact representations of maximal dimension restrict to a subrepresentation that is $\mathbb H^{p,q'}$-convex cocompact of maximal dimension.
+    \begin{lemma}
+        Let $\rho:\Gamma \to \SO(p,q) \to \mathbb H^{p,q}$ be a $\mathbb H^{p,q}$-convex cocompact representation of maximal dimension, where $\Gamma$ is a non-elementary hyperbolic group.
+        If $rho$ is reducible, then $\rho(G) \subseteq \mathrm{S}(\OO(p,q') \times \OO(q-q'))$, and the restriction of $\rho$ to the subrepresentation $\rho': \Gamma \to \SO(p,q')$ is $\mathbb H^{p,q'}$-convex cocompact of maximal dimension.
+    \end{lemma}
+    \begin{proof}
+        Let $V = \mathrm{span}(\Lambda_\rho)$ be the span of the limit set $\Lambda_\rho$.
+        We know that $V$ is an irreducible subrepresentation of $\rho$, and since $\rho(\Gamma)$ acts cocompactly on $\mathrm{Conv}(\Lambda_\rho)$, we have that $\rho: \Gamma \to \SO(p', q')$ is $\mathbb H^{p',q'}$-convex cocompact, where $(p', q')$ is the signature of $V$.
+        
+        To show that $p' = p$, let $x_1, \cdots, x_{p+1} \in \Lambda_\rho$ be such that $W = \spa\{x_1, \cdots, x_{p+1}\} \simeq \mathbb R^{p,1}$.
+        Then we have that $W \subseteq V$, so $p' \leq p$.
+    \end{proof}
+\end{itemize}
+\section{2025-07-11}
+\begin{itemize}
+\item There exist no irreducible $\mathbb H^{p,q}$-convex cocompact representations of maximal dimension from $\Sp(2n, \mathbb R)$, except for the $\mathbb H^{p,q}$-convex cocompact subgroups of $\Sp(4, \mathbb R) \simeq \SO(3,2)$ of maximal dimension.
+\begin{lemma}
+    Let $\rho: \Sp(2n, \mathbb R) \to \SO(p,q)$ be an irreducible representation such that there exists some discrete subgroup $\Gamma \leq G$ for which $\rho_{|\Gamma}$ is an $\mathbb H^{p,q+1}$-convex cocompact representation of maximal dimension.
+    Then $n = 2, \mathrm{vcd}(\Gamma) = 2$ and $\rho$ is the special Lie group isomorphism
+    \[
+    \rho: \Sp(4, \mathbb R) \to \SO(\wedge^2 \mathbb R^4) \simeq \SO(2,3).
+    \]
+\end{lemma}
+\begin{proof}
+    Assume that $\rho: \Sp(2n, \mathbb R) \to \SO(p,q)$ is an irreducible representation such that there exists some discrete subgroup $\Gamma \leq G$ for which $\rho_{|\Gamma}$ is an $\mathbb H^{p,q+1}$-convex cocompact representation of maximal dimension.
+    Then $\rho$ is $P_1$-Anosov, and $\Gamma$ is $P_\Theta$-Anosov in $\Sp(2n,\mathbb R)$, for
+    \[
+    \Theta = \{ \alpha \in \Delta(\Sp(2n,\mathbb R)): \langle \alpha, \Lambda \rangle \neq 0 \},
+    \]
+    where $\Lambda$ is the highest weight of $\rho$.
+    In particular, $\Gamma$ is $P_i$-Anosov in $\Sp(2n,\mathbb R)$ for some $1 \leq i \leq n$.
+    
+    Moreover, since $\Gamma$ is $P_i$-Anosov in $\Sp(2n,\mathbb R)$, we have that the limit set $\partial_\infty \Gamma$ of $\Gamma$ embeds into the flag variety $\mathcal F_\Theta = \Sp(2n,\mathbb R) / P_\Theta$ of $\Sp(2n,\mathbb R)$, which in turn embeds into each flag variety $\mathcal F_j = \Sp(2n,\mathbb R) / P_j$ for each $\alpha_j \in \Theta$.
+    Since the Lie algebra of every maximal parabolic subgroup $P_j$ of $\Sp(2n,\mathbb R)$ is given as the intersection of $\sp(2n,\mathbb R)$ with the stepwise upper triangular matrices (where the step is in the $j$-th collumn), we have that the maximal parabolic subgroup with the minimum dimension is $P_1$.
+    Equivalently, the flag variety $\mathcal F_1$ has the smallest dimension among all flag varieties $\mathcal F_j$.
+    In other words:
+    \[
+    \dim(\mathcal F_\Theta) \leq \dim(\mathcal F_1) = n-1.
+    \]
+    Using the equality of Bestvina-Mess, we have that $\mathrm{vcd}(\Gamma) = \dim(\partial_\infty \Gamma) + 1 \leq \dim(\mathcal F_\Theta) + 1 \leq n$.
+    Combining with the fact that the positive weights of $\rho$ are at most $\min\{p,q\}$, we have that
+    \[
+    \mathcal P_{>0}(\rho) \leq p = \mathrm{vcd}(\Gamma) \leq n \leq \dim(\mathcal F_1) + 1.
+    \]
+
+    Since $\rho$ is an irreducible representation of $\Sp(2n, \mathbb R)$, we know that it is a subrepresentation of the tensor product of symmetric powers of exterior powers of the standard representation $\mathbb R^{2n}$:
+    \[
+    \rho: \Sp(2n, \mathbb R) \to \bigotimes_{i=1}^n \Sym^{k_i}(\wedge^i \mathbb R^{2n}),
+    \]
+    where $k_i \geq 0$ are integers.
+    If a symmetric power of the exterior power $\wedge^i \mathbb R^{2n}$ appears in the product, then the highest weight of $\rho$ is given by $\Lambda = L_1 \oplus +\cdots + L_i$, which has an orbit of cardinality $2^i \cdot n!/i!$ through the Weyl group.
+    Since each such representation is self-dual, half of these weights are positive, meaning that the number of positive weights is at least $2^{i-1} \cdot n (n-1) \cdots (n-i+1)$.
+    
+    Clearly, for $n \geq 3$, these are more than $n$ positive weights, so we must have $n = 2$ and thus $i = 1,2$.
+    If $i = 1$, then the standard representation appears in the product.
+    Since it is symplectic it needs to appear either along with another exterior power that carries a symplectic structure, or to appear as a symmetric power of the standard representation.
+    Since the only exterior powers that appear as factors are $\mathbb R^{2n}$ and $\wedge^2 \mathbb R^{2n}$, the first option is not feasible.
+    On the other hand, neither is the second option, since any symmetric power of the standard representation will have more than $n$ positive weights.
+
+    Hence we must have $i = 2$, with highest weight $\Lambda(\Sym^k(\wedge^2 \mathbb R^{2n})) = 2k(L_1 + L_2)$.
+    The orbit of the highest weight has at least two weights: $2k(L_1 \pm L_2)$.
+    If $k > 1$, then there exist also positive weights that are not in the orbit of the highest weight, so we must have $k = 1$.
+    Said differently, the only possibility is the special Lie group isomorphism of $\Sp(4, \mathbb R)$ in the orthogonal complement $(\mathbb R \omega)^\perp \subseteq \wedge^2 \mathbb R^4$, where $\omega$ is the symplectic form on $\mathbb R^4$ preserved by $\Sp(4, \mathbb R)$.
+    \[
+    \wedge^2\left(\mathrm{std}\right): \Sp(4, \mathbb R) \to \SO(2,3).
+    \]
+\end{proof}
+\end{itemize}
+\section{2025-07-15}
+\begin{itemize}
+\item Most irreducible representation from $\SO(n+1,n)$ to some $\SO(p,q)$ that restricts to a convex-cocompact representation of maximal dimension are the standard representation.
+\begin{lemma}
+    Let $\rho: \SO(n+1,n) \to \SO(p,q)$ be an irreducible representation such that there exists some discrete subgroup $\Gamma \leq G$ for which $\rho_{|\Gamma}$ is an $\mathbb H^{p,q+1}$-convex cocompact representation of maximal dimension.
+    Then $\rho$ is either the standard representation $\SO(n+1,n) \to \SO(n+1,n)$, or it is the adjoint representation of $\SO(2,1)$ or $\SO(3,2)$:
+    \begin{align*}
+        \Ad: \Gamma \leq \SO(2,1) \to \SO(1,2), \text{ with } \mathrm{vcd}(\Gamma) = 1\\
+        \Ad: \Gamma \leq \SO(3,2) \to \SO(4,6), \text{ with } \mathrm{vcd}(\Gamma) = 4.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    Assume that $\rho: \SO(n+1,n) \to \SO(p,q)$ is an irreducible representation such that there exists some discrete subgroup $\Gamma \leq G$ for which $\rho_{|\Gamma}$ is an $\mathbb H^{p,q+1}$-convex cocompact representation of maximal dimension.
+    Then $\rho$ is $P_1$-Anosov, and $\Gamma$ is $P_\Theta$-Anosov in $\SO(n+1,n)$, for some $\Theta \subseteq \{1,\ldots,n\}$.
+    In particular, $\partial_\infty \Gamma$ embeds into the flag variety $\mathcal F_\Theta = \SO(n+1,n) / P_\Theta$ of $\SO(n+1,n)$, which in turn embeds into each flag variety $\mathcal F_j = \SO(n+1,n) / P_j$ for each $\alpha_j \in \Theta$.
+    Since the maximal parabolic subgroups of $\SO(n+1,n)$ are the stabilizers of isotropic $k$-subspaces for $k = 1, \ldots, n$, whose matrix form is given by the stepwise upper triangular matrices, we have that the maximal parabolic subgroup with the minimum dimension is $P_1$, or equivalently, the flag variety $\mathcal F_1$ has the smallest dimension among all flag varieties $\mathcal F_j$.
+    Using the result of Bestvina-Mess, we have that 
+    \[
+    \mathrm{vcd}(\Gamma) = \dim(\partial_\infty \Gamma) + 1 \leq \dim(\mathcal F_{\{\mathbf a_1\}}) + 1 \leq 2n+1.
+    \]
+    Combining with the fact that the positive weights of $\rho$ are at most $\min\{p,q\}$, we have that
+    \[
+    \sharp \mathcal P_{>0}(\rho) \leq p = \mathrm{vcd}(\Gamma) \leq 2n+1.
+    \]
+
+    Since $\rho$ is an irreducible representation of $\SO(n+1,n)$, we know that it is a subrepresentation of the tensor product of symmetric powers of exterior powers of the standard representation $\mathbb R^{n+1,n}$:
+    \[
+    \rho: \SO(n+1,n) \to \bigotimes_{i=1}^n \Sym^{k_i}(\wedge^i \mathbb R^{n+1,n}),
+    \]
+    where $k_i \geq 0$ are integers.
+
+    It will be useful to note that the weights of each exterior (or symmetric) power are also weights of every higher exterior (or symmetric) power, since $0$ is a weight of the standard representation.
+    This implies that exterior powers higher than $3$ do not appear in the product, since $\wedge^3 \mathbb R^{n+1,n}$ has at least
+    \[
+    \binom{n}{3} + 2 \cdot \binom{n}{2} + n 
+    \]
+    positive weights (as sums $L_i + L_j + L_k, L_i + L_j, L_i - L_j, L_i$ for $1 \leq i < j < k \leq n$), which is larger than $2n+1$ for $n \geq 3$.
+
+    On the other hand, we note that the exterior square $\wedge^2 \mathbb R^{n+1,n}$ is the adjoint representation which can be found to land in $\SO(n^2, n(2n+1))$, which means that it can't appear in the product for $n \geq 3$.
+
+    Symmetric powers of the standard representation $\Sym^k(\mathbb R^{n+1,n})$ can not appear either for $k \geq 2$, since its weights are given by $\pm 2L_i, \pm L_i, \pm L_i \pm L_j$ for $1 \leq i < j \leq n$, so the number of positive ones exceeds $2n+1$.
+    Similarly we exclude the case of products involving $\mathbb R^{n+1,n}$ and $\wedge^2 \mathbb R^{n+1,n}$.
+\end{proof}
+\end{itemize}
+\section{2025-09-04}
+\begin{itemize}
+    \item Let $\Gamma$ be a non-elementary hyperbolic group and $\rho: \Gamma \to G$ be a $\Theta$-Anosov representation into a $\SL(d,\mathbb R)$.
+    Then for $\alpha_k \in \Theta$, there exists no subspace in $\mathcal G_k(R^d)$ that is in all the subspaces $\xi^{d-k}(x)$ for $x \in \partial_\infty \Gamma$.
+    \begin{proof}
+        What we want to show is that
+        \[
+        \cap_{x \in \partial_\infty \Gamma} \xi^{d-k}(x) = \{0\}.
+        \]
+        Let $x \neq y \in \partial_\infty \Gamma$.
+        Then $\xi^{d-k}(x) \cap \xi^{d-k}(y)$ is a subspace of codimension at least one in $\xi^{d-k}(x)$, since $\xi^{d-k}(x) \neq \xi^{d-k}(y)$.
+        The same arguement implies that in each intersection, the dimension decreases by at least one.
+        Since $\Gamma$ is non-elementary, $\partial_\infty \Gamma$ is infinite, so the intersection must be trivial.
+    \end{proof}
+    \item Let $\Gamma$ be a non-elementary hyperbolic group and $\rho: \Gamma \to \SL(d,\mathbb R)$ be an $\mathbb H^{p,q}$-convex cocompact representation.
+    If $\Omega \subseteq \mathbb R^{p,q}$ is a properly convex domain preserved by $\rho(\Gamma)$, then the limit set $\Lambda_\rho$ is contained in the closure $\overline{\mathbb P(\Omega)}$ of the projectivization $\mathbb P(\Omega)$ of $\Omega$.
+    \begin{proof}
+        Since the action of $\Gamma$ on $\xi^1(\partial_\infty \Gamma)$ is minimal, i.e.\ every orbit is dense, it suffices to show that there exists some $x \in \partial_\infty \Gamma$ such that $\xi^1(x) \in \overline{\mathbb P(\Omega)}$.
+    \end{proof}
+    \item Let $\rho: \Gamma \to \SO(p, q+1)$ be an $\mathbb H^{p,q}$-convex cocompact representation, and $\Omega \subseteq \mathbb R^{p,q+1}$ be a properly convex domain preserved by $\rho(\Gamma)$.
+    Then the lift of the limit set $\pi^{-1}(\Lambda_\rho)$ under the double covering $\pi: \mathbb S^{p-1} \times \mathbb S^q \to \partial \mathbb H^{p,q}$ has two connected components, each of which is a copy of $pi^{-1}(\Lambda_\rho)$, in the sense that when restricted to each, $\pi$ is a homeomorphism onto $\Lambda_\rho$.
+    \begin{proof}
+        First we show that $\pi^{-1}(\Lambda_\rho)$ is not connected, i.e.\ it has at least two connected components.
+        Assume the contrary for the sake of contradiction.
+        Then for $x \in \pi^{-1}(\Lambda_\rho)$, we have that $-x \in \pi^{-1}(\Lambda_\rho)$ as well.
+        Since $\Omega$ is properly convex, there exists a hyperplane $H$ that does not intersect $\bar \Omega$.
+        Let $\gamma: I \to \pi^{-1}(\Lambda_\rho)$ be a path from $x$ to $-x$.
+        Then $\gamma$ must intersect $H$ at some point $\gamma(t_0)$, which is a contradiction since $\pi(\gamma(t_0)) \in \Lambda_\rho \subseteq \overline{\mathbb P(\Omega)}$.
+        In particular, we have shown that each component of $\pi^{-1}(\Lambda_\rho)$ contains at most one lift of each point in $\Lambda_\rho$.
+
+        To show that it has at most two components, it suffices to show that the restriction of $\pi$ to each component is surjective, since $\pi$ is a double covering.
+        Let $\tilde x \in \pi^{-1}(\Lambda_\rho)$ be a point in some component, that projects to $\pi(\tilde x) = x \in \Lambda_\rho$.
+        Then for any $y \in \Lambda_\rho$, there exists a path $\gamma$ in $\Lambda_\rho$ from $x$ to $y$.
+        Then it lifts to a path $\tilde \gamma$ in $\pi^{-1}(\Lambda_\rho)$ from $\tilde x$ to some lift of $y$, which will be contained in the same component as $\tilde x$.
+        Thus the restriction of $\pi$ to the component is surjective.
+    \end{proof}
+\end{itemize}
+\section{2025-09-08 -- meeting -- Limit set regularity rigidity}
+\subsection{Why deformations are interesting}
+Short answer: they give us representations of discrete groups that do not come from a representation of a Lie group.
+
+Let $G$ be a real semisimple Lie group.
+In general, we are interested in lattices of $G$, because roughly they give us manifolds or orbifolds.
+However, lattices are rigid in higher rank Lie groups, in the sense that there only a few of them.
+This is because under the conditions of the Margulis rigidity theorem, any representation of a lattice $\Gamma \leq G$ into another Lie group $H$ can be extended to a representation of $G$ into $H$.
+However, there exist finitely many representations of $G$ into $H$, which can be studied individually.
+
+For this reason, we are led to consider discrete subgroups of $G$ that admit deformations (whose image is not a discrete group and) which do not extend to $G$.
+If we take for instance $Z \leq G$ a rank-1 Lie subgroup of $G$, then we can take $\Gamma \leq Z$ a lattice, and $\rho: Z \to G$ a representation for which $\rho_{|\Gamma}$ is Anosov.
+Then it is known that the deformations of $\rho_{|\Gamma}$ are Anosov as well.
+In this way, we obtain an infinite family of interesting representations $\rho_t$ which do not extend to $G$.
+\subsection{Rigidity with respect to regularity}
+Let $\Gamma \leq G$ be a discrete subgroup of the semisimple Lie group $G$ and $\rho: \Gamma \to H$ be a representation into another semisimple Lie group $H$, that is assumed to be Anosov.
+One would like to know when this representation is "banal", in the sense that it comes from a representation of $G$ into $H$.
+One way to do this is to look at the regularity of the limit set $\Lambda_\rho$.
+
+In the "banal" case, the limit set $\Lambda_\rho$ is very regular.
+
+\subsubsection{$\mathrm{AdS}$-quasifuchsian representations}
+In the case of $\mathrm{AdS}$-quasifuchsian representations, one has the result of \cite{glorieux2018regularity}.
+We recall:
+\begin{definition}
+    Let $\Gamma \leq \SO(n,2)$ be a discrete subgroup.
+    Then:
+    \begin{enumerate}
+        \item $\Gamma$ is $\mathrm{AdS}^{n+1}$-quasifuchsian if it is $\mathbb H^{n,1}$-convex cocompact of maximal dimension, i.e.\ it acts properly discontinuously and cocompactly on some properly convex closed subset of $\mathbb H^{n,1}$ and its limit set $\Lambda_\Gamma \subseteq \partial \mathbb H^{n,1}$ is homeomorphic to $\mathbb S^{n-1}$.
+        \item $\Gamma$ is $\mathrm{AdS}^{n+1}$-Fuchsian if it is $\mathrm{AdS}^{n+1}$-quasifuchsian and preserves a totally geodesic copy of $\mathbb H^n \subseteq \mathbb H^{n,1}$.
+    \end{enumerate}
+\end{definition}
+
+One knows that the limit set of an $\mathrm{AdS}^{n+1}$-Fuchsian representation is (smooth and hence) $\mathcal C^1$.
+The reason for that is that one can show that it will act cocompactly on the totally geodesic copy of $\mathbb H^n$ that it preserves, so the boundary will be a regular sphere of dimension $n-1$.
+The result of \cite{glorieux2018regularity} states that $\mathcal C^1$-regularity of the limit set is rigid, in the sense that it characterizes the $\mathrm{AdS}^{n+1}$-Fuchsian representations among quasifuchsian ones:
+\begin{theorem}[Theorem 1.3 of \cite{glorieux2018regularity}]
+Let $\Gamma$ be an $\mathrm{AdS}^{n+1}$-quasifuchsian group.
+Then its limit set $\Lambda_\Gamma$ is a $\mathcal C^1$ submanifold of $\partial \mathrm{AdS}^{n+1}$ if and only if $\Gamma$ is $\mathrm{AdS}^{n+1}$-Fuchsian.
+\end{theorem}
+Hence in a sense, regularity of the limit set is only possible for examples that come from the rank-1 case (i.e.\ $\SO(n,1)$).
+
+\subsubsection{Convex-cocompact representations}
+Here similarly we have that $\mathcal C^1$-regularity characterises strict convexity:
+\begin{theorem}[Benoist - Convex divisibles I]
+    Let $\Omega$ be a divisible convex subset of $\mathbb P(\mathbb R^d)$ divided by $\Gamma$.
+    Then the following are equivalent:
+    \begin{enumerate}
+        \item The metric space $(\Omega, d_\Omega)$ is Gromov-hyperbolic.
+        \item The convex set $\Omega$ is strictly convex.
+        \item The boundary $\partial \Omega$ is $\mathcal C^1$.
+        \item The group $\Gamma$ is Gromov-hyperbolic.
+    \end{enumerate}
+\end{theorem}
+On the other hand we have that $\mathcal C^2$-regularity is even more rigid, since it characterises ellipsoids among strictly convex sets:
+\begin{theorem}[Benoist ?]
+    Let $\Omega$ be a strictly convex divisible convex subset of $\mathbb P(\mathbb R^d)$ divided by $\Gamma$.
+    Then $\partial \Omega$ is $\mathcal C^2$ if and only if $\Omega$ is an ellipsoid.
+\end{theorem}
+\subsubsection{A few conjectures}
+In the spirit of the above, we can make the following conjectures:
+\begin{conjecture}\label{conj:limit_set_regularity_rigidity}
+    Let $\Gamma \leq \SO(p,q)$ be $\mathbb H^{p,q}$-convex cocompact of maximal dimension.
+    Then its limit set $\Lambda_\Gamma$ is a $\mathcal C^2$ submanifold of $\partial \mathbb H^{p,q}$ if and only if $\Gamma$ is a lattice of a Lie subgroup $G$ of rank $1$ of $\SO(p,q)$.
+
+    Moreover, the groups $G$ that appear can be classified into some families of representations.
+\end{conjecture}
+\begin{conjecture}
+    If $q \leq p$ or $p \geq 3$, then \cref{conj:limit_set_regularity_rigidity} holds for $\mathcal C^1$-regularity.
+\end{conjecture}
+Note however that $\mathcal C^1$-regularity is not always attained.
+For instance, if $\rho: \pi_1(S) \to \SO(2,3)$ is a Hitchin representation, then its limit set is a $\mathcal C^1$-submanifold and not $\mathcal C^2$ unless it is Hitchin Fuchsian (?).
+
+
+\section{2025-09-16}
+The adjoint representation of $\GL(n, \mathbb R)$ lies into $\SL(\gl(n, \mathbb R))$.\\
+Recall that for a vector space $V$ we have the identification
+\begin{align*}
+    V &\otimes V^* \simeq \mathrm{End}(V)\\
+    v \otimes \varphi &\mapsto (w \mapsto \varphi(w) v)\\
+    E_{ij} &\mapsfrom e_i \otimes e^j.
+\end{align*}
+Then we can see left and right multiplication by $g$ (acting on $\mathfrak{gl}(n, V)$) as endomorphisms of $V \otimes V^*$:
+\begin{align*}
+    L_g = g \otimes \mathrm{id}_{V^*}\\
+    R_g = \mathrm{id}_V \otimes g^t.
+\end{align*}
+Then the adjoint representation is given by $\Ad(g) = L_g \circ R_{g^{-1}} = g \otimes (g^{-1})^t$.
+Knowing that $\mathrm{det}(A \otimes B) = (\mathrm{det} A)^{\dim B} (\mathrm{det} B)^{\dim A}$, we have that $\mathrm{det}(\Ad(g)) = 1$ for all $g \in \GL(n, \mathbb R)$.
 \end{document}

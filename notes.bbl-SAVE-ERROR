@@ -1,0 +1,119 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ydnt/global//global/global}
+    \entry{bonsante2020anti}{article}{}
+      \name{author}{2}{}{%
+        {{hash=217567cd6ca1c7095f6aae7e582dcc2d}{%
+           family={Bonsante},
+           familyi={B\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=095bc4bc47dc606fac2751e3c1ab53da}{%
+           family={Seppi},
+           familyi={S\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \strng{fullhash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \strng{bibnamehash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \strng{authorbibnamehash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \strng{authornamehash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \strng{authorfullhash}{1e8e07894209b44f81a7fcd4250fabc8}
+      \field{labelalpha}{BS20}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{In the tradition of Thurston: Geometry and topology}
+      \field{title}{Anti-de Sitter geometry and Teichmüller theory}
+      \field{year}{2020}
+      \field{pages}{545\bibrangedash 643}
+      \range{pages}{99}
+    \endentry
+    \entry{guichard2012anosov}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1cc7d4c8aca181eb020ac74b11048de3}{%
+           family={Guichard},
+           familyi={G\bibinitperiod},
+           given={Olivier},
+           giveni={O\bibinitperiod}}}%
+        {{hash=9d9eac34ea25eb89ccb79f6a3094fb9e}{%
+           family={Wienhard},
+           familyi={W\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \strng{fullhash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \strng{bibnamehash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \strng{authorbibnamehash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \strng{authornamehash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \strng{authorfullhash}{2e7fe92fe13ac6acf30bec647f61553f}
+      \field{labelalpha}{GW12}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Inventiones mathematicae}
+      \field{number}{2}
+      \field{title}{Anosov representations: domains of discontinuity and applications}
+      \field{volume}{190}
+      \field{year}{2012}
+      \field{pages}{357\bibrangedash 438}
+      \range{pages}{82}
+    \endentry
+    \entry{o1983semi}{book}{}
+      \name{author}{1}{}{%
+        {{hash=772a495f4676e3d344ef7eaa9c5e1ff0}{%
+           family={O'neill},
+           familyi={O\bibinitperiod},
+           given={Barrett},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Academic press}%
+      }
+      \strng{namehash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \strng{fullhash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \strng{bibnamehash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \strng{authorbibnamehash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \strng{authornamehash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \strng{authorfullhash}{772a495f4676e3d344ef7eaa9c5e1ff0}
+      \field{labelalpha}{One83}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Semi-Riemannian geometry with applications to relativity}
+      \field{volume}{103}
+      \field{year}{1983}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
