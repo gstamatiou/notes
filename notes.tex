@@ -2584,9 +2584,121 @@ In the spirit of the above, we can make the following conjectures:
 Note however that $\mathcal C^1$-regularity is not always attained.
 For instance, if $\rho: \pi_1(S) \to \SO(2,3)$ is a Hitchin representation, then its limit set is a $\mathcal C^1$-submanifold and not $\mathcal C^2$ unless it is Hitchin Fuchsian (?).
 
+\section{2025-09-15 -- comité de suivi -- geodesic flow and Anosov representations}
+This was a crash course by Nicolas and Daniel.\\
+Unless otherwise stated, $M$ will be a compact manifold with strictly negative curvature.
 
+\subsection{Geodesic flow basics}
+Then we can define the geodesic flow $\phi_t: T^1 M \to T^1 M$ on the unit tangent bundle $T^1 M$ of $M$.
+
+Note that the unit tangent bundle of the universal cover $\widetilde M$ of $M$ can be identified by a pair of points in the boundary at infinity $\partial_\infty \widetilde M$ and a real number:
+\[
+T^1 \widetilde M \simeq \partial_\infty \widetilde M \times \mathbb R.
+\]
+The boundaries at infinity designate a geodesic in $\widetilde M$, and the real number designates a point on that geodesic.
+
+\begin{definition}
+    A closed orbit of the geodesic flow $\phi_t$ is a set of the form
+    \[\{\phi_t(v): t \in \mathbb R\},
+    \]
+    where $v \in T^1 M$ is such that $\phi_T(v) = v$ for some $T > 0$.
+\end{definition}
+Clearly, closed geodesics in $M$ correspond to closed orbits of the geodesic flow, which in turn correspond to conjugacy classes of primitive elements in $\pi_1(M)$, which are known to be in bijection with free homotopy classes of closed curves in $M$.
+In particular, a reparametrization does not influence the closed orbits of the flow (it only changes their period).
+
+\begin{definition}
+    Let $f: M \to \mathbb R_{>0}$ be a positive function.
+    Then there exists a flow $\phi^f_t: T^1 M \to T^1 M$ such that the generator of $\phi^f_t$ is $f$ times the generator of $\phi_t$, i.e.\ 
+    \[
+    \left. \frac{d}{dt} \right|_{t=0} \phi^f_t(v) = f (v) \cdot \left. \frac{d}{dt} \right|_{t=0} \phi_t(v).
+    \]
+    We call $\phi^f_t$ the reparametrization of $\phi_t$ by $f$.
+\end{definition}
+Note that if $T > 0$ is the period of a closed orbit starting at $v \in T^1 M$, then the period $T'$ of the closed orbit starting at $v$ for the reparametrized flow $\phi^f_t$ is given by
+\[
+T' = \int_0^T f(\phi_t(v)) dt.
+\]\todo{Why?}
+Moreover, if $\mu$ is a $\phi_t$-invariant probability measure on $T^1 M$, then $\mu^f = f \d \mu$ is a $\phi^f_t$-invariant probability measure on $T^1 M$.
+
+\begin{definition}[Exponential mixing]
+    Let $\psi_t$ be a flow on a metric space $X$ and $\mu$ an invariant measure.
+    Then we say that $\psi_t$ mixes exponentially with respect to $\mu$ if for all $\alpha$-Hölder functions $f,g: X \to \mathbb R$:
+    \[
+    \int_X f(\psi_t(x)) g(x) d\mu(x) \to \int_X f d\mu \int_X g d\mu
+    \]
+\end{definition}
+The classical tools to show exponential mixing are based on the regularity of the stable and unstable leaves of the flow.
+
+\begin{definition}
+    Let $\psi_t$ be a flow on a metric space $X$.
+    The strongly and weakly stable leaves of $\psi_t$ at $x \in X$ are given by
+    \begin{align*}
+        W^{ss}(x) &= \{y \in X: d(\psi_t(x), \psi_t(y)) \to 0 \text{ as } t \to +\infty\}\\
+        W^{ws}(x) &= \{y \in X: d(\psi_t(x), \psi_t(y)) \text{ is bounded for } t > 0\}.
+    \end{align*}
+    Similarly, the strongly and weakly unstable leaves of $\psi_t$ at $x \in X$ are given by
+    \begin{align*}
+        W^{su}(x) &= \{y \in X: d(\psi_t(x), \psi_t(y)) \to 0 \text{ as } t \to -\infty\}\\
+        W^{wu}(x) &= \{y \in X: d(\psi_t(x), \psi_t(y)) \text{ is bounded for } t < 0\}.
+    \end{align*}
+\end{definition}
+Under certain conditions, these define folitations of a certain regularity.
+For instance, in the geodesic flow of the hyperbolic space, the strongly stable leaves are the horocycles based at the forward endpoint of the geodesic in the boundary at infinity.
+The weakly stable leaves are the sets of geodesics that share the same forward endpoint.
+
+Given an endpoint $p \in \partial_\infty \mathbb H^n$ we can define the Busemann function based at $p$, which measures the distances of points as seen from the point $p$ at infinity.
+In particular, for $x,y \in T^1 \mathbb H^n$ pointing towards $p$ (in which case we have $y \in W^{ws}(x)$), we define
+\[
+B_p(x,y) = \lim_{t \to \infty} d(\phi_t(x), \phi_t(y)).
+\]
+
+\subsection{Geodesic flow and Anosov representations -- Sambarino's flow}
+Let $\rho: \pi_1(M) \to G$ be a $\Theta$-Anosov representation into a semisimple Lie group $G$.
+The for every functional $\alpha \in \mathfrak a^*$ that is positive on the Weyl chamber $\mathfrak a^+$ and that is of the form
+\[
+\alpha = \sum_{\theta \in \Theta} \alpha_\theta \omega_\theta,
+\]
+where $\omega_\theta$ are the fundamental weights of $G$, we can construct a reparametrization (depending on the choice of $\alpha$ and the representation) $\phi^f$ of the geodesic flow $\phi_t$ on $T^1 M$ such that 
+\[
+\mathcal L_f(\gamma) = \alpha(\lambda(\rho(\gamma))),
+\]
+where $\mathcal L_f(\gamma)$ is the length of the geodesic corresponding to $\gamma \in \pi_1(M)$ for the reparametrized flow $\phi^f_t$.
+Note that although the reparametrized flow is not necessarily a geodesic flow for some metric, it still has the same closed orbits as the original geodesic flow, which are in bijection with conjugacy classes of primitive elements in $\pi_1(M)$.
+Using this we can obtain estimates for the number of closed orbits of the flow $\phi^f_t$ of a certain bounded length:
+\[
+\sharp\{[\gamma] \in [\pi_1(M)]: \mathcal L_f(\gamma) \leq R\} \sim \frac{e^{\delta_1(\rho)R}}{\delta_1(\rho) R},
+\]
+
+In the case of projective Anosov representations into $\SL(d,\mathbb R)$, we have (probably due to Daniel) that there exists some $\epsilon > 0$ such that 
+\[
+\sharp\{[\gamma] \in [\pi_1(M)]: \alpha(\lambda(\rho(\gamma))) \leq R\} \sim \frac{e^{\delta_1(\rho)R}}{\delta_1(\rho) R} \cdot (1 + O(e^{-\epsilon R})).
+\]
+For this, we need the fact that the reparametrized flow $\phi^f_t$ mixes exponentially with respect to the Borel-Margulis measure.
+Since its leaves are only Hölder, the classical tools do not apply.
+For this, we embed it into a larger smooth flow for which the classical tools apply, and then we restrict back to our flow.
+\begin{theorem}[DMS]
+    Let $\rho: \pi_1(M) \to \SL(d,\mathbb R)$ be a projective Anosov representation.
+    Then there exists a reparametrization $\phi^\rho_t$ of the geodesic flow $\phi_t$ on $T^1 M$ for which $\mathcal L_{\phi^\rho}(\gamma) = \lambda_1(\rho(\gamma))$ for all $\gamma \in \pi_1(M)$.
+
+    There also exists a smooth flow $\psi_t$ on a smooth manifold $N$, smooth foliations $\mathcal W^{ss}_\psi, \mathcal W^{su}_\psi$ of $N$ and a Hölder embedding $F: T^1 M \to N$ that conjugates $\phi^\rho_t$ with the restriction of $\psi_t$ to $F(T^1 M)$, such that $F(\mathcal W^{ss}_{\phi^\rho}) = \mathcal W^{ss}_\psi \cap F(T^1 M)$ and $F(\mathcal W^{su}_{\phi^\rho}) = \mathcal W^{su}_\psi \cap F(T^1 M)$. 
+\end{theorem}
+Note that the flow $\phi^\rho_t$ is different than the one constructed by Sambarino.
+
+\begin{example}
+    Let $M$ be a compact hyperbolic surface and $\rho: \pi_1(M) \to \SO(3,1) \leq \SL(4,\mathbb R)$ be a quasi-Fuchsian representation.
+    Then $N = T^1 \mathbb H^3 / \rho(\pi_1(M)) \simeq T^1(M \times \mathbb R)$.
+\end{example}
+\subsection{Ehresmann - Thurston principle}
+For a $(G, G/H)$-structure on $M$ we can define the holonomy representation $\rho: \pi_1(M) \to G$ and the developing map $\mathrm{dev}: \widetilde M \to G/H$.
+Then we have the following:
+\begin{theorem}[Ehresmann - Thurston principle]
+    If $\rho'$ is sufficiently close to $\rho$, then there exists a $(G, G/H)$-structure on $M$ with holonomy $\rho'$.
+\end{theorem}
 \section{2025-09-16}
-The adjoint representation of $\GL(n, \mathbb R)$ lies into $\SL(\gl(n, \mathbb R))$.\\
+\begin{proposition}
+The adjoint representation of $\GL(n, \mathbb R)$ lies into $\SL(\gl(n, \mathbb R))$.    
+\end{proposition}
+\begin{proof}
 Recall that for a vector space $V$ we have the identification
 \begin{align*}
     V &\otimes V^* \simeq \mathrm{End}(V)\\
@@ -2599,5 +2711,86 @@ Then we can see left and right multiplication by $g$ (acting on $\mathfrak{gl}(n
     R_g = \mathrm{id}_V \otimes g^t.
 \end{align*}
 Then the adjoint representation is given by $\Ad(g) = L_g \circ R_{g^{-1}} = g \otimes (g^{-1})^t$.
-Knowing that $\mathrm{det}(A \otimes B) = (\mathrm{det} A)^{\dim B} (\mathrm{det} B)^{\dim A}$, we have that $\mathrm{det}(\Ad(g)) = 1$ for all $g \in \GL(n, \mathbb R)$.
+Knowing that $\mathrm{det}(A \otimes B) = (\mathrm{det} A)^{\dim B} (\mathrm{det} B)^{\dim A}$, we have that $\mathrm{det}(\Ad(g)) = 1$ for all $g \in \GL(n, \mathbb R)$.    
+\end{proof}
+\section{2025-09-21}
+\begin{itemize}
+    \item
+The limit set of a uniform lattice of $\SO(n,1)$ is the full boundary $\partial \mathbb H^n \simeq \mathbb S^{n-1}$.
+Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x} \cap \partial \mathbb H^n$ for some $x \in \mathbb H^n$, and $\partial \mathbb H^n$ is the Gromov boundary of $\mathbb H^n$.
+\begin{proposition}
+    Let $\Gamma \leq \SO(n,1)$ be a uniform lattice.
+    Then its limit set is the full boundary $\partial \mathbb H^n$.
+\end{proposition}
+\begin{proof}
+    Since the action is cocompact, there exists a compact set $K \subseteq \mathbb H^n$ such that $\Gamma \cdot K = \mathbb H^n$.
+    Without loss of generality, we can assume that $o \in K$.
+    Let $\xi \in \partial \mathbb H^n$, and let $r: \mathbb N \to \mathbb H^n$ be a geodesic ray such that $r(\infty) = \xi$.
+    Then for every $n$, there exists $\gamma_n \in \Gamma$ such that $\gamma_n^{-1} r_n \in K$.
+    In particular, $d(\gamma_n^{-1} r_n, o) = d(r_n, \gamma_n o) \leq \mathrm{diam}(K)$ is bounded.
+    By the Fellow Traveller property, this implies that $\gamma_n o \to \xi$ as $n \to \infty$.
+\end{proof}
+\end{itemize}
+\section{2025-09-22}
+\begin{itemize}
+    \item Round metric on the sphere:\todo{Do the same for stereographic coordinates, see whether it is possible to obtain it in different coordinates directly through the euclidean metric, generalize to higher dimensions.}\\
+    On the sphere of radious $R$, the round metric is defined as the metric induced by the Euclidean metric of $\mathbb R^{n+1}$.
+    Recall that the spherical coordinates on $\mathbb S^n$ are given by
+    \begin{align*}
+        \phi^{-1}: (0,\pi) \times (0,2\pi) &\to \mathbb S^2\\
+        (\theta, \varphi) &\mapsto (R \cos \theta \sin \varphi, R \sin \theta \sin \varphi, R \cos \varphi).
+    \end{align*}
+    In these coordinates, the round metric is given by
+    \[
+    g = R^2 (\sin^2 \varphi d\theta^2 + d\varphi^2).
+    \]
+    \begin{proof}
+        We compute the frame given by the coordinate vector fields:
+        \begin{align*}
+            \frac{\partial}{\partial \theta} &= -R \sin \theta \sin \varphi \frac{\partial}{\partial r^1} + R \cos \theta \sin \varphi \frac{\partial}{\partial r^2}  \\
+            \frac{\partial}{\partial \varphi} &= R \cos \theta \cos \varphi \frac{\partial}{\partial r^1} + R \sin \theta \cos \varphi \frac{\partial}{\partial r^2} - R \sin \varphi \frac{\partial}{\partial r^3}.
+        \end{align*}
+        Then we compute the coefficients using the Euclidean metric of $\mathbb R^3$:
+    \begin{align*}
+        g_{\theta \theta} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \theta} \right\rangle = R^2 \sin^2 \varphi\\
+        g_{\varphi \varphi} &= \left\langle \frac{\partial}{\partial \varphi}, \frac{\partial}{\partial \varphi} \right\rangle = R^2\\
+        g_{\theta \varphi} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \varphi} \right\rangle = 0.
+    \end{align*}
+    \end{proof}
+    
+    \item Hyperbolic metric in the hyperboloid model:\\
+    We consider the hyperboloid model of the hyperbolic space $\mathbb H^n$:
+    \[
+    \mathbb H^n = \{x \in \mathbb R^{n,1}: x_1^2 + \cdots + x_n^2 - x_{n+1}^2 = -1, x_{n+1} > 0\},
+    \]
+    with the metric induced by the Minkowski metric of $\mathbb R^{n,1}$.
+    
+    The parametrization we use is given by
+    \begin{align*}
+        \phi^{-1}: \mathbb R^2 \to \mathbb H^2\\
+        (u,v) \mapsto (u, v, \sqrt{1 + u^2 + v^2}).
+    \end{align*}
+    In these coordinates, the hyperbolic metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2},
+    \]
+    where $du dv$ is the symmetric product $\frac{1}{2}(du \otimes dv + dv \otimes du)$.
+    \begin{proof}
+        We compute the frame given by the coordinate vector fields:
+        \begin{align*}
+            \frac{\partial}{\partial u} &= \frac{\partial}{\partial r^1} + \frac{u}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}\\
+            \frac{\partial}{\partial v} &= \frac{\partial}{\partial r^2} + \frac{v}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}.
+        \end{align*}
+        Then we compute the coefficients using the Minkowski metric of $\mathbb R^{2,1}$:
+    \begin{align*}
+        g_{uu} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial u} \right\rangle = 1 - \frac{u^2}{1 + u^2 + v^2} = \frac{1 + v^2}{1 + u^2 + v^2}\\
+        g_{vv} &= \left\langle \frac{\partial}{\partial v}, \frac{\partial}{\partial v} \right\rangle = 1 - \frac{v^2}{1 + u^2 + v^2} = \frac{1 + u^2}{1 + u^2 + v^2}\\
+        g_{uv} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial v} \right\rangle = - \frac{uv}{1 + u^2 + v^2}.
+    \end{align*}
+    Thus the metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
+    \]
+    \end{proof}
+\end{itemize}
 \end{document}
