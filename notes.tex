@@ -2793,4 +2793,62 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
     \]
     \end{proof}
 \end{itemize}
+\section{2025-09-23}
+\begin{itemize}
+    \item Labourie's lemma is correct in dimension $1$ and when the group $G$ is very large.
+    \begin{proposition}
+        Let $G$ be a subgroup of $\SL(d,\mathbb R)$, such that
+        \[
+        \dim G \geq d-1.
+        \]
+        Then for every $l \in \mathbb P(\mathbb R^d), W \in \mathcal G_{d-k}(\mathbb R^d)$, there exists $g \in G$ such that $g l \oplus W = \mathbb R^d$.
+    \end{proposition}
+    \begin{proof}
+        We know the orbit of a Lie group is an immersed submanifold of $\mathbb R^d$.
+        In our case, $G \cdot l$ is an immersed submanifold of $\mathbb P(\mathbb R^d)$ of dimension at least $d-1$.
+        Since the inclusion map is an immersion, its differential is injective. But since the dimension of the domain and codomain are equal, it is an isomorphism, meaning that it is a diffeomorphism onto its image.
+        
+        Thus $G \cdot l$ contains an open neighborhood of $l$ in $\mathbb P(\mathbb R^d)$ and no projective hyperplane can contain an open set, so there exists $g \in G$ such that $g l \oplus W = \mathbb R^d$.
+    \end{proof}
+    \item Transversality in Grassmanian coordinates:
+    \begin{proposition}
+        Let $P \in \mathcal G_k(\mathbb R^d)$ and $Q \in \mathcal G_{d-k}(\mathbb R^d)$ be two complementary subspaces.
+        We define $U_Q$ and $U_P$ as the transverse subspaces to $Q$ and $P$ respectively:
+        \begin{align*}
+            U_Q &= \{W \in \mathcal G_k(\mathbb R^d): W \oplus Q = \mathbb R^d\}\\
+            U_P &= \{W \in \mathcal G_{d-k}(\mathbb R^d): W \oplus P = \mathbb R^d\}.
+        \end{align*}
+        Then we have the following parametrizations of the Grassmanians:
+        \begin{align*}
+            \mathcal L(Q, P) &\to U_Q \subseteq \mathcal G_k(\mathbb R^d)\\
+            X &\mapsto \mathrm{graph}(X)\\
+            \mathcal L(P, Q) &\to U_P \subseteq \mathcal G_{d-k}(\mathbb R^d)\\
+            Y &\mapsto \mathrm{graph}(Y),
+        \end{align*}
+        where $\mathcal L(A,B)$ is the space of linear maps from $A$ to $B$.
+
+        In these coordinates, the transversality condition of a flag $(\mathrm{graph}(X), \mathrm{graph}(Y)) \in U_Q \times U_P \subseteq \mathcal G_k(\mathbb R^d) \times \mathcal G_{d-k}(\mathbb R^d)$ is:
+        \[
+        \mathrm{graph}(X) \pitchfork \mathrm{graph}(Y) \iff \mathrm{Id} - YX \in \GL(Q).
+        \]
+
+        Fix a basis of $\mathbb R^d$ adapted to the decomposition $\mathbb R^d = P \oplus Q$.
+        In these coordinates for $\GL(d,\mathbb R)$ we have that the transversality condition under the action of $g \in \GL(d, \mathbb R)$ is given by
+        \[
+        g \cdot \mathrm{graph} (X) \pitchfork \mathrm{graph}(Y) \iff (CX + D) - Y(AX + B) \in \GL(Q),
+        \]
+        where
+        \[g = \begin{pmatrix}
+            A & B\\
+            C & D
+        \end{pmatrix}\]
+        in the chosen basis, i.e.\ $A: P \to P, B: Q \to P, C: P \to Q, D: Q \to Q$, given by $\mathrm{pr}_P g_{|P}, \mathrm{pr}_P g_{|Q}, \mathrm{pr}_Q g_{|P}, \mathrm{pr}_Q g_{|Q}$ respectively.
+    \end{proposition}
+    This allows us either to disprove Labourie's property by finding $X,Y$ such that for all $A, B, C, D$ the above is not invertible, or to prove it for flags in $U_Q \times U_P$ by finding $A, B, C, D$ for all $X,Y$ such that the above is invertible.
+    \item It feels like all irreducible representations of $\SL(2,\mathbb R)$ satisfy Labourie's property for $k = 1$.
+    We have that
+    \[
+    \mathrm{span}\left(\rho(\SL(2,\mathbb R)) e_1^i\right) = \mathbb R^d
+    \]
+\end{itemize}
 \end{document}
