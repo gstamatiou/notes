@@ -2767,8 +2767,8 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
     
     The parametrization we use is given by
     \begin{align*}
-        \phi^{-1}: \mathbb R^2 \to \mathbb H^2\\
-        (u,v) \mapsto (u, v, \sqrt{1 + u^2 + v^2}).
+        \phi^{-1}: \mathbb R^2 &\to \mathbb H^2\\
+        (u,v) &\mapsto (u, v, \sqrt{1 + u^2 + v^2}).
     \end{align*}
     In these coordinates, the hyperbolic metric is given by
     \[
@@ -2791,7 +2791,44 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
     \[
     g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
     \]
+    \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
+    \item Round metric in projective space:\\
+    We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
+    We use the affine chart $U_3 = \{[x:y:z] \in \mathbb P(\mathbb R^3): z \neq 0\} \simeq \mathbb R^2$:
+    \begin{align*}
+        \phi^{-1}: \mathbb R^n &\to U_3 \subseteq \mathbb P(\mathbb R^3)\\
+        (u,v) &\mapsto [u:v:1].
+    \end{align*}
+    In these coordinates, the round metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2},
+    \]
+    \begin{proof}
+        Note that for instance to compute $g_{uu}$, what we need is to compute the norm of $(\d \pi)^{-1}(\partial/\partial u)$ in the round metric of $\mathbb S^2$, since the metric on $\mathbb P(\mathbb R^3)$ is defined as the pullback of the metric on $\mathbb S^2$ through $\pi^{-1}$ (in a neighborhood where $\pi$ is invertible).
+        For this reason, we limit ourselves too the restriction $\pi^{-1}: U_3 \to \mathbb U_N$, where $\mathbb U_N$ is chart of the upper hemisphere.
+        Then indeed,
+        \[
+        g_{uu} = g\left(\frac{\partial}{\partial u}, \frac{\partial}{\partial u}\right) = 
+        \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2}.
+        \]
+        Now we compute the images of the coordinate vector fields:
+        \begin{align*}
+            (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left((1 + v^2) \frac{\partial}{\partial X} - uv \frac{\partial}{\partial Y} - u \frac{\partial}{\partial Z}\right)\\
+            (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left(-uv \frac{\partial}{\partial X} + (1 + u^2) \frac{\partial}{\partial Y} - v \frac{\partial}{\partial Z}\right),
+        \end{align*}
+        where $(X,Y,Z): U_N \to \mathbb B^2$ is the chart of the upper hemisphere.
+        Then we compute the coefficients using the round metric of $\mathbb S^2$, which is no other than the Euclidean metric of $\mathbb R^3$ restricted to $\mathbb S^2$:
+    \begin{align*}
+        g_{uu} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2} = \frac{1 + v^2}{(1 + u^2 + v^2)^2}\\
+        g_{vv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = \frac{1 + u^2}{(1 + u^2 + v^2)^2}\\
+        g_{uv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = - \frac{uv}{(1 + u^2 + v^2)^2}.
+    \end{align*}
+    Thus the metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2}.
+    \]
     \end{proof}
+    \todo{Projective space: Fubini-Study, Hilbert, round/symmetric metrics}
 \end{itemize}
 \section{2025-09-23}
 \begin{itemize}
@@ -2851,4 +2888,27 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
     \mathrm{span}\left(\rho(\SL(2,\mathbb R)) e_1^i\right) = \mathbb R^d
     \]
 \end{itemize}
+\section{2025-09-28}
+\begin{enumerate}
+    \item Let $\mathfrak g$ be a simple Lie algebra, whose Cartan involution is $\theta$.
+    If $\sigma$ is another involution of $\mathfrak g$ that commutes with $\theta$.
+    Then the restriction of the adjoint representation $\ad_{\mathfrak g^\sigma}$ on the fixed point set preserves the antifixed point set $\mathfrak g^{-\sigma}$.
+    This is not always irreducible:
+    \begin{example}
+        Let $\mathfrak g = \mathfrak{sl}(n, \mathbb R)$, $\sigma(X) = I_{p,q} X I_{p,q}$.
+        Then
+        \[
+        \mathfrak g^\sigma = \left\{\begin{pmatrix}
+            A & 0\\
+            0 & D
+        \end{pmatrix}: A \in \mathfrak{sl}(p, \mathbb R), D \in \mathfrak{sl}(q, \mathbb R)\right\},
+        \mathfrak g^{-\sigma} = \left\{\begin{pmatrix}
+            0 & B\\
+            C & 0
+        \end{pmatrix}: B \in M_{p,q}(\mathbb R), C \in M_{q,p}(\mathbb R)\right\}.
+        \]
+        Clearly $\ad_{\mathfrak g^\sigma}$ is not irreducible on $\mathfrak g^{-\sigma}$, and admits two invariant subspaces.
+        \item Regarding the above situation, it is possibly correct that if the representation is not irreducible, then it admits two invariant subspaces, each of which is isotropic for the Killing form and which are permuted by the Cartan involution.
+    \end{example}
+\end{enumerate}
 \end{document}
