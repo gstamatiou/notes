@@ -891,7 +891,121 @@ Recall that a map $f: V \to V$ on a complex vector space $V$ is called \emph{ant
     Moreover, because the action of $\mathfrak g^\mathbb C$ commutes with conjugation,the real forms are invariant under the action of $\mathfrak g$.
     By irreducibility of $E$, we obtain that $V \oplus \overline V = E^\mathbb C$.
 \end{proof}
-
+\chapter{Riemannian calculations}
+\section{Sphere}
+\subsection{Round metric on the sphere}
+\todo{Do the same for stereographic coordinates, see whether it is possible to obtain it in different coordinates directly through the euclidean metric, generalize to higher dimensions.}
+    On the sphere of radious $R$, the round metric is defined as the metric induced by the Euclidean metric of $\mathbb R^{n+1}$.
+    Recall that the spherical coordinates on $\mathbb S^n$ are given by
+    \begin{align*}
+        \phi^{-1}: (0,2\pi) \times (0,\pi) &\to \mathbb S^2\\
+        (\theta, \varphi) &\mapsto (R \cos \theta \sin \varphi, R \sin \theta \sin \varphi, R \cos \varphi).
+    \end{align*}
+    In these coordinates, the round metric is given by
+    \[
+    g = R^2 (\sin^2 \varphi d\theta^2 + d\varphi^2).
+    \]
+    \begin{proof}
+        We compute the frame given by the coordinate vector fields:
+        \begin{align*}
+            \frac{\partial}{\partial \theta} &= -R \sin \theta \sin \varphi \frac{\partial}{\partial r^1} + R \cos \theta \sin \varphi \frac{\partial}{\partial r^2}  \\
+            \frac{\partial}{\partial \varphi} &= R \cos \theta \cos \varphi \frac{\partial}{\partial r^1} + R \sin \theta \cos \varphi \frac{\partial}{\partial r^2} - R \sin \varphi \frac{\partial}{\partial r^3}.
+        \end{align*}
+        Then we compute the coefficients using the Euclidean metric of $\mathbb R^3$:
+    \begin{align*}
+        g_{\theta \theta} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \theta} \right\rangle = R^2 \sin^2 \varphi\\
+        g_{\varphi \varphi} &= \left\langle \frac{\partial}{\partial \varphi}, \frac{\partial}{\partial \varphi} \right\rangle = R^2\\
+        g_{\theta \varphi} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \varphi} \right\rangle = 0.
+    \end{align*}
+    \end{proof}
+\subsection{Volume form on the sphere}
+We will compute the volume form of the round metric on $\mathbb S^2$ in spherical coordinates.
+We saw that in these coordinates, the round metric in matrix form is
+\[
+g = R^2 \begin{pmatrix}
+\sin^2 \varphi & 0 \\
+0 & 1
+\end{pmatrix}.
+\]
+Hence the volume form is simply
+\[
+\text{Vol} = \sqrt{\det g} d\theta d\varphi = R^2 \sin \varphi \d\theta \wedge \d\varphi.
+\]
+\todo{Volume entropy}
+\begin{itemize}
+    
+    \item Hyperbolic metric in the hyperboloid model:\\
+    We consider the hyperboloid model of the hyperbolic space $\mathbb H^n$:
+    \[
+    \mathbb H^n = \{x \in \mathbb R^{n,1}: x_1^2 + \cdots + x_n^2 - x_{n+1}^2 = -1, x_{n+1} > 0\},
+    \]
+    with the metric induced by the Minkowski metric of $\mathbb R^{n,1}$.
+    
+    The parametrization we use is given by
+    \begin{align*}
+        \phi^{-1}: \mathbb R^2 &\to \mathbb H^2\\
+        (u,v) &\mapsto (u, v, \sqrt{1 + u^2 + v^2}).
+    \end{align*}
+    In these coordinates, the hyperbolic metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2},
+    \]
+    where $du dv$ is the symmetric product $\frac{1}{2}(du \otimes dv + dv \otimes du)$.
+    \begin{proof}
+        We compute the frame given by the coordinate vector fields:
+        \begin{align*}
+            \frac{\partial}{\partial u} &= \frac{\partial}{\partial r^1} + \frac{u}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}\\
+            \frac{\partial}{\partial v} &= \frac{\partial}{\partial r^2} + \frac{v}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}.
+        \end{align*}
+        Then we compute the coefficients using the Minkowski metric of $\mathbb R^{2,1}$:
+    \begin{align*}
+        g_{uu} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial u} \right\rangle = 1 - \frac{u^2}{1 + u^2 + v^2} = \frac{1 + v^2}{1 + u^2 + v^2}\\
+        g_{vv} &= \left\langle \frac{\partial}{\partial v}, \frac{\partial}{\partial v} \right\rangle = 1 - \frac{v^2}{1 + u^2 + v^2} = \frac{1 + u^2}{1 + u^2 + v^2}\\
+        g_{uv} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial v} \right\rangle = - \frac{uv}{1 + u^2 + v^2}.
+    \end{align*}
+    Thus the metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
+    \]
+    \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
+    \item Round metric in projective space:\\
+    We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
+    We use the affine chart $U_3 = \{[x:y:z] \in \mathbb P(\mathbb R^3): z \neq 0\} \simeq \mathbb R^2$:
+    \begin{align*}
+        \phi^{-1}: \mathbb R^n &\to U_3 \subseteq \mathbb P(\mathbb R^3)\\
+        (u,v) &\mapsto [u:v:1].
+    \end{align*}
+    In these coordinates, the round metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2},
+    \]
+    \begin{proof}
+        Note that for instance to compute $g_{uu}$, what we need is to compute the norm of $(\d \pi)^{-1}(\partial/\partial u)$ in the round metric of $\mathbb S^2$, since the metric on $\mathbb P(\mathbb R^3)$ is defined as the pullback of the metric on $\mathbb S^2$ through $\pi^{-1}$ (in a neighborhood where $\pi$ is invertible).
+        For this reason, we limit ourselves too the restriction $\pi^{-1}: U_3 \to \mathbb U_N$, where $\mathbb U_N$ is chart of the upper hemisphere.
+        Then indeed,
+        \[
+        g_{uu} = g\left(\frac{\partial}{\partial u}, \frac{\partial}{\partial u}\right) = 
+        \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2}.
+        \]
+        Now we compute the images of the coordinate vector fields:
+        \begin{align*}
+            (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left((1 + v^2) \frac{\partial}{\partial X} - uv \frac{\partial}{\partial Y} - u \frac{\partial}{\partial Z}\right)\\
+            (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left(-uv \frac{\partial}{\partial X} + (1 + u^2) \frac{\partial}{\partial Y} - v \frac{\partial}{\partial Z}\right),
+        \end{align*}
+        where $(X,Y,Z): U_N \to \mathbb B^2$ is the chart of the upper hemisphere.
+        Then we compute the coefficients using the round metric of $\mathbb S^2$, which is no other than the Euclidean metric of $\mathbb R^3$ restricted to $\mathbb S^2$:
+    \begin{align*}
+        g_{uu} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2} = \frac{1 + v^2}{(1 + u^2 + v^2)^2}\\
+        g_{vv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = \frac{1 + u^2}{(1 + u^2 + v^2)^2}\\
+        g_{uv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = - \frac{uv}{(1 + u^2 + v^2)^2}.
+    \end{align*}
+    Thus the metric is given by
+    \[
+    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2}.
+    \]
+    \end{proof}
+    \todo{Projective space: Fubini-Study, Hilbert, round/symmetric metrics}
+\end{itemize}
 \chapter{Logbook}
 \setcounter{secnumdepth}{0}
 \section{2025-02-19}
@@ -2730,105 +2844,6 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
     In particular, $d(\gamma_n^{-1} r_n, o) = d(r_n, \gamma_n o) \leq \mathrm{diam}(K)$ is bounded.
     By the Fellow Traveller property, this implies that $\gamma_n o \to \xi$ as $n \to \infty$.
 \end{proof}
-\end{itemize}
-\section{2025-09-22}
-\begin{itemize}
-    \item Round metric on the sphere:\todo{Do the same for stereographic coordinates, see whether it is possible to obtain it in different coordinates directly through the euclidean metric, generalize to higher dimensions.}\\
-    On the sphere of radious $R$, the round metric is defined as the metric induced by the Euclidean metric of $\mathbb R^{n+1}$.
-    Recall that the spherical coordinates on $\mathbb S^n$ are given by
-    \begin{align*}
-        \phi^{-1}: (0,\pi) \times (0,2\pi) &\to \mathbb S^2\\
-        (\theta, \varphi) &\mapsto (R \cos \theta \sin \varphi, R \sin \theta \sin \varphi, R \cos \varphi).
-    \end{align*}
-    In these coordinates, the round metric is given by
-    \[
-    g = R^2 (\sin^2 \varphi d\theta^2 + d\varphi^2).
-    \]
-    \begin{proof}
-        We compute the frame given by the coordinate vector fields:
-        \begin{align*}
-            \frac{\partial}{\partial \theta} &= -R \sin \theta \sin \varphi \frac{\partial}{\partial r^1} + R \cos \theta \sin \varphi \frac{\partial}{\partial r^2}  \\
-            \frac{\partial}{\partial \varphi} &= R \cos \theta \cos \varphi \frac{\partial}{\partial r^1} + R \sin \theta \cos \varphi \frac{\partial}{\partial r^2} - R \sin \varphi \frac{\partial}{\partial r^3}.
-        \end{align*}
-        Then we compute the coefficients using the Euclidean metric of $\mathbb R^3$:
-    \begin{align*}
-        g_{\theta \theta} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \theta} \right\rangle = R^2 \sin^2 \varphi\\
-        g_{\varphi \varphi} &= \left\langle \frac{\partial}{\partial \varphi}, \frac{\partial}{\partial \varphi} \right\rangle = R^2\\
-        g_{\theta \varphi} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \varphi} \right\rangle = 0.
-    \end{align*}
-    \end{proof}
-    
-    \item Hyperbolic metric in the hyperboloid model:\\
-    We consider the hyperboloid model of the hyperbolic space $\mathbb H^n$:
-    \[
-    \mathbb H^n = \{x \in \mathbb R^{n,1}: x_1^2 + \cdots + x_n^2 - x_{n+1}^2 = -1, x_{n+1} > 0\},
-    \]
-    with the metric induced by the Minkowski metric of $\mathbb R^{n,1}$.
-    
-    The parametrization we use is given by
-    \begin{align*}
-        \phi^{-1}: \mathbb R^2 &\to \mathbb H^2\\
-        (u,v) &\mapsto (u, v, \sqrt{1 + u^2 + v^2}).
-    \end{align*}
-    In these coordinates, the hyperbolic metric is given by
-    \[
-    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2},
-    \]
-    where $du dv$ is the symmetric product $\frac{1}{2}(du \otimes dv + dv \otimes du)$.
-    \begin{proof}
-        We compute the frame given by the coordinate vector fields:
-        \begin{align*}
-            \frac{\partial}{\partial u} &= \frac{\partial}{\partial r^1} + \frac{u}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}\\
-            \frac{\partial}{\partial v} &= \frac{\partial}{\partial r^2} + \frac{v}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}.
-        \end{align*}
-        Then we compute the coefficients using the Minkowski metric of $\mathbb R^{2,1}$:
-    \begin{align*}
-        g_{uu} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial u} \right\rangle = 1 - \frac{u^2}{1 + u^2 + v^2} = \frac{1 + v^2}{1 + u^2 + v^2}\\
-        g_{vv} &= \left\langle \frac{\partial}{\partial v}, \frac{\partial}{\partial v} \right\rangle = 1 - \frac{v^2}{1 + u^2 + v^2} = \frac{1 + u^2}{1 + u^2 + v^2}\\
-        g_{uv} &= \left\langle \frac{\partial}{\partial u}, \frac{\partial}{\partial v} \right\rangle = - \frac{uv}{1 + u^2 + v^2}.
-    \end{align*}
-    Thus the metric is given by
-    \[
-    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
-    \]
-    \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
-    \item Round metric in projective space:\\
-    We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
-    We use the affine chart $U_3 = \{[x:y:z] \in \mathbb P(\mathbb R^3): z \neq 0\} \simeq \mathbb R^2$:
-    \begin{align*}
-        \phi^{-1}: \mathbb R^n &\to U_3 \subseteq \mathbb P(\mathbb R^3)\\
-        (u,v) &\mapsto [u:v:1].
-    \end{align*}
-    In these coordinates, the round metric is given by
-    \[
-    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2},
-    \]
-    \begin{proof}
-        Note that for instance to compute $g_{uu}$, what we need is to compute the norm of $(\d \pi)^{-1}(\partial/\partial u)$ in the round metric of $\mathbb S^2$, since the metric on $\mathbb P(\mathbb R^3)$ is defined as the pullback of the metric on $\mathbb S^2$ through $\pi^{-1}$ (in a neighborhood where $\pi$ is invertible).
-        For this reason, we limit ourselves too the restriction $\pi^{-1}: U_3 \to \mathbb U_N$, where $\mathbb U_N$ is chart of the upper hemisphere.
-        Then indeed,
-        \[
-        g_{uu} = g\left(\frac{\partial}{\partial u}, \frac{\partial}{\partial u}\right) = 
-        \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2}.
-        \]
-        Now we compute the images of the coordinate vector fields:
-        \begin{align*}
-            (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left((1 + v^2) \frac{\partial}{\partial X} - uv \frac{\partial}{\partial Y} - u \frac{\partial}{\partial Z}\right)\\
-            (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) &= \frac{1}{(1+ u^2 + v^2)^{3/2}} \left(-uv \frac{\partial}{\partial X} + (1 + u^2) \frac{\partial}{\partial Y} - v \frac{\partial}{\partial Z}\right),
-        \end{align*}
-        where $(X,Y,Z): U_N \to \mathbb B^2$ is the chart of the upper hemisphere.
-        Then we compute the coefficients using the round metric of $\mathbb S^2$, which is no other than the Euclidean metric of $\mathbb R^3$ restricted to $\mathbb S^2$:
-    \begin{align*}
-        g_{uu} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right) \right\rangle_{\mathbb S^2} = \frac{1 + v^2}{(1 + u^2 + v^2)^2}\\
-        g_{vv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = \frac{1 + u^2}{(1 + u^2 + v^2)^2}\\
-        g_{uv} &= \left\langle (\d \pi)^{-1}\left(\frac{\partial}{\partial u}\right), (\d \pi)^{-1}\left(\frac{\partial}{\partial v}\right) \right\rangle_{\mathbb S^2} = - \frac{uv}{(1 + u^2 + v^2)^2}.
-    \end{align*}
-    Thus the metric is given by
-    \[
-    g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{(1 + u^2 + v^2)^2}.
-    \]
-    \end{proof}
-    \todo{Projective space: Fubini-Study, Hilbert, round/symmetric metrics}
 \end{itemize}
 \section{2025-09-23}
 \begin{itemize}
