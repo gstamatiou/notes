@@ -2940,4 +2940,73 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
 
     This can be found in Guichard-Wienhard 2012, Proposition 4.7.
 \end{enumerate}
+\section{2025-09-30 - Random walks on groups}
+\subsection{Definition of a random walk on a group}
+Let $G$ be a locally compact group and $\mu$ be a probability measure on $G$.
+To every such pair we can associate a random walk on $G$ with increments distributed according to $\mu$ as follows.
+First we define the space of (forward) increments to be the space $G^\mathbb N$ endowed with the product measure $\mu^{\otimes \mathbb N}$, which is essentially the space of sequences of elements of $G$ chosen independently according to the law $\mu$.
+The multiplication of the first $n$ increments gives us a random walk on $G$, whose increments are distributed according to $\mu$:
+\[
+Z: G^\mathbb N \times \mathbb N \to G, \quad Z_n\left((g_i)_{i \in \mathbb N}\right) = g_1 g_2 \cdots g_n.
+\]
+\subsection{Motivation of boundary theory and stationary measures}
+Let $G$ be a locally compact group, $\mu$ be a probability measure on $G$ and $X$ be a compact metric space on which $G$ acts continuously.
+We denote with $Z_n$ the random walk on $G$ corresponding to $\mu$.
+We are interested in the following question:
+\begin{question}
+    What is the asymptotic behaviour of the orbits of $Z_n$ on $X$, i.e.\ what can we say about the sequence $Z_n \cdot x$ for $x \in X$?
+\end{question}
+For this, boundary theory defines a boundary space $Y$ equiped with a measure $\nu$ that is invariant under the dynamical system of the random walk.
+More concretely we ask for $\nu$ to be a $\mu$-stationary measure:
+\[
+\mu * \nu = \nu,
+\]
+where the convolution is defined as follows:
+\begin{definition}
+    Let $G$ be a group acting on a space $X$.
+    If $\mu$ is a probability measure on $G$ and $\nu$ is a probability measure on $X$, then the convolution $\mu * \nu$ is the probability measure on $X$ defined by
+    \[
+    \mu * \nu = \int_G g_* \nu d\mu(g),\text{ i.e.\ } \int_X f d(\mu * \nu) = \int_G \int_X f(g \cdot x) d\nu(x) d\mu(g)
+    \]
+\end{definition}
+Another way to interpret stationarity is that if we consider a random walk on $Y$ with increments distributed according to $\mu$ and starting distribution $\nu$, then the distribution of the position at any time $n$ is still $\nu$.
+
+The reasons to look for such a measure and space are the following:
+\begin{enumerate}
+    \item Such a measure exists: for instance when the space $X$ is compact.
+    \item By a martingale argument we have a convergence result: there exists a family of measures $\{\nu_\omega\}_{\omega \in G^\mathbb N}$ such that in the weak-$*$ topology
+    \[
+    Z_n(\omega)_* \nu \to \nu_\omega.
+    \]
+    Moreover, we can recover $\nu$ by integrating the $\nu_\omega$:
+    \[
+    \nu = \int_{G^\mathbb N} \nu_\omega d\mu^{\otimes \mathbb N}(\omega).
+    \]
+    \item Often, one can show that the measures $\nu_\omega$ are Dirac masses, i.e.\ there exists a measurable map $\xi: G^\mathbb N \to X$ such that $\nu_\omega = \delta_{\xi(\omega)}$.
+    This is in fact a contraction property for the dynamical system on the boundary $Y$.
+\end{enumerate}
+To illustrate the last point above, we ask for the following two conditions:
+\begin{enumerate}
+    \item $\nu_\omega$ is a Dirac mass for almost every $\omega \in G^\mathbb N$.
+    \item The support of $\nu$ is "large" in $Y$.
+\end{enumerate} 
+Then the support of $\nu$ is contracted by the random walk around $\omega$, in the sense that for a suitable subset $O \subseteq Y$ that contains $\xi(\omega)$,
+\[
+Z_n(\omega)_* \nu(O) = \nu(Z_n(\omega)^{-1} O) \to 1.
+\]
+
+Moreover, provided that the support of $\mu$ is large, we can show that the random walk on $X$ converges to $\xi(\omega)$:
+\[
+Z_n(\omega) \cdot x \to \xi(\omega) \text{ for many } x \in X.
+\]
+To see this, assume that $X$ is the hyperbolic disc and $Y$ its boundary.
+Then for a point $x \in X$, we assume that there exist points $\xi_1, \xi_1' \in \mathrm{supp}(\nu) \subseteq Y$ such that the geodesic ray from $\xi_1$ to $\xi_1'$ passes through $x$.
+Similarly, we assume that there exist points $\xi_n, \xi_n' \in \mathrm{supp}(\nu) \subseteq Y$ such that the geodesic ray from $\xi_n$ to $\xi_n'$ passes through $Z_n(\omega) \cdot x$.
+Then the above discussion tells us that $\xi_n, \xi_n' \to \xi(\omega)$, so the geodesic ray from $\xi_n$ to $\xi_n'$ converges to the geodesic ray from $\xi(\omega)$ to itself, which is just the point $\xi(\omega)$.
+
+\subsection{A toy example}
+Let $G = \GL(d,\mathbb R)$ and $\mu = \delta_A$ for some diagonal matrix $A = \mathrm{diag}(\lambda_1, \ldots, \lambda_d)$ with $\lambda_1 > \lambda_2 > \cdots > \lambda_d > 0$.
+Then the random walk is given by $Z_n = A^n$.
+Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence $(A, A, A, \ldots)$.
+
 \end{document}
