@@ -932,9 +932,9 @@ Hence the volume form is simply
 \text{Vol} = \sqrt{\det g} d\theta d\varphi = R^2 \sin \varphi \d\theta \wedge \d\varphi.
 \]
 \todo{Volume entropy}
-\begin{itemize}
-    
-    \item Hyperbolic metric in the hyperboloid model:\\
+
+\subsection{Hyperbolic space}
+Hyperbolic metric in the hyperboloid model:\\
     We consider the hyperboloid model of the hyperbolic space $\mathbb H^n$:
     \[
     \mathbb H^n = \{x \in \mathbb R^{n,1}: x_1^2 + \cdots + x_n^2 - x_{n+1}^2 = -1, x_{n+1} > 0\},
@@ -968,7 +968,8 @@ Hence the volume form is simply
     g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
     \]
     \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
-    \item Round metric in projective space:\\
+\subsection{Projective space} 
+Round metric in projective space:\\
     We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
     We use the affine chart $U_3 = \{[x:y:z] \in \mathbb P(\mathbb R^3): z \neq 0\} \simeq \mathbb R^2$:
     \begin{align*}
@@ -1005,7 +1006,7 @@ Hence the volume form is simply
     \]
     \end{proof}
     \todo{Projective space: Fubini-Study, Hilbert, round/symmetric metrics}
-\end{itemize}
+
 \chapter{Logbook}
 \setcounter{secnumdepth}{0}
 \section{2025-02-19}
@@ -3008,5 +3009,151 @@ Then the above discussion tells us that $\xi_n, \xi_n' \to \xi(\omega)$, so the 
 Let $G = \GL(d,\mathbb R)$ and $\mu = \delta_A$ for some diagonal matrix $A = \mathrm{diag}(\lambda_1, \ldots, \lambda_d)$ with $\lambda_1 > \lambda_2 > \cdots > \lambda_d > 0$.
 Then the random walk is given by $Z_n = A^n$.
 Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence $(A, A, A, \ldots)$.
+\section{2025-10-01}
+\subsection{Boundary theory basics}
+\begin{assumption}
+    Let $G$ be a second countable locally compact group and $\mu$ be a probability measure on $G$.
+\end{assumption}
+\begin{definition}
+    Let $G$ be a group acting continuously on a topological space $Y$, equipped with the Borel $\sigma$-algebra and a probability measure $\nu$.
+    Then
+    \begin{enumerate}[label=(\roman*)]
+        \item The action of $G$ on $Y$ is \emph{non-singular} if every element of $G$ preserves the measure class of $\nu$.
+        \item The convolution $\mu * \nu$ is defined as the measure on $Y$ given by
+        \[
+        \mu * \nu = \int_G g_* \nu d\mu(g),
+        \]
+        i.e.\ for every measurable function $f: Y \to \mathbb R$ we have
+        \[
+        \int_Y f d(\mu * \nu) = \int_G \int_Y f(g \cdot y) d\nu(y) d\mu(g).
+        \]
+        We denote with $\mu^{*n} = \mu * \cdots * \mu$ ($n$ times) the $n$-th convolution power of $\mu$, where $G$ is considered with the action on itself by left multiplication.
+        \item The measure $\nu$ is \emph{$\mu$-stationary} if $\mu * \nu = \nu$. In this case we say that the pair $(Y, \nu)$ is a \emph{$(G, \mu)$-space}.
+        \item The measure $\mu \in \mathrm{Prob}(G)$ is \emph{admissible} if the support of $\mu$ generates $G$ as a semigroup and there exists $n \in \mathbb N$ such that $\mu^{*n}$ and the Haar measure on $G$ are non-singular.
+    \end{enumerate}
+\end{definition}
+\subsection{Cocycles and Gregs}
+\begin{definition}
+    Let $G$ be a group, $\mathbb T \in \{\mathbb R, \mathbb R_{\geq 0}, \mathbb Z, \mathbb N\}$ be time, and $\theta: \mathbb T \times X \to X$ be a flow on $X$.
+        A \emph{cocycle} on $X$ over $\theta$ is a map $w: \mathbb T \times X \to G$ such that for all $s, t \in \mathbb T$ and $x \in X$ we have
+        \[
+        w(s+t, x) = w(s, \theta_t(x)) w(t, x).
+        \]
+\end{definition}
+\begin{remark}[Cocycle condition]
+    To motivate the cocycle condition, one can think of it as a condition that allows to define a flow over the fiber bundle $X \times G$ over $X$:
+    \[
+    t \cdot (x, g) = (\theta_t(x), w(t,x) g).
+    \]
+    Then the cocycle condition is equivalent to the fact that this defines a flow.
 
+    Moreover, the cocycle condition allows to lift the flow $\theta$ on $X$ to a flow on $X \times Y$ for any space $Y$ on which $G$ acts:
+    \[
+    t \cdot (x, y) = (\theta_t(x), w(t,x) \cdot y).
+    \]
+    In this case, the cocycle condition guarantees that this defines a flow on $X \times Y$ (but being a flow on $X \times Y$ does not guarantee that the cocycle condition holds, unless the action of $G$ on $Y$ is faithful).
+\end{remark}
+\begin{remark}
+    In the case of discrete time $\mathbb T \in \{\mathbb Z, \mathbb N\}$, the flow is determined by the map $T = \theta_1: X \to X$, and the cocycle is determined by the map $w = w_1: X \to G$ by the relations:
+    \begin{equation}\label{eq:cocycle_discrete_time}
+        \begin{aligned}
+            w(n, x) &= w(T^{n-1}(x)) \cdots w(T(x)) w(x) \text{ for } n > 0, \\
+            w(0, x) &= e, \\
+            w(-n, x) &= w(T^{-n}(x))^{-1} \cdots w(T^{-1}(x))^{-1} \text{ for } n > 0.
+        \end{aligned}
+    \end{equation}
+    We call the map $w: \mathbb T \times X \to G$ the \emph{generator} of the cocycle.
+
+    On the other hand, given a map $w: X \to G$, and a map $T: X \to X$, the relations in \cref{eq:cocycle_discrete_time} define a cocycle on $X$ over the flow generated by $T$ (which is over $\mathbb Z$ when $T$ is invertible and over $\mathbb N$ otherwise).
+\end{remark}
+
+\begin{definition}
+    Let $(X, \mathcal X, m)$ be a probability space, $T: X \to X$ a measurable measure-preserving transformation.
+    Then we say that $(X, \mathcal X, m, T, w, G)$ is a \emph{group random element generator}, where $w: \mathbb T \times X \to G$ is the discrete-time cocycle corresponding to the map $w: X \to G$ over the flow generated by $T: X \to X$.
+\end{definition}
+\subsection{Lyapunov exponents of cocycles}
+\begin{definition}
+    Let $w: \mathbb N \times X \to \GL(d, \mathbb R)$ be a cocycle with values in $\GL(d,\mathbb R)$.
+    We define the \emph{upper Lyapunov exponent} of $(x, v) \in X \times \mathbb R^d$ with respect to $w$ as
+    \[
+    \bar \chi^+ (x, v) = \limsup_{n \to \infty} \frac{1}{n} \log \|w(n,x) v\| \in [- \infty, +\infty].
+    \]
+    If the limit
+    \[
+    \chi^+(x,v) = \lim_{n \to \infty} \frac{1}{n} \log \|w(n,x) v\|
+    \]
+    exists, we call it the \emph{Lyapunov exponent} of $(x,v)$ with respect to $w$.
+\end{definition}
+The proof of the following is \cite[Lemma S.2.6]{katok1995introduction}
+\begin{lemma}[Properties of Lyapunov exponents]
+    Let $w: \mathbb N \times X \to \GL(d, \mathbb R)$ be a cocycle with values in $\GL(d,\mathbb R)$.
+    Then
+    \begin{enumerate}[label=(\roman*)]
+        \item $\bar \chi^+(x, v)$ is homogeneous in $v$, i.e.\ $\bar \chi^+(x, t v) = \bar \chi^+(x, v)$ for every $t \in \mathbb R \setminus \{0\}$.
+        \item $\bar \chi^+(x, v_1 + v_2) \leq \max\{\bar \chi^+(x, v_1), \bar \chi^+(x, v_2)\}$ for every $v_1, v_2 \in \mathbb R^d$.
+        If in particular, $\bar \chi^+(x, v_1) < \bar \chi^+(x, v_2)$ then $\bar \chi^+(x, v_1 + v_2) = \bar \chi^+(x, v_2)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{definition}
+    Let $w: \mathbb N \times X \to \GL(d, \mathbb R)$ be a cocycle with values in $\GL(d,\mathbb R)$.
+    If the Lyapunov exponents of $w$ at some point $x$ are all finite, then there exist
+    \begin{align*}
+        \chi_1(x) < \chi_2(x) < \cdots < \chi_{k(x)}(x) &\in \mathbb R,\\
+        \{0 \} \subsetneq E_1(x) \subsetneq E_2(x) \subsetneq \cdots \subsetneq E_{k(x)}(x) &= \mathbb R^d,
+    \end{align*}
+    where we define the vector spaces $E_\chi(x) = \{v \in \mathbb R^d: \chi^+(x,v) \leq \chi\}$, and we ask that for $v \in E_i(x) \setminus E_{i-1}(x)$ we have $\bar \chi^+(x,v) = \chi_i(x)$.
+
+    The numbers $\chi_i(x)$ are called the \emph{upper Lyapunov exponents} of $w$ at $x$, and the spaces $E_i(x)$ are called the \emph{filtration} at $x$ associated to the cocycle $w$.
+    The number 
+    \begin{align*}
+        \lambda_i(x) = \dim E_i(x) - \dim E_{i-1}(x), i = 2, \ldots, k(x), \quad \lambda_1(x) = \dim E_1(x)
+    \end{align*}
+    is called the \emph{multiplicity} of the Lyapunov exponent $\chi_i(x)$, and the set
+    \[
+    \mathrm{Sp}_x w = \{(\chi_i(x), \lambda_i(x)): i = 1, \ldots, k(x)\}
+    \]
+    is called the \emph{spectrum} of $w$ at $x$.
+\end{definition}
+
+\begin{remark}[Well-definiteness of exponents and filtrations]
+    First note that if all Lyapunov exponents at $x$ are finite, then the Lyapunov exponents at $x$ are bounded uniformly in $v \in \mathbb R^d \setminus \{0\}$, since for any base $\{e_1, \ldots, e_d\}$ of $\mathbb R^d$ we have $\bar \chi^+(x, v) \leq \max_{i=1,\ldots,d} \bar \chi^+(x, e_i)$ for every $v \in \mathbb R^d \setminus \{0\}$.
+    Thus the plot of $\dim E_\chi$ shown in \cref{fig:lyapunov_filtration} shows that the filtration is finite.
+    Moreover, it gives a reason for asking that $\bar \chi^+(x,v) = \chi_i(x)$ for $v \in E_i(x) \setminus E_{i-1}(x)$, since otherwise, one could pick $\chi$ 
+\end{remark}
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figures/exponents.png}
+        \caption{Filtration of Lyapunov exponents: the plot of $\dim E_\chi$ as a function of $\chi$ is a non-decreasing step function.}
+        \label{fig:lyapunov_filtration}
+    \end{figure}\todo{what if I pick some $\chi_2' \in (\chi_1, \chi_2)$ and consider the sequence $\chi_1 < \chi_2' < \chi_3 < \cdots < \chi_{k(x)}$?}
+
+    \subsection{Equivalent cocycles}
+    \begin{definition}[Tempered maps]
+        Let $(X, \mathcal X, m, T, w, \GL(d,\mathbb R))$ be a greg.
+        A measurable map $C: X \to \GL(d, \mathbb R)$ is called \emph{tempered} with respect to $T$ if for $m$-almost every $x \in X$ we have
+        \[
+        \lim_{ n \to \infty} \frac{1}{n} \log \|C(T^n(x))^{\pm 1}\| = 0.
+        \]
+    \end{definition}
+    The following is \cite[Lemma S.2.4]{katok1995introduction}:
+    \begin{lemma}[Criterion for temperedness]
+        Let $(X, \mathcal X, m, T, w, \GL(d,\mathbb R))$ be a greg on $\mathbb R$.
+        If $C: X \to \GL(d, \mathbb R)$ is such that
+        \[
+        \max \{\log \|C(x)\|, \log \|C(x)^{-1}\|\} \in L^1(X, m),
+        \]
+        then $C$ is tempered with respect to $T$.
+    \end{lemma}
+    \begin{proof}
+        Follows by using Birkhoff's ergodic theorem on the functions $\log \|C(x)\|$ and $\log \|C(x)^{-1}\|$.
+    \end{proof}
+    \begin{definition}[Equivalent cocycles]
+        Consider two gregs $(X, \mathcal X, m, T, A, \GL(d,\mathbb R))$ and $(X, \mathcal X, m, T, B, \GL(d,\mathbb R))$.
+        We say that the cocycles $A$ and $B$ are \emph{equivalent} if there exists a tempered map $C: X \to \GL(d, \mathbb R)$ such that for $m$-almost every $x \in X$ we have
+        \[
+        A(x) = C(T(x))^{-1} B(x) C(x)^{-1}.
+        \]
+        A cocycle is called \emph{rigid} if it is equivalent to a cocycle with generator independent from $x$, i.e.\ $B(n,x) = B^n$ for some $B \in \GL(d,\mathbb R)$ and every $n \in \mathbb N, x \in X$.
+    \end{definition}
 \end{document}
