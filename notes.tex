@@ -934,24 +934,32 @@ Hence the volume form is simply
 \todo{Volume entropy}
 
 \subsection{Hyperbolic space}
-Hyperbolic metric in the hyperboloid model:\\
+\subsubsection{Coordinate representation for metric}
     We consider the hyperboloid model of the hyperbolic space $\mathbb H^n$:
     \[
     \mathbb H^n = \{x \in \mathbb R^{n,1}: x_1^2 + \cdots + x_n^2 - x_{n+1}^2 = -1, x_{n+1} > 0\},
     \]
     with the metric induced by the Minkowski metric of $\mathbb R^{n,1}$.
     
-    The parametrization we use is given by
-    \begin{align*}
-        \phi^{-1}: \mathbb R^2 &\to \mathbb H^2\\
-        (u,v) &\mapsto (u, v, \sqrt{1 + u^2 + v^2}).
-    \end{align*}
+    \begin{proposition}[Coordinates for projection chart]
+        Consider the chart that projects the hyperboloid onto the plane $x_{3} = 0$:
+        \begin{align*}
+            \phi = (u,v): \mathbb H^2 &\to \mathbb R^2\\
+            (r^1, r^2, r^3) &\mapsto (r^1, r^2).
+        \end{align*}
     In these coordinates, the hyperbolic metric is given by
     \[
     g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2},
     \]
     where $du dv$ is the symmetric product $\frac{1}{2}(du \otimes dv + dv \otimes du)$.
+    \end{proposition}
     \begin{proof}
+    The parametrization we use is given by
+    \begin{align*}
+        \phi^{-1}: \mathbb R^2 &\to \mathbb H^2\\
+        (u,v) &\mapsto (u, v, \sqrt{1 + u^2 + v^2}).
+    \end{align*}
+    
         We compute the frame given by the coordinate vector fields:
         \begin{align*}
             \frac{\partial}{\partial u} &= \frac{\partial}{\partial r^1} + \frac{u}{\sqrt{1 + u^2 + v^2}} \frac{\partial}{\partial r^3}\\
@@ -968,6 +976,48 @@ Hyperbolic metric in the hyperboloid model:\\
     g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
     \]
     \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
+
+    \begin{proposition}[Geodesic polar coordinates]
+        In geodesic polar coordinates, the hyperbolic metric is given by
+        \[
+        g = \d r^2 + \sinh^2(r) \d\theta^2.
+        \]
+    \end{proposition}
+    \begin{proof}
+        Without loss of generality, we can assume that the point we are considering is $p = (0,0,1)$.
+        First we calculate the exponential map at $p$:
+        \begin{align*}
+            \exp_p: T_p \mathbb H^2 &\to \mathbb H^2\\
+            v_1 \frac{\partial}{\partial r^1} + v_2 \frac{\partial}{\partial r^2} &\mapsto \left(\cosh(\|v\|), \sinh(\|v\|) \frac{v}{\|v\|}\right),
+        \end{align*}
+        where $\|v_1 \partial_{r^1} + \cdots + v_3 \partial_{r^3}\| = \sqrt{(v_1)^2 + (v_2)^2 + (v_3)^2}$ is the usual euclidean norm.
+
+        Then we identify the tangent space $T_p \mathbb H^2$ with $\mathbb R^2$, via $v_1 \partial_{r^1} + v_2 \partial_{r^2} \mapsto (v_1, v_2)$, and compose with the polar coordinates of $\mathbb R^2 - \{0\}$ so we obtain the commutative diagram
+        \[
+            \begin{tikzcd}
+                \mathbb R^2 \simeq T_p \mathbb H^2  \arrow[r, "\exp_p"] & \mathbb H^2\\
+                \mathbb R_{>0} \times (0, 2\pi) \arrow[u, "\phi^{-1}"] \arrow[ur, "\phi^{-1} \circ \exp_p"]
+            \end{tikzcd}
+        \]
+        where $\phi$ is the chart of geodesic polar coordinates:
+        \begin{align*}
+            \phi^{-1}: \mathbb R_{>0} \times (0, 2\pi) &\to \mathbb H^2\\
+            (r, \theta) &\mapsto (\sinh(r) \cos(\theta), \sinh(r) \sin(\theta), \cosh(r)).
+        \end{align*}
+        Then we compute the frame given by the coordinate vector fields with respect to the ambient coordinates of $\mathbb R^{2,1}$:
+        \begin{align*}
+            \frac{\partial}{\partial r} &= \cosh(r) \cos(\theta) \frac{\partial}{\partial x^1} + \cosh(r) \sin(\theta) \frac{\partial}{\partial x^2} + \sinh(r) \frac{\partial}{\partial x^3}\\
+            \frac{\partial}{\partial \theta} &= -\sinh(r) \sin(\theta) \frac{\partial}{\partial x^1} + \sinh(r) \cos(\theta) \frac{\partial}{\partial x^2}.
+        \end{align*}
+        Then we compute the coefficients using the metric in the ambient coordinates given by the Minkowski metric of $\mathbb R^{2,1}$:
+    \begin{align*}
+        g_{rr} &= \left\langle \frac{\partial}{\partial r}, \frac{\partial}{\partial r} \right\rangle = 1\\
+        g_{\theta \theta} &= \left\langle \frac{\partial}{\partial \theta}, \frac{\partial}{\partial \theta} \right\rangle = \sinh^2(r)\\
+        g_{r \theta} &= \left\langle \frac{\partial}{\partial r}, \frac{\partial}{\partial \theta} \right\rangle = 0,
+    \end{align*}
+    and the result follows.
+    \end{proof}
+
 \subsection{Projective space} 
 Round metric in projective space:\\
     We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
