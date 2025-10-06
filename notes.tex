@@ -3091,7 +3091,7 @@ Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence 
         \]
 \end{definition}
 \begin{remark}[Cocycle condition]
-    To motivate the cocycle condition, one can think of it as a condition that allows to define a flow over the fiber bundle $X \times G$ over $X$:
+    To motivate the cocycle condition, consider a group $G$ acting on a space $X$. One can think of it as a condition that allows to define a flow over the fiber bundle $X \times G$ over $X$ that lifts the flow $\theta$ on $X$:
     \[
     t \cdot (x, g) = (\theta_t(x), w(t,x) g).
     \]
@@ -3196,14 +3196,229 @@ The proof of the following is \cite[Lemma S.2.6]{katok1995introduction}
         then $C$ is tempered with respect to $T$.
     \end{lemma}
     \begin{proof}
-        Follows by using Birkhoff's ergodic theorem on the functions $\log \|C(x)\|$ and $\log \|C(x)^{-1}\|$.
+        Use Birkhoff's ergodic theorem on the functions $\log \|C(x)\|$ and $\log \|C(x)^{-1}\|$.
     \end{proof}
     \begin{definition}[Equivalent cocycles]
-        Consider two gregs $(X, \mathcal X, m, T, A, \GL(d,\mathbb R))$ and $(X, \mathcal X, m, T, B, \GL(d,\mathbb R))$.
+        Consider two gregs $(A, \GL(d,\mathbb R))$ and $(B, \GL(d,\mathbb R))$ over the same flow and probability space $(X, \mathcal X, m, T)$.
         We say that the cocycles $A$ and $B$ are \emph{equivalent} if there exists a tempered map $C: X \to \GL(d, \mathbb R)$ such that for $m$-almost every $x \in X$ we have
         \[
         A(x) = C(T(x))^{-1} B(x) C(x)^{-1}.
         \]
         A cocycle is called \emph{rigid} if it is equivalent to a cocycle with generator independent from $x$, i.e.\ $B(n,x) = B^n$ for some $B \in \GL(d,\mathbb R)$ and every $n \in \mathbb N, x \in X$.
     \end{definition}
+
+\section{2025-10-03}
+\subsection[Proof of 2d(1,n) <= d(1,2)]{Proof of $2\delta_{1,n} \leq \delta_{1,2}$}
+Note that critical exponents of functionals are defined for positive functionals on the Weyl chamber because we want that for $s > \delta_\Gamma(\varphi)$ the series converges.
+\begin{lemma}[Properties of critical exponents]
+    Let $\Gamma$ be a discrete subgroup of $\SL(d,\mathbb R)$.
+    Then for functionals $\varphi, \psi: \mathfrak a \to \mathbb R$ that are positive on the Weyl chamber $\mathfrak a^+$ we have
+    \begin{enumerate}[label=(\roman*)]
+        \item $\delta_\Gamma(\lambda \varphi) = \frac{1}{\lambda} \delta_\Gamma(\varphi)$ for every $\lambda > 0$.
+        \item If $\varphi \leq \psi$ on $\mathfrak a^+$, then $\delta_\Gamma(\varphi) \geq \delta_\Gamma(\psi)$.
+    \end{enumerate}
+\end{lemma}
+
+We want to show that
+\begin{proposition}\label{prop:critical_exponent_inequality}
+    Let $\Gamma$ be a discrete subgroup of $\SL(d,\mathbb R)$.
+    Then
+    \[
+    2 \delta_{1,n}(\Gamma) \leq \delta_{1,2}(\Gamma),
+    \]
+    where $\delta_{1,n}(\Gamma) = \delta_\Gamma(\alpha_{1,n})$ and $\delta_{1,2}(\Gamma) = \delta_\Gamma(\alpha_{1,2})$, and $\alpha_{i,j}(\mathrm{diag}(a_1, \ldots, a_d)) = a_i - a_j$.
+\end{proposition}
+By the above lemma, it would be enough to show that $\alpha_{1,n} \geq \frac{1}{2} \alpha_{1,2}$ on the Weyl chamber $\mathfrak a^+$, but this is not true.
+A counter example in $\SL(3,\mathbb R)$ is given by the matrix $\mathrm{diag}(3, -2, -1)$, for which $\alpha_{1,3} = 4$ and $\alpha_{1,2} = 5$.
+
+We will use the fact that for the opposition involution $\iota: \mathfrak a \to \mathfrak a$ in $\mathfrak{sl}(d,\mathbb R)$ we have
+\[
+\alpha_{i,j}(H) = \alpha_{d-j+1, d-i+1}(\iota(H)).
+\]
+We recall its general definition:
+\begin{definition}[Opposition involution]
+    Consider a choice of a Cartan subalgebra $\mathfrak a$ and a Weyl chamber $\mathfrak a^+$ of a semisimple Lie algebra $\mathfrak g$.
+    There exists a unique element of the Weyl group $w_0$ that sends $\mathfrak a^+$ to $-\mathfrak a^+$.
+    The \emph{opposition involution} is the map $\iota: \mathfrak a \to \mathfrak a$ defined by $\iota(H) = - w_0(H)$.
+\end{definition}
+
+We also recall that the Cartan decomposition is unique up to the action of the Weyl group. This is \cite[Proposition 7.39]{knapp1996lie}.
+\begin{proposition}[Uniqueness of Cartan decomposition]
+    Let $G$ be a reductive group.
+    Then 
+    \[
+    K a K = K a' K \iff a' = w \cdot a \text{ for some } w \in W,
+    \]
+    where $W$ is the Weyl group of $G$ and $a, a' \in A$.
+\end{proposition}
+
+\begin{proof}[Proof of \cref{prop:critical_exponent_inequality}]
+    Note that the proposition above tells us that for every $g \in \SL(d,\mathbb R)$:
+    \[
+    \alpha_{n-1,n}(\mu(g)) = \alpha_{1,2}(\mu(g^{-1})),
+    \]
+    since for $k,l \in K$ we have $g = k \exp(\mu(g)) l$ and 
+    $$g^{-1} = l^{-1} \exp(-\mu(g)) k^{-1} = l^{-1} -w_0(\mu(g)) k^{-1} = l^{-1} \exp(\iota(\mu(g))) k^{-1}$$, so $\mu(g^{-1}) = \iota(\mu(g))$ which negates and inverses the entries of $\mu(g)$.
+
+    Since $\alpha_{1,n} = \alpha_{1,2} + \alpha_{2,3} + \cdots + \alpha_{n-1,n} \geq \alpha_{1,2}+ \alpha_{n-1,n}$, Hölder's inequality gives us that for $1/p + 1/q = 1$ and $s > 0$:
+    \begin{align*}
+        \sum_{\gamma \in \Gamma} e^{-s \alpha_{1,n}(\mu(\gamma))} &\leq 
+        \sum_{\gamma \in \Gamma} e^{-s (\alpha_{1,2}(\mu(\gamma)) + \alpha_{n-1,n}(\mu(\gamma)))}\leq\\
+        &leq \left(\sum_{\gamma \in \Gamma} e^{-s \alpha_{1,2}(\mu(\gamma))}\right)^{1/p} \left(\sum_{\gamma \in \Gamma} e^{-s \alpha_{n-1,n}(\mu(\gamma))}\right)^{1/q}
+    \end{align*}
+    Note that the sum of the right-hand side converges if
+    \[
+    s > \max\{\frac{1}{p} \delta_{1,2}, \left(1 - \frac{1}{p}\right) \delta_{n-1,n}\}
+    \]
+    which is optimal (i.e.\ as small as possible) when $p^{-1} = \delta_{n-1,n }/(\delta_{1,2} + \delta_{n-1,n})$.
+    Thus the sum on the left-hand side converges if
+    \[
+    s > \frac{\delta_{1,2} \delta_{n-1,n}}{\delta_{1,2} + \delta_{n-1,n}}.
+    \]
+    meaning that 
+    \[
+    \delta_{1,n} \leq \frac{\delta_{1,2} \delta_{n-1,n}}{\delta_{1,2} + \delta_{n-1,n}}.
+    \]
+    However, the fact that $\alpha_{1,2}(\mu(g)) = \alpha_{n-1,n}(\mu(g^{-1}))$ implies that $\delta_{1,2} = \delta_{n-1,n}$, so the result follows.
+\end{proof}
+\subsection{Geodesic flow on groups}
+We would like to explain the definition of the geodesic flow on a hyperbolic group $\Gamma$.
+To motivate it, we start with the case of the geodesic flow on a simply connected negatively curved manifold $M$, then pass to the case of a group $\Gamma$ acting properly discontinuously on a negatively curved manifold, and finally to the case of a hyperbolic group $\Gamma$.
+\subsubsection{Geodesic flow on a simply connected negatively curved manifold}\todo{Why do we not allow zero curvature?}
+Let $\tilde M$ be a simply connected, complete, negatively curved manifold.
+Then by the Cartan-Hadamard theorem, $\tilde M$ is diffeomorphic to a ball $\mathbb B^n$ and the exponential map $\exp_x: T_x \tilde M \to \tilde M$ is a diffeomorphism for every $x \in \tilde M$.
+Using $\exp_x$ we can identify the Gromov boundary $\partial_\infty \tilde M$ with the unit tangent sphere $\mathbb S^{n-1} \simeq T_x^1 \tilde M$ at $x$.
+So we can think of $\tilde M \cup \partial_\infty \tilde M$ as the closed ball $\overline{\mathbb B^n}$, just like in the case of Poincaré-disc model of the hyperbolic space $\mathbb H^n$.
+
+We have the following fiber bundle over the space $\partial_\infty \tilde M^{(2)}$ of distinct pairs of boundary points, with fiber isomorphic to $\mathbb R$:
+
+\begin{center}
+\begin{tikzcd}[column sep=large, row sep=large]
+    T^1 \tilde M \arrow[d, "\pi"] & \mathbb R \arrow[l, two heads] \\
+    \partial_\infty \tilde M^{(2)}
+\end{tikzcd}    
+\end{center}
+where 
+\[
+\pi: T^1 \tilde M \to \partial_\infty \tilde M^{(2)}, \quad v \mapsto \left(\lim_{t \to +\infty} \phi_t(v), \lim_{t \to -\infty} \phi_t(v)\right),
+\]
+and $\phi_t: T^1 \tilde M \to T^1 \tilde M$ is the geodesic flow on $\tilde M$. The fiber over a pair of distinct boundary points $(\xi^-, \xi^+) \in \partial_\infty \tilde M^{(2)}$ are the unit tangent vectors pointing towards $\xi^+$ that are tangent to the geodesic connecting $\eta$ and $\xi^+$.
+
+This is a principal bundle. 
+The reals $\mathbb R$ should be thought rather as the affine line, since the choice of a base point $0$ is not canonical.
+
+To trivialize the bundle, we consider a section $s: \partial_\infty \tilde M^{(2)} \to T^1 \tilde M$ which gives us a base point $s(\xi^-, \xi^+)$ in each fiber $\pi^{-1}(\xi^-, \xi^+)$.
+Then we can identify $T^1 \tilde M$ with $\partial_\infty \tilde M^{(2)} \times \mathbb R$ via the map
+\begin{align*}
+    \partial_\infty \tilde M^{(2)} \times \mathbb R &\to T^1 \tilde M,\\
+    (\xi^-, \xi^+, t) &\mapsto \phi_t(s(\xi^-, \xi^+)).
+\end{align*}
+Thus, given a section $s: \partial_\infty \tilde M^{(2)} \to T^1 \tilde M$, we associate to each $v \in T^1 \tilde M$ the triple $(\xi^-, \xi^+, t)$, where $\xi^\pm$ are the endpoints of the (oriented) geodesic tangent to $v$ and $t$ is the signed distance between $s(\xi^-, \xi^+)$ and $v$ along the geodesic.
+
+\subsubsection{Geodesic flow on a negatively curved manifold\\Or a group acting properly discontinuously on a negatively curved simply connected manifold}
+Consider now a complete, negatively curved manifold $M$.
+Then $M$ is isometric to the quotient $\Gamma \backslash \tilde M$, where $\tilde M$ is the universal cover of $M$ and $\Gamma = \pi_1(M)$ acts on $\tilde M$ by isometries.
+
+Note that this is equivalent to considering a torsion-free group $\Gamma$ acting by isometries, properly discontinuously on a simply connected, complete, negatively curved manifold $\tilde M$.
+This is the setting that we will work on.
+From an analog of the Milnor-Svarc lemma for non-cocompact actions, we know that the orbit maps $\Gamma \to \tilde M$ are quasi-isometric embeddings.
+Extending these to topological embeddings of the boundaries gives us an embedding of the boundaries $\partial_\infty \Gamma \subseteq \partial_\infty \tilde M$, which does not depend on the choice of the orbit.
+
+Our goal is to define a properly discontinuous action of $\Gamma$ on $T^1 \tilde M$ that commutes with the geodesic flow $\phi_t: T^1 \tilde M \to T^1 \tilde M$.
+Then we will have defined a geodesic flow on $M = \Gamma \backslash \tilde M$ as the quotient flow $\Gamma \backslash T^1 \tilde M$.
+We will use the (arbitrary) choice of a section $s: \partial_\infty \tilde M^{(2)} \to T^1 \tilde M$ to obtain a trivialization $\Phi: \tilde M^{(2)} \times \mathbb R \to T^1 \tilde M$.
+We define the action of $\gamma$ on $\partial_\infty \tilde M^{(2)} \times \mathbb R$ as
+\begin{align*}
+    \Phi^{-1} \gamma \Phi: \partial_\infty \tilde M^{(2)} \times \mathbb R &\to \partial_\infty \tilde M^{(2)} \times \mathbb R,\\
+    (\xi^-, \xi^+, t) &\mapsto (\gamma \xi^-, \gamma \xi^+, t + c(\gamma, \xi^-, \xi^+)),
+\end{align*}
+where $c: \Gamma \times \partial_\infty \tilde M^{(2)} \to \mathbb R$.
+Since this clearly lifts the action of $\Gamma$ on $\tilde M$, we know from the theory of cocycles that $\Phi^{-1} \gamma \Phi$ is an action if and only if $c$ is a cocycle.
+To see this, one can use the definition of $\Phi$, or the fact that $\gamma$ acts by isometries.
+\begin{remark}[Action and arbitrariness of parametrisation]
+    Note that while the action of $\Gamma$ on $T^1 \tilde M$ is canonical, the action on $\partial_\infty \tilde M^{(2)} \times \mathbb R$ depends on the choice of the section $s: \partial_\infty \tilde M^{(2)} \to T^1 \tilde M$.
+    To see this consider another section $s': \partial_\infty \tilde M^{(2)} \to T^1 \tilde M$, which we denote with $s'(x) = (x, \bar s'(x))$, and let
+    \[
+    f: \partial_\infty \tilde M^{(2)} \to \mathbb R, \quad f(x) = \bar s'(x) - \bar s(x).
+    \]
+    Then using the definition of $\Phi$ one can check that $\phi_t \Phi(x,t) = \Phi T_{f(x)}(x,t)$, where $T_s: \mathbb R \to \mathbb R$ is the translation $T_s(t) = t + s$, and that $\Phi'(x,t) = \phi_{f(x)} \Phi(x,t)$.
+    Using this one can calculate that
+    \[
+    \Phi'^{-1} \gamma \Phi'(x,t) = ( \gamma x, t + c(\gamma, x) + f(x) - f(\gamma x)).
+    \]
+    Hence $c'(\gamma, x) = c(\gamma, x) + f(x) - f(\gamma x)$, i.e.\ $c$ and $c'$ are cohomologous cocycles.
+
+    In this sense, the parametrised action of $\Gamma$ on $\partial_\infty \tilde M^{(2)} \times \mathbb R$ is well-defined up to cocycle cohomology class.
+\end{remark}
+
+The following lemma shows that the action of $\Gamma$ on $T^1 \tilde M$ is properly discontinuous.
+\begin{lemma}
+    If a group $\Gamma$ acts properly discontinuously on a manifold $N$, then it acts properly discontinuously on $T^1 N$.
+\end{lemma}
+Moreover, since $\Gamma$ acts by isometries, the action on $T^1 \tilde M$ commutes with the geodesic flow $\phi_t: T^1 \tilde M \to T^1 \tilde M$, which thus descends to a flow on $\Gamma \backslash T^1 \tilde M = T^1 M$.
+Denoting with $\pi: T^1 \tilde M \to \partial_\infty \tilde M^{(2)}$ the projection, one can show that
+\begin{fact}
+The set 
+\[
+\Gamma \backslash \partial_\infty \Gamma^{(2)} \times \mathbb R \simeq \Gamma \backslash \pi^{-1}(\partial_\infty \Gamma^{(2)}) \subseteq T^1 M
+\]
+is compact and coincides with the non-wandering set of the geodesic flow on $T^1 M$.
+\end{fact}
+In the case where $\Gamma$ is cocompact, this is the whole $T^1 M$, since $\partial_\infty \Gamma = \partial_\infty \tilde M$.
+Then things are a bit easier:
+\begin{exercise}
+Let $\Gamma$ be a torsion-free discrete group acting cocompactly by isometries on a complete negatively curved manifold $\tilde M$.
+Then $\Gamma$ acts properly discontinuously and cocompactly on $T^1 M$.
+\end{exercise}
+\begin{proof}[Solution]
+    We will denote with $\pi: T^1 M \to M$ the bundle projection.
+    It is easy to see that the quotient map $T^1 M \to T^1 M / \Gamma$ lifts the quotient map $M \to M / \Gamma$, making the following diagram commute:
+    \begin{center}
+    \begin{tikzcd}[column sep=large, row sep=large]
+        T^1 M \arrow[d, "\pi"] \arrow[r] & T^1 M / \Gamma \arrow[d, "\bar \pi"] \\
+        M \arrow[r] & M / \Gamma
+    \end{tikzcd}    
+    \end{center}
+    To prove proper discontinuity, let $K \subseteq T^1 M$ be compact and $\gamma_n \in \Gamma$ be a sequence in $\Gamma$ such that $\gamma_n K \cap K \neq \emptyset$.
+    Then $\pi(\gamma_n K) \cap \pi(K) \neq \emptyset$, so $\{\gamma_n \}$ is finite since $\Gamma$ acts properly discontinuously on $M$.
+
+    For cocompactness, let $K \subseteq M$ be a compact set such that $\Gamma K = M$ and $v_n \in T^1 M$ be a sequence.
+    Then we can find $\gamma_n \in \Gamma$ such that $\gamma_n \pi(v_n) = \pi (\gamma_n v_n) \in \pi(K)$, which up to a subsequence will converge to a point $p \in \pi(K)$.
+    Using an orthonormal frame around $p$, we can trivialize a neighborhood of $p$ in $T^1 M$ as $\Phi: \pi^{-1}(U) \to U \times \mathbb S^{n-1}$.
+    Then $\Phi(\gamma_n v_n)$ will converge to a point in $\{p\} \times \mathbb S^{n-1}$, so $[\gamma_n v_n]$ will converge to a point in $T^1(M)/\Gamma$.
+
+    Alternatively, one can show that $T^1 M / \Gamma$ is homeomorphic to $T^1(M/\Gamma)$, which is compact since $M/\Gamma$ is compact.
+\end{proof}
+
+\subsection{Geodesic flow on a hyperbolic group}
+Let $\Gamma$ be a hyperbolic group acting properly discontinuously and cocompactly on a hyperbolic space (this is the case for instance when $X$ is the Cayley graph of $\Gamma$ with respect to a finite generating set).
+A consequence of the Milnor-Svarc lemma is that $\partial_\infty \Gamma \simeq \partial_\infty X$.
+
+The analog of the unit tangent bundle is defined as the set of parametrized unit-speed geodesics
+\[
+T^1 X = \{v : \mathbb R \to X \mid v \text{ is an isometry}\},
+\]
+which comes with the analog of the bundle projection and the geodesic flow 
+\begin{align*}
+    \pi: T^1 X &\to X, \quad v \mapsto (v(-\infty), v(+\infty)),\\
+    \phi_t: T^1 X &\to T^1 X, \quad v \mapsto (s \mapsto v(s+t)).
+\end{align*}
+One can show that the action of $\Gamma$ on $X$ induces a properly discontinuous  and cocompact action on $T^1 X$ that commutes with the geodesic flow.
+As before, we can consider the fiber bundle
+\begin{center}
+\begin{tikzcd}[column sep=large, row sep=large]
+    T^1 X \arrow[d, "\rho"] & \mathbb R \arrow[l] \\
+    \partial_\infty X^{(2)} \simeq \partial_\infty \Gamma^{(2)}
+\end{tikzcd}    
+\end{center}
+where the projection is defined as before
+\[
+\rho: T^1 X \to \partial_\infty X^{(2)}, \quad v \mapsto \left(\lim_{t \to +\infty} \phi_t(v), \lim_{t \to -\infty} \phi_t(v)\right),
+\]
+and for a section $s: \partial_\infty \Gamma^{(2)} \to T^1 X$ we have a trivialization $\Phi: \partial_\infty \Gamma^{(2)} \times \mathbb R \to T^1 X$.
+Then one can show
+\begin{fact}
+    There exists a cocycle $c: \Gamma \times \partial_\infty X^{(2)} \to \mathbb R$ such that the action of $\Gamma$ on $T^1 X$ is properly discontinuous, cocompact and commutes with the geodesic flow.
+\end{fact}
+
 \end{document}
