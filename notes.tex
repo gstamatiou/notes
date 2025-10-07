@@ -975,10 +975,9 @@ Hence the volume form is simply
     \[
     g = \frac{(1 + v^2) du^2 + (1 + u^2) dv^2 - uv du dv}{1 + u^2 + v^2}.
     \]
-    \end{proof}\todo{Inherited metric from projective space is the same with identifying tangent space with orthogonal complement?}
-
+    \end{proof}
     \begin{proposition}[Geodesic polar coordinates]
-        In geodesic polar coordinates, the hyperbolic metric is given by
+        In geodesic polar coordinates for the hyperboloid model, the hyperbolic metric is given by
         \[
         g = \d r^2 + \sinh^2(r) \d\theta^2.
         \]
@@ -988,7 +987,7 @@ Hence the volume form is simply
         First we calculate the exponential map at $p$:
         \begin{align*}
             \exp_p: T_p \mathbb H^2 &\to \mathbb H^2\\
-            v_1 \frac{\partial}{\partial r^1} + v_2 \frac{\partial}{\partial r^2} &\mapsto \left(\cosh(\|v\|), \sinh(\|v\|) \frac{v}{\|v\|}\right),
+            v_1 \frac{\partial}{\partial r^1} + v_2 \frac{\partial}{\partial r^2} &\mapsto \left(\sinh(\|v\|) \frac{v}{\|v\|}, \cosh(\|v\|)\right),
         \end{align*}
         where $\|v_1 \partial_{r^1} + \cdots + v_3 \partial_{r^3}\| = \sqrt{(v_1)^2 + (v_2)^2 + (v_3)^2}$ is the usual euclidean norm.
 
@@ -1017,7 +1016,39 @@ Hence the volume form is simply
     \end{align*}
     and the result follows.
     \end{proof}
-
+    Note that in the above coordinates, $r$ is the distance from the point $p$ and $\theta$ is the angle with respect to the $x^1$-axis, i.e.\ the geodesic starting at $p$ with initial velocity $r\left(\cos(\theta)\frac{\partial}{\partial x^1} + \sin(\theta)\frac{\partial}{\partial x^2}\right)$ is given by $t \mapsto \phi^{-1}(t, \theta)$.
+\subsubsection{Geodesics}
+\begin{proposition}[Geodesics in the hyperboloid model of $\mathbb H^2$]\label{prop:geodesics_hyperboloid_model_plane}
+    Consider $\mathbb H^2$ in the hyperboloid model.
+    Then the geodesic starting at $p = (0,0,1)$ with initial velocity $v = v_1 \partial_{r^1} + v_2 \partial_{r^2}$ is given by
+    \[
+    \gamma(t) = (\sinh(t\|v\|) \frac{v}{\|v\|}, \cosh(t\|v\|)).
+    \]
+    for $t \in \mathbb R$, where $\|v\| = \sqrt{v_1^2 + v_2^2}$ is the euclidean norm.
+    Similarly, for $p = (0, \cdots, 0, 1) \in \mathbb H^n$ and $v = v_1 \partial_{r^1} + \cdots + v_n \partial_{r^n}$, the geodesic starting at $p$ with initial velocity $v$ is given by
+    \[
+    \gamma(t) = (\sinh(t\|v\|) \frac{v}{\|v\|}, \cosh(t\|v\|)).
+    \]
+    for $t \in \mathbb R$, where $\|v\| = \sqrt{v_1^2 + \cdots + v_n^2}$ is the euclidean norm.
+\end{proposition} 
+\begin{lemma}[Geodesics in embedded submanifolds]
+    Let $(M,g)$ be a embedded submanifold of $\mathbb R^n$ with the metric induced by the Euclidean metric of $\mathbb R^n$.
+    Then $\gamma: I \to M$ is a geodesic if and only if $\gamma''(t)$ is orthogonal to $T_{\gamma(t)} M$ for all $t \in I$.
+\end{lemma}\todo{Show this for pseudoriemannian submanifolds}
+\begin{proof}
+    This is \cite[Corollary 5.2]{lee2018introduction}.
+\end{proof}
+\subsubsection{Volume entropy}
+\begin{proposition}
+    The volume entropy of the hyperbolic plane is equal to $1$.
+\end{proposition}
+\begin{proof}
+    We use geodesic polar coordinates centered at a point $p = (0,0,1)$ in the hyperboloid model.
+    Then the volume of a ball is given by
+    \[
+    \mathrm{Vol}(B(p,R)) = \int_{r < R} \sinh(r) \d r \d \theta = 2\pi (\cosh(R) - 1) \sim \pi e^R.
+    \]
+\end{proof}
 \subsection{Projective space} 
 Round metric in projective space:\\
     We consider the projective space $\mathbb P(\mathbb R^{n+1})$ with the round metric, i.e.\ the metric induced by the round metric of the sphere $\mathbb S^n \subseteq \mathbb R^{n+1}$ through the double covering $\pi: \mathbb S^n \to \mathbb P(\mathbb R^{n+1})$.
@@ -3214,7 +3245,7 @@ Its statement (and some more results) can be found as \cite[Theorem S.2.9]{katok
         uniformly in $v \in H_i(x) \setminus \{0\}$.
     \end{enumerate}
 \end{theorem}
-\subsection{Osedelec's theorem and equivalent definitions of Lyapunov exponents}
+\subsection{Osedelec's theorem and equivalent definitions of Lyapunov exponents}\todo{What is the relationship between directed and nondirected exponents?}
 Using Kingman's subadditive ergodic theorem, one can give for ergodic gregs a definition of Lyapunov exponents that does not depend on direction $v$ and the point $x$.
 The statement of the following can be found as \cite[Theorem 4.3]{duarte2016lyapunov}, or \cite[Theorem 5.17]{bader2025lyapunov}
 \begin{theorem}[Kingman's subadditive ergodic theorem]\label{thm:kingman}
