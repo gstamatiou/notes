@@ -1016,6 +1016,48 @@ Hence the volume form is simply
     \end{align*}
     and the result follows.
     \end{proof}
+    We do the same for the hyperbolic $n$-space:
+    \begin{proposition}
+        Consider $\mathbb H^n$ in the hyperboloid model and let $p = e_{n+1}$.
+        Then in geodesic polar coordinates centered at $p$, the hyperbolic metric is given by
+        \[
+        g = \d r^2 + \sinh^2(r) g_{\mathbb S^{n-1}},
+        \]
+        where $g_{\mathbb S^{n-1}}$ is the round metric on the sphere $\mathbb S^{n-1}$.
+    \end{proposition}
+    \begin{proof}
+        By \cref{prop:geodesics_hyperboloid_model_plane} we have that the exponential map at $p$ is given by
+        \begin{align*}
+            \exp_p: T_p \mathbb H^n &\to \mathbb H^n\\
+            v_1 \frac{\partial}{\partial r^1} + \cdots + v_n \frac{\partial}{\partial r^n} &\mapsto \left(\sinh(\|v\|) \frac{v}{\|v\|}, \cosh(\|v\|)\right),
+        \end{align*}
+        where $\|v_1 \partial_{r^1} + \cdots + v_n \partial_{r^n}\| = \sqrt{(v_1)^2 + \cdots + (v_n)^2}$ is the usual euclidean norm.
+        We consider the polar coordinates on $\mathbb R^n$:
+        \begin{align*}
+            \mathbb R_{>0} \times \mathbb S^{n-1} &\to \mathbb R^n - \{0\}\\
+            (r, \theta) &\mapsto r \theta,
+        \end{align*}
+        and compose with the exponential map to obtain the chart of geodesic polar coordinates:
+        \begin{align*}
+            \phi: \mathbb R_{>0} \times \mathbb S^{n-1} &\to \mathbb H^n-\{p\}\\
+            (r, u) &\mapsto \exp_p(r u) = \left(\sinh(r) u, \cosh(r)\right).
+        \end{align*}
+        Then we compute the frame given by the coordinate vector fields with respect to the ambient coordinates of $\mathbb R^{n,1}$:
+        \begin{align*}
+            \frac{\partial}{\partial r} &= \left( \cosh(r)u, \sinh(r) \right) = 
+            \cosh(r) \sum_{i=1}^n u_i \frac{\partial}{\partial x^i} + \sinh(r) \frac{\partial}{\partial x^{n+1}}\\
+            \frac{\partial}{\partial \theta_i} &= \sinh(r) \frac{\partial}{\partial \theta^i} + 0 \frac{\partial}{\partial x^{n+1}},
+        \end{align*}
+        where $\partial/\partial \theta^i$ are the coordinate vector fields of $\mathbb S^{n-1} \subseteq \mathbb R^n$.
+        Then we compute the coefficients using the metric in the ambient coordinates given by the Minkowski metric of $\mathbb R^{n,1}$:
+    \begin{align*}
+        g_{rr} &= \langle \left(\cosh(r)u, \sinh(r)\right) \rangle_{n,1} = \cosh^2(r) \langle u, u \rangle + \sinh^2(r) = \cosh^2(r) + \sinh^2(r) = 1,\\
+        g_{\theta_i \theta_j} &= \langle \sinh(r) \frac{\partial}{\partial \theta^i}, \sinh(r) \frac{\partial}{\partial \theta^j} \rangle_{n,1} =
+        \langle \sinh(r) \frac{\partial}{\partial \theta^i}, \sinh(r) \frac{\partial}{\partial \theta^j} \rangle_{n,0} = \sinh^2(r) (g_{\mathbb S^{n-1}})_{ij},\\
+        g_{r \theta_i} &= \langle \left(\cosh(r)u, \sinh(r)\right), \sinh(r) \frac{\partial}{\partial \theta^i} \rangle_{n,1} = 0,
+    \end{align*}
+    where the last equality holds since $u$ is orthogonal to $T_u \mathbb S^{n-1}$.
+    \end{proof}
     Note that in the above coordinates, $r$ is the distance from the point $p$ and $\theta$ is the angle with respect to the $x^1$-axis, i.e.\ the geodesic starting at $p$ with initial velocity $r\left(\cos(\theta)\frac{\partial}{\partial x^1} + \sin(\theta)\frac{\partial}{\partial x^2}\right)$ is given by $t \mapsto \phi^{-1}(t, \theta)$.
 \subsubsection{Geodesics}
 \begin{proposition}[Geodesics in the hyperboloid model of $\mathbb H^2$]\label{prop:geodesics_hyperboloid_model_plane}
@@ -1048,6 +1090,25 @@ Hence the volume form is simply
     \[
     \mathrm{Vol}(B(p,R)) = \int_{r < R} \sinh(r) \d r \d \theta = 2\pi (\cosh(R) - 1) \sim \pi e^R.
     \]
+\end{proof}
+We do the same for the hyperbolic $n$-space:
+\begin{proposition}
+    The volume entropy of the hyperbolic $n$-space is equal to $n-1$.
+\end{proposition}
+\begin{proof}
+We use geodesic polar coordinates centered at a point $p = (0, \cdots, 0, 1)$ in the hyperboloid model.
+    Then the volume of a ball is given by
+    \[
+    \mathrm{Vol}(B(p,R)) = \int_{r < R} \sinh^{n-1}(r) \d r \d \mathrm{Vol}_{\mathbb S^{n-1}} \sim \mathrm{Vol}(\mathbb S^{n-1}) \frac{e^{(n-1)R}}{2^{n-1}(n-1)}.
+    \]
+    Indeed, we have that $\sinh(r) \sim e^r/2$ for $r \to +\infty$, so $\sinh^{n-1}(r) \sim e^{(n-1)r}/2^{n-1}$.
+    Thus, we obtain the result.
+
+    If we want to be more precise, we can compute the limit:
+    \begin{align*}
+        \lim_{R \to +\infty} \frac{1}{R} \log(\mathrm{Vol}(B(p,R)))
+    \end{align*}
+    by applying l'Hôpital's rule.
 \end{proof}
 \subsection{Projective space} 
 Round metric in projective space:\\
@@ -3642,6 +3703,5 @@ Thus we have proved that
 \begin{proposition}
     All geodesic flows on a closed surface $S$ of genus $g \geq 2$ are orbit equivalent.
 \end{proposition}
-\section{2025-10-08}
 
 \end{document}
