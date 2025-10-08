@@ -3555,6 +3555,8 @@ Then one can show
 \end{fact}
 
 \section{2024-10-07}
+A reference for the discussion below is \cite{tholozan2019teichmuller}.
+
 Let $S$ be a closed surface of genus $g \geq 2$.
 Then by the classical Teichmüller theory, the Teichmüller space $\mathcal T(S)$ of $S$ has at least two models:
 \[
@@ -3574,5 +3576,45 @@ Then by the classical Teichmüller theory, the Teichmüller space $\mathcal T(S)
 \]
 Thus for a given representation $\rho: \pi_1(S) \to \PSL(2, \mathbb R)$, we can consider the associated hyperbolic surface $\Sigma = \rho(\pi_1(S)) \backslash \mathbb H^2$ which carries a class of hyperbolic metrics.
 
+Consider a representation $\rho: \pi_1(S) \to \PSL(2, \mathbb R)$ and the associated hyperbolic metric on $S \simeq \rho(\pi_1(S)) \backslash \mathbb H^2$.
+Then we can consider the geodesic flow $\phi_t: T^1 S \to T^1 S$ on the unit tangent bundle of $S$, construct a bundle $E_\rho = T^1 \mathbb H^2 \times \mathbb R^2 / \pi_1(S)$ over $T^1 S$ and lift the geodesic flow to a linear flow $\psi_t: E_\rho \to E_\rho$ on $E_\rho$, à la \cite{bochi2019anosov}.
+In this way, the choice of a parametrization of the geodesic flow on $S$ (i.e.\ a choice of a hyperbolic metric) is compatible with the choice of a representation $\rho: \pi_1(S) \to \PSL(2, \mathbb R)$ used to construct the bundle $E_\rho$ and the linear flow $\psi_t: E_\rho \to E_\rho$.
+
+However, one could consider a different parametrization of the geodesic flow on $S$ induced by a different hyperbolic metric.
+It is a fact that the geodesic flows on $S$ induced by two different hyperbolic metrics are orbit equivalent, i.e.\ there exists a homeomorphism $h: T^1 S \to T^1 S$ that sends orbits of one flow to orbits of the other.
+Using the same parametrization, we could then lift the geodesic flow to a linear flow on $E_\rho$.
+The new flow $\psi_t': E_\rho \to E_\rho$ is dominated if and only if the original flow $\psi_t: E_\rho \to E_\rho$ is dominated, which makes sense given the fact that $\rho$ being Anosov does not depend on the choice of a hyperbolic metric on $S$.
+
+Thus there is no reason to look for compatibility in the choice of a hyperbolic metric on $S$ and a representation $\rho: \pi_1(S) \to \PSL(2, \mathbb R)$.
+More on that can be found in 
+
+To see how the orbital equivalence of two geodesic flows on $S$ works, consider two hyperbolic metrics $g, g'$ on $S$ and the associated geodesic flows $\phi_t: T^1 S \to T^1 S$ and $\phi_t': T^1 S \to T^1 S$.
+Let $j: \pi_1(S) \to \PSL(2, \mathbb R)$ and $j': \pi_1(S) \to \PSL(2, \mathbb R)$ be the two representations associated to $g$ and $g'$ respectively.
+To recall how to construct these representations, we consider the universal cover $\tilde S$ of $S$.
+Then one can lift the metrics $g$ and $g'$ to metrics on $\tilde S$, for which the fundamental group $\pi_1(S)$ acts by isometries.
+Since $\tilde S$ with each of these metrics is a simply connected, complete, Riemannian manifold of constant curvature $-1$, we can obtain two isometries $f, f': \tilde S \to \mathbb H^2$.
+Then we can define for $f(\tilde x) \in \mathbb H^2$ and $\gamma \in \pi_1(S)$:
+\[
+j(\gamma) \cdot f(\tilde x) = f(\gamma \cdot \tilde x),
+\]
+and similarly for $j'$.
+
+In particular, the maps $f, f'$ are equivariant, so the map $f' \circ f^{-1}: \mathbb H^2 \to \mathbb H^2$ is a $j$-$j'$-equivariant isometry.
+This isometry induces a homeomorphism $\partial_\infty (f' \circ f^{-1}): \partial_\infty \mathbb H^2 \to \partial_\infty \mathbb H^2$ that is also $j$-$j'$-equivariant.
+We consider the $(j,j')$-equivariant homeomorphism $\tilde h: \partial_\infty \mathbb H^{2^{(3)}} \to \partial_\infty \mathbb H^{2^{(3)}}$.
+Identifying $T^1 \mathbb H^2$ with $\partial_\infty \mathbb H^{2^{(3)}}$ using the orthogonal projection of the third point on the geodesic defined by the first two points, we obtain a $j$-$j'$-equivariant homeomorphism $\tilde h: T^1 \mathbb H^2 \to T^1 \mathbb H^2$ that descends to a homeomorphism $h: T^1 S \to T^1 S$.
+One can check that $h$ sends orbits of $\phi_t$ to orbits of $\phi_t'$, giving us the desired orbit equivalence (see \cref{fig:orbit_equivalence}).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/orbital_equivalence.png}
+    \caption{Orbit equivalence between geodesic flows associated to different hyperbolic metrics on $S$.}
+    \label{fig:orbit_equivalence}
+\end{figure}
+
+One should note that the homeomorphism $h: T^1 S \to T^1 S$ is not induced from a diffeomorphism of $S$.
+Thus we have proved that 
+\begin{proposition}
+    All geodesic flows on a closed surface $S$ of genus $g \geq 2$ are orbit equivalent.
+\end{proposition}
 
 \end{document}
