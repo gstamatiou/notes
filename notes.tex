@@ -3704,4 +3704,138 @@ Thus we have proved that
     All geodesic flows on a closed surface $S$ of genus $g \geq 2$ are orbit equivalent.
 \end{proposition}
 
+\section{2024-10-9}
+The critical exponent of a subgroup $\Gamma$ of $\SL(2,\mathbb R)$ is not the same as its critical exponent, seen as a subgroup of $\SO_0(2,1)$.
+\begin{proposition}
+    Let $\Gamma$ be a discrete subgroup of $\SL(2,\mathbb R)$, and denote with $\rho: \SL(2,\mathbb R) \to \SO_0(2,1)$ the irreducible isomorphism.
+    Then
+    \[
+    \delta_{1,2}(\Gamma) = 2 \delta(\rho(\Gamma)).
+    \]
+    In particular, the Cartan projections $\mu: \SL(2,\mathbb R) \to \mathfrak a^+$ and $\mu': \SO_0(2,1) \to \mathfrak a'^+$ of $\SL(2,\mathbb R)$ and $\SO_0(2,1)$ are related via
+    \[
+    \mu'(\rho(g)) = (2\mu_1(g), 0, - 2\mu_1(g)).
+    \]
+\end{proposition}
+\begin{proof}
+    The equality for the critical exponents follows from the equality of the Cartan projections, so it suffices to prove the latter.
+
+    Recall that the symmetric square of the standard representation of $\SL(2,\mathbb R)$ is an isomorphism $\rho: \SL(2,\mathbb R) \to \SO_0(\mathrm{Sym}^2 \mathbb R^2, B)$, where $B= \mathrm{Sym}^2(\det)$ is a bilinear form of signature $(2,1)$.
+    In particular, in the base $e_1^2, e_1 e_2, e_2^2$ of $\mathrm{Sym}^2 \mathbb R^2$ we have
+    \[
+    B = \begin{pmatrix}
+        0 & 0 & 2\\
+        0 & 1 & 0\\
+        2 & 0 & 0
+    \end{pmatrix}.
+    \]
+    We can calculate that in the same basis for $\Sym^2 \mathbb R^2$ and for the standard basis of $\mathbb R^2$ we have
+    \[
+    \rho_*\left(
+    \begin{pmatrix}
+        a & b\\
+        c & -a
+    \end{pmatrix}
+    \right) = 
+    \begin{pmatrix}
+        2a & b & 0\\
+        2c & 0 & 2b\\
+        0 & c & -2a
+    \end{pmatrix}.
+    \]
+    Thus we have that 
+    \[
+    \rho_*(\mu(g)) = \begin{pmatrix}
+        2\mu_1(g) & 0 & 0\\
+        0 & 0 & 0\\
+        0 & 0 & -2\mu_1(g)
+    \end{pmatrix}.
+    \]
+    
+    Writing the Cartan decomposition $g = k \exp(\mu(g)) l$ for $k,l \in \SO(2)$, we have that $\rho(g) = \rho(k) \exp(\rho_*(\mu(g))) \rho(l)$ is a Cartan decomposition of $\rho(g)$, since $\rho(\SO(2))$ is a maximal compact subgroup of $\SO_0(2,1)$.
+    Thus $\mu'(\rho(g)) = (2\mu_1(g), 0, -2\mu_1(g))$.
+\end{proof}
+
+Two calculations of Anosov representations
+\begin{proposition}
+    Let $\Gamma \subseteq \SL(2,\mathbb R)$ be a uniform lattice, and consider the irreducible representation $\rho_{\text{irr}}: \SL(2,\mathbb R) \to \SL(3,\mathbb R)$ and the reducible representation $\rho_{\text{red}}: \SL(2,\mathbb R) \times \SL(2,\mathbb R) \to \SL(3, \mathbb R)$.
+    Both restrictions on $\Gamma$ are projective Anosov, and we have
+    \begin{align*}
+        2\delta_{1,3}(\rho_{\text{irr}}(\Gamma)) &= \delta_{1,2}(\rho_{\text{irr}}(\Gamma)) = 1 ,\\
+        \delta_{1,3}(\rho_{\text{red}}(\Gamma)) &= \frac{1}{2}\delta_{1,2}(\rho_{\text{red}}(\Gamma)) = 1.
+    \end{align*}
+\end{proposition}
+
+Before the next example, we will need the following theorem:
+\begin{theorem}[Borel density theorem]
+    Let $G$ be a semisimple real algebraic group and $\Gamma$ be a lattice in $G$.
+    Then $\Gamma$ is Zariski-dense in $G$.
+\end{theorem}
+
+\begin{proposition}
+    Let $\Gamma$ be a lattice of $\SL(2,\mathbb R)$ and $u: \Gamma \to \mathbb R^2$.
+    We define $\rho_u: \Gamma \to \SL(3,\mathbb R)$ as
+    \[
+    \rho_u(\gamma) = \begin{pmatrix}
+        \gamma & u(\gamma)\\
+        0 & 1
+    \end{pmatrix}.
+    \]
+    Then
+    \begin{enumerate}
+        \item $\rho_u$ is a representation if and only if $u$ is a cocycle:
+        \[
+        u(\gamma \eta) = u(\gamma) + \gamma u(\eta).
+        \]
+        \item $\rho_u$ is projective Anosov.
+        \item The limit sets in the projective space are independent of $u$ and are all equal to the projective line $\mathbb P(\mathbb R^2 \times \{0\})$.
+        \item The dual limit set $\xi_u^*: \partial_\infty \Gamma \to \mathbb P((\mathbb R^3)^*)$ is a projective line if and only if $u$ is a cobordism.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item This is a straightforward calculation.
+        \item First note that $\rho_0$ is projective Anosov, so $\rho_{tu}$ is projective Anosov for $t$ small enough, by the fact that the set of Anosov representations is open in the representation variety.
+        Moreover, $\rho_u$ is conjugate to $\rho_{tu}$.
+        \item First note that $W = \mathbb R^2 \times \{0\}$ is $\rho_u(\Gamma)$-invariant.
+        This implies that the limit set $\Lambda_{\rho_u(\Gamma)}$ is contained in $\mathbb P(W)$.
+        Indeed, one reason is that the projective limit set can be defined as the smallest closed $\rho_u(\Gamma)$-invariant subset of $\mathbb P(\mathbb R^3)$.
+        Alternatively, for any $w \in W$, we can find some $\gamma_- \in \partial_\infty \Gamma$ such that $w \not \in \xi_u^*(\gamma_-)$, because $\partial_\infty \Gamma$ is infinite and $\xi_u^*$ is injective.
+        Then $\lim_{n \to \infty} \rho_u(\gamma^n) \mathbb R w = \xi_u(\gamma_+) \in \mathbb P(W)$, where $\gamma_+$ is the attracting fixed point of $\gamma$.
+        
+        To see the reverse inclusion, note first that since $\Gamma$ is a lattice of $\SL(2,\mathbb R)$, its limit set is the whole $\mathbb P(\mathbb R^2)$.
+        It is thus reasonable to expect that $\Lambda_{\rho_u(\Gamma)} = \mathbb P(W)$, given that the action of $\rho_u(\Gamma)$ on $W$ is the same as the action of $\Gamma$ on $\mathbb R^2$.
+        Indeed, for $\mathbb R(x,0) \in \mathbb P(W)$, we can find a sequence $\gamma_n \in \Gamma$ such that $\lim_{n \to \infty} \gamma_n \mathbb R x = \mathbb R x'$.
+        Then $\lim_{n \to \infty} \rho_u(\gamma_n) \mathbb R (x,0) = \mathbb R(\gamma_n x, 0) = \mathbb R x'$, so $\mathbb P(W) \subseteq \Lambda_{\rho_u(\Gamma)}$.
+        \item First note that $\rho_u$ is conjugated to $\rho_0$ if and only if $u$ is a cobordism, so if $u$ is a cobordism then $\xi_u^*$ is a projective line.
+        If $\xi_u^*$ is a projective line $\mathbb P(W^*)$, then $W^*$ is $\rho_u(\Gamma)$-invariant, so the annihilator $W = (W^*)^\perp$ is also $\rho_u(\Gamma)$-invariant and $\dim W = 1$. 
+        
+        We will show that $\rho_u$ does not preserve any line if $u$ is not a cobordism, which will conclude the proof.
+        Assuming the contrary, writing $(w, t) \in W$, for every $\gamma$ there exists $\lambda(\gamma)$ such that
+        \[
+        \rho_u(\gamma)(w,t) = (\gamma w + t u(\gamma), t) = (\lambda(\gamma)w, \lambda(\gamma) t).
+        \]
+        If $t = 0$, this implies that $\gamma w = \lambda(\gamma) w$, so $\mathbb R w$ is $\Gamma$-invariant.
+        But $\Gamma \subseteq \SL(2,\mathbb R)$ is a lattice, so by the Borel density theorem it is Zariski-dense, and thus does not preserve any line.
+        Thus $t \neq 0$. The calculation above shows that $\lambda(\gamma) = 1$ for every $\gamma$, so $u(\gamma) = w - \gamma w$, i.e.\ $u$ is a cobordism.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Equivalence of notions of entropy]
+    Let $\pi_1(M)$ be the fundamental group of a closed negatively curved manifold $M$. Then the following notions of entropy coincide:
+    \begin{itemize}
+        \item the topological entropy of the geodesic flow on $T^1 M$;
+        \item the volume entropy of $M$ (i.e.\ the exponential growth rate of the volume of balls in the universal cover of $M$);
+        \item the critical exponent of $\pi_1(M)$ seen as a discrete subgroup of the isometry group of the universal cover of $M$:
+        \[
+        \delta(\pi_1(M)) = \limsup_{R \to \infty} \frac{1}{R} \log \#\{\gamma \in \pi_1(M) : d(\tilde x, \gamma \tilde x) \leq R\},
+        \]
+        where $\tilde x$ is a point in the universal cover of $M$.
+        \item The critical exponent of the length spectrum of $M$:
+        \[
+        \delta_{\text{length}}(\pi_1(M)) = \limsup_{R \to \infty} \frac{1}{R} \log \#\{[\gamma] \in [\pi_1(M)] : \ell([\gamma]) \leq R\},
+        \]
+        where $[\pi_1(M)]$ is the set of conjugacy classes of $\pi_1(M)$ and $\ell([\gamma])$ is the length of the closed geodesic in the free homotopy class associated to $[\gamma]$.
+    \end{itemize}
+\end{theorem}
 \end{document}
