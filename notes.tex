@@ -3201,13 +3201,15 @@ Recall that the limit set is given as $\Lambda_\Gamma = \overline{\Gamma \cdot x
 \end{enumerate}
 \section{2025-09-30 - Random walks on groups}
 \subsection{Definition of a random walk on a group}
-Let $G$ be a locally compact group and $\mu$ be a probability measure on $G$.
-To every such pair we can associate a random walk on $G$ with increments distributed according to $\mu$ as follows.
-First we define the space of (forward) increments to be the space $G^\mathbb N$ endowed with the product measure $\mu^{\otimes \mathbb N}$, which is essentially the space of sequences of elements of $G$ chosen independently according to the law $\mu$.
-The multiplication of the first $n$ increments gives us a random walk on $G$, whose increments are distributed according to $\mu$:
-\[
-Z: G^\mathbb N \times \mathbb N \to G, \quad Z_n\left((g_i)_{i \in \mathbb N}\right) = g_1 g_2 \cdots g_n.
-\]
+\begin{definition}
+    Let $G$ be a group and $\mu$ be a probability measure on $G$.
+    Consider the space of sequences $\Omega = G^\mathbb N$ endowed with the product measure $\mathbb P = \mu^{\otimes \mathbb N}$.
+    Then the \emph{random walk} on $G$ with independently $\mu$-distributed increments is the random variable $Z: \Omega \times \mathbb N \to G$ defined as
+    \[
+    Z_n(\omega) = g_1 g_2 \cdots g_n, \text{ where } \omega = (g_i)_{i \in \mathbb N} \in \Omega.
+    \]
+\end{definition}
+Indeed, if we denote with $g_i: \Omega \to G$ the projection on the $i$-th coordinate, then we have that $g_i$ are independent and identically distributed with law $\mu$.
 \subsection{Motivation of boundary theory and stationary measures}
 Let $G$ be a locally compact group, $\mu$ be a probability measure on $G$ and $X$ be a compact metric space on which $G$ acts continuously.
 We denote with $Z_n$ the random walk on $G$ corresponding to $\mu$.
@@ -3269,6 +3271,7 @@ Then the random walk is given by $Z_n = A^n$.
 Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence $(A, A, A, \ldots)$.
 \section{2025-10-01}
 \subsection{Boundary theory basics}
+
 \begin{assumption}
     Let $G$ be a second countable locally compact group and $\mu$ be a probability measure on $G$.
 \end{assumption}
@@ -3290,6 +3293,22 @@ Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence 
         \item The measure $\mu \in \mathrm{Prob}(G)$ is \emph{admissible} if the support of $\mu$ generates $G$ as a semigroup and there exists $n \in \mathbb N$ such that $\mu^{*n}$ and the Haar measure on $G$ are non-singular.
     \end{enumerate}
 \end{definition}
+\begin{definition}[Harmonic functions]
+    Let $G$ be a group and $\mu$ be a probability measure on $G$.
+    A function $f: G \to \mathbb R$ is \emph{$\mu$-harmonic} if for every $g \in G$ we have
+    \[
+    f(g) = \int_G f d(g_* \mu), \text{ for all } g \in G.
+    \]
+\end{definition}
+\begin{lemma}
+    Let $(G, \mu)$ be a group with a probability measure, $X$ be a space on which $G$ acts measurably and $\nu$ be a measure on $X$.
+    We define $P_\nu: L^\infty(X, \nu) \to L^\infty(G, \mu)$ as
+    \[
+    P_\nu f(g) = \int_X f d(g_* \nu).
+    \]
+    Then $\nu$ is $\mu$-stationary if and only if $P_\nu$ maps $L^\infty(X, \nu)$ to the space of $\mu$-harmonic functions on $G$.
+\end{lemma}
+
 \subsection{Cocycles and Gregs}
 \begin{definition}
     Let $G$ be a group, $\mathbb T \in \{\mathbb R, \mathbb R_{\geq 0}, \mathbb Z, \mathbb N\}$ be time (or any other group), and $\theta: \mathbb T \times X \to X$ be a flow (or an action of $\mathbb T$) on $X$.
@@ -3476,6 +3495,7 @@ where the limit exists and is finite.
     f_n(x) = \log \|w(n,x)\| \text{ and }f_n(x) = \log \|\wedge^i w(n,x)\|.
     \]
     \item The first equality follows from the previous point and the fact that $\sigma_1(g) = \|g\|$ for every $g \in \GL(d,\mathbb R)$, where the norm is the operator norm induced by the Euclidean norm on $\mathbb R^d$.
+    This follows from the Cartan decomposition of $g$.
     For the rest, note that 
     \[
     \sigma_i(g) = \frac{\|\wedge^i g\|}{\|\wedge^{i-1} g\|} \text{ for } i = 2, \ldots, d,
@@ -3483,6 +3503,22 @@ where the limit exists and is finite.
     so $\log \sigma_i(g) = \log \|\wedge^i g\| - \log \|\wedge^{i-1} g\|$ for every $g \in \GL(d,\mathbb R)$, giving us that the result inductively.
 \end{enumerate}
 \end{proof}
+\begin{proposition}
+    Let $g \in \SL(d, \mathbb R)$ and consider the cocycle $w: \mathbb Z \times \{*\} \to \SL(d, \mathbb R)$ defined by $w(n, *) = g^n$ (here the measurable space $X$ is a singleton).
+    Then the Lyapunov spectrum of $w$ is related to the Jordan projection of $g$ as follows:
+    \[
+    \lambda(g) = (\chi_1, \chi_1 + \chi_2, \ldots, \chi_1 + \cdots + \chi_d) \in \mathfrak a^+,
+    \]
+    where $\chi_1, \ldots, \chi_d$ are the Lyapunov exponents of $w$.
+\end{proposition}
+\begin{proof}
+Recall that for a matrix $g \in \SL(d,\mathbb R)$, the Lyapunov and the Cartan projection are related by 
+\[
+\lambda(g) = \lim_{n \to \infty} \frac{1}{n} \mu(g^n).
+\]
+But $\mu(g) = (\log \sigma_1(g), \ldots, \log \sigma_d(g))$, so the result follows from the third point of the definition of nondirected Lyapunov exponents.
+\end{proof}
+
 \subsection{Equivalent cocycles}
     \begin{definition}[Tempered maps]
         Let $(X, \mathcal X, m, T, w, \GL(d,\mathbb R))$ be a greg.
@@ -4026,6 +4062,102 @@ If we had for instance that $\Gamma$ acts cocompactly on the whole strictly and 
     Let $\Gamma$ be a Gromov hyperbolic group acting properly discontinuously and cocompactly on a strictly convex open set $\Omega \subseteq \mathbb P(\mathbb R^n)$ with $C^1$ boundary.
     Then $2 \delta_{1,n}(\Gamma) \leq n-1$, with equality if and only if $\Gamma$ is conjugate to a subgroup of $\SO(n-1,1)$.
 \end{proposition}
-On the other hand, the theorem has been proven for Hitchin representations of surface groups by Potrie and Sambarino \cite{potrie2018hitchin}.
+On the other hand, the theorem has been proven for Hitchin representations of surface groups by Potrie and Sambarino.
+
+\section{2024-10-14}
+\begin{definition}
+    \begin{enumerate}[label=(\roman*)]
+        \item A \emph{Borel space} $(X, \mathcal X)$ is a set $X$ equipped with a $\sigma$-algebra $\mathcal X$.
+        \item Two Borel spaces $(X, \mathcal X)$ and $(Y, \mathcal Y)$ are \emph{isomorphic} if there exist measurable maps $f: X \to Y$ and $g: Y \to X$ such that $f \circ g = \mathrm{id}_Y$ and $g \circ f = \mathrm{id}_X$. Equivalently, there exists a bijection $f: X \to Y$ such that both $f$ and $f^{-1}$ are measurable, i.e.\ $f^{-1}(\mathcal Y) = \mathcal X$.
+        \item A \emph{standard Borel space} is a Borel space that is isomorphic to a Polish space (i.e.\ a separable completely metrizable topological space) equipped with its Borel $\sigma$-algebra.
+        \item A \emph{Lebesgue space} $(X, \mathcal X, [m])$ is a standard Borel space $(X, \mathcal X)$ equipped with measure class $[m]$.
+    \end{enumerate}
+\end{definition}
+We now define the notion of a measurable quotient. The reason that we use it is that for a Borel space $(X, \mathcal X)$ and an equivalence relation $\sim$ on $X$, the quotient $X/\sim$ does not have a good measure-theoretic structure in general.
+So we take quotients with respect to a sub-$\sigma$-algebra of $\mathcal X$ instead.
+\begin{definition}
+    Let $(X, \mathcal X, [m])$ be a standard Borel space and $\mathcal A \subseteq \mathcal X$ be a sub-$\sigma$-algebra.
+    Then the \emph{measurable quotient} of $(X, \mathcal X, [m])$ by $\mathcal A$ is the standard Borel space $(Y, \mathcal Y, [\nu])$ such that there exists a measurable map $\pi: X \to Y$ satisfying $\pi^{-1}(\mathcal Y) = \mathcal A$ and such that $[\pi_* m] = [\nu]$.
+
+    It exists and it is unique up to isomorphism.
+\end{definition}
+In the definition above, $\mathcal A$ stands for the information that we keep from $X$ when taking the quotient.
+
+\begin{example}
+    Let $(X, \mathcal X, [m])$ be a standard Borel space and $T: X \to X$ be a measurable map that preserves the measure class $[m]$.
+    Then we can consider the sub-$\sigma$-algebra 
+    \[
+    \mathcal A = \{ E \in \mathcal X : T^{-1}(E) = E \} 
+    \]
+    of $T$-invariant measurable subsets of $X$.
+    The quotient of $(X, \mathcal X, [m])$ by $\mathcal A$ is called the \emph{ergodic decomposition} of $(X, \mathcal X, [m])$ with respect to $T$ and each fiber $\pi^{-1}(y)$ is a $T$-invariant ergodic component of $(X, \mathcal X, [m])$.
+\end{example}
+
+\subsubsection{Metric ergodicity}
+\begin{definition}[Metric ergodicity]
+    Let $\Gamma$ be a group acting on a standard probability space $(X, \mathcal X, [m])$ by measure class preserving transformations.
+    We say that the action $\Gamma \curvearrowright (X, \mathcal X, [m])$ is \emph{metrically ergodic} if for every action of $\Gamma$ by isometries on a separable metric space $W$, the only $\Gamma$-equivariant measurable maps $f: X \to W$ are essentially constant:
+    \[
+    \mathrm{Map}_\Gamma(X, W) = W^\Gamma.
+    \]
+\end{definition}
+
+Recall that a mean on a set $X$ is a linear functional $m: \ell^\infty(X) \to \mathbb R$ such that
+\begin{itemize}
+    \item $m(f) \geq 0$ for every $f \geq 0$;
+    \item $m(1) = 1$.
+\end{itemize}
+\begin{definition}
+    Let $\Gamma$ be a group acting on a set $X$.
+    We say that $\Gamma \curvearrowright X$ is an \emph{Zimmer amenable action} if there exists a $\Gamma$-invariant mean on the space of bounded measurable functions on $X$.
+\end{definition}
+
+\subsection{More boundary theory}
+\begin{lemma}[Furstenberg]
+    Let $(G, \mu)$ be a locally compact group equipped with a probability measure, $(X, \nu)$ be a metrizable compact $(G, \mu)$-space.
+    Denote by $Z_n : \Omega \to G$ the $n$-th step of the random walk associated with $\mu$.
+    Then there exists a measurable map 
+    \[
+    \nu_\cdot : \Omega \to \mathrm{Prob}(X)
+    \]
+    such that for $\mathbb P$-almost every $\omega \in \Omega$, we have the weak convergence
+    \[
+    Z_n(\omega)_* \nu \to \nu_\omega.
+    \]
+    Moreover, $\nu$ is the average of the $\nu_\omega$'s:
+    \[
+    \nu = \int_\Omega \nu_\omega d\mathbb P(\omega).
+    \]
+\end{lemma}
+\begin{lemma}
+    For every harmonic function $f \in \mathcal H^\infty(G, \mu)$, the limits
+    \[
+    \tilde f(g, \omega) = \lim_{n \to \infty} f(g Z_n(\omega))
+    \]
+    exist for all $g \in G$ and $\mathbb P$-almost every $\omega \in \Omega$, where $Z_n$ is the $n$-th step of the random walk associated with $\mu$.
+    We shall denote with $\tilde f : \Omega \to \mathbb R$ the function $\tilde f(e, \cdot)$.
+\end{lemma}
+\begin{definition}
+    Let $(G, \mu)$ be a locally compact group equipped with a probability measure.
+    A \emph{$(G, \mu)$-space} is a $(G, \mu)$-space $(X, \nu)$ such that for all $\phi, \psi \in L^\infty(X, \nu)$, the transform $P_\nu: L^\infty(X, \nu) \to L^\infty(G, \mu)$ satisfies
+    \[
+    \tilde P_\nu(\phi \psi) = \tilde P_\nu(\phi) \tilde P_\nu(\psi),
+    \]
+\end{definition}
+\begin{proposition}
+    If $(X, \nu)$ is a compact $(G, \mu)$-boundary, then there exists a measurable map $\mathrm{bnd}: \Omega \to X$ satisfying
+    \[
+    \nu_\omega = \lim_{n \to \infty} Z_n(\omega)_* \nu = \delta_{\mathrm{bnd}(\omega)}
+    \]
+    for $\mathbb P$-almost every $\omega \in \Omega$, where $Z_n$ is the $n$-th step of the random walk associated with~$\mu$.
+\end{proposition}
+\begin{proof}
+    For a compact $(G, \mu)$-space $(X, \nu)$, one has that 
+    \[
+    \tilde P_\nu(\phi)(g, \omega) = \int_X \phi d g_*\nu_\omega
+    \]
+    This, along with the identity satisfied by $\tilde P_\nu$ for $(G, \mu)$-boundaries implies that the variance of $\phi$ with respect to $\nu_\omega$ is zero for $\mathbb P$-almost every $\omega \in \Omega$ and all $\phi \in L^\infty(X, \nu)$.
+    Thus $\nu_\omega$ is a Dirac mass.
+\end{proof}
 
 \end{document}
