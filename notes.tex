@@ -365,7 +365,7 @@ Before the next example, we will need the following theorem:
         Indeed, for $\mathbb R(x,0) \in \mathbb P(W)$, we can find a sequence $\gamma_n \in \Gamma$ such that $\lim_{n \to \infty} \gamma_n \mathbb R x = \mathbb R x'$.
         Then $\lim_{n \to \infty} \rho_u(\gamma_n) \mathbb R (x,0) = \mathbb R(\gamma_n x, 0) = \mathbb R x'$, so $\mathbb P(W) \subseteq \Lambda_{\rho_u(\Gamma)}$.
         \item First note that $\rho_u$ is conjugated to $\rho_0$ if and only if $u$ is a cobordism, so if $u$ is a cobordism then $\xi_u^*$ is a projective line.
-        If $\xi_u^*$ is a projective line $\mathbb P(W^*)$, then $W^*$ is $\rho_u(\Gamma)$-invariant, so the annihilator $W = (W^*)^\perp$ is also $\rho_u(\Gamma)$-invariant and $\dim W = 1$. 
+        If $\xi_u^*(\partial_\infty \Gamma)$ is a projective line $\mathbb P(W^*)$, then $W^*$ is $\rho_u(\Gamma)$-invariant, so the annihilator $W = (W^*)^\perp$ is also $\rho_u(\Gamma)$-invariant and $\dim W = 1$. 
         
         We will show that $\rho_u$ does not preserve any line if $u$ is not a cobordism, which will conclude the proof.
         Assuming the contrary, writing $(w, t) \in W$, for every $\gamma$ there exists $\lambda(\gamma)$ such that
@@ -3290,7 +3290,7 @@ Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence 
         \]
         We denote with $\mu^{*n} = \mu * \cdots * \mu$ ($n$ times) the $n$-th convolution power of $\mu$, where $G$ is considered with the action on itself by left multiplication.
         \item The measure $\nu$ is \emph{$\mu$-stationary} if $\mu * \nu = \nu$. In this case we say that the pair $(Y, \nu)$ is a \emph{$(G, \mu)$-space}.
-        \item The measure $\mu \in \mathrm{Prob}(G)$ is \emph{admissible} if the support of $\mu$ generates $G$ as a semigroup and there exists $n \in \mathbb N$ such that $\mu^{*n}$ and the Haar measure on $G$ are non-singular.
+        \item The measure $\mu \in \mathrm{Prob}(G)$ is \emph{admissible} if the support of $\mu$ generates $G$ as a semigroup and there exists $n \in \mathbb N$ such that $\mu^{*n}$ is not singular to the Haar measure on $G$.
     \end{enumerate}
 \end{definition}
 \begin{definition}[Harmonic functions]
@@ -3300,7 +3300,7 @@ Indeed, the measure $\mu^{\otimes \mathbb N}$ is the Dirac mass on the sequence 
     f(g) = \int_G f d(g_* \mu), \text{ for all } g \in G.
     \]
 \end{definition}
-\begin{lemma}
+\begin{lemma}[Characterization of stationary measures]
     Let $(G, \mu)$ be a group with a probability measure, $X$ be a space on which $G$ acts measurably and $\nu$ be a measure on $X$.
     We define $P_\nu: L^\infty(X, \nu) \to L^\infty(G, \mu)$ as
     \[
@@ -3926,6 +3926,20 @@ Thus we have proved that
     \begin{lemma}
         The group $\Sp(2n, \mathbb R)$ has Labourie's property, i.e.\ for every $V, W \in \mathrm{Gr}_n(\mathbb R^{2n})$, there exists some $g \in \Sp(2n, \mathbb R)$ such that $g V \cap W = 0$.
     \end{lemma}
+    \begin{proof}
+        We do the proof for $n=2$, and assume the contrary for some $V, W \in \mathrm{Gr}_2(\mathbb R^4)$.
+
+        If $V$ is totally isotropic, then by Witt's theorem, there exists $g_0 \in \Sp(4, \mathbb R)$ such that $g_0 V = V_0 = \mathbb R e_1 \oplus \mathbb R e_2$.
+        If not, then there exists $g \in \Sp(4, \mathbb R)$ such that $g_1 V = V_1 = \mathbb R e_1 \oplus \mathbb R e_3$.
+        In both cases, we have $g V \cap W \neq 0$ for all $g \in \Sp(4, \mathbb R)$ if and only if $g V_0 \cap W = g g_i V \cap W \neq 0$ for all $g \in \Sp(4, \mathbb R)$.
+        Similarly, we can assume that $W$ is either $W_0 = \mathbb R e_3 \oplus \mathbb R e_4$ or $W_1 = \mathbb R e_2 \oplus \mathbb R e_4$.
+
+        Thus, if $V$ and $W$ are both totally isotropic, then we may assume that $V = \mathbb R e_1 \oplus \mathbb R e_2$ and $W = \mathbb R e_3 \oplus \mathbb R e_4$.
+        
+        If $V$ is totally isotropic and $W$ is not, then we may assume that $V = \mathbb R (e_1 + e_4) \oplus \mathbb R e_2$ and $W = \mathbb R e_1 \oplus \mathbb R e_3$.
+
+        If $V$ and $W$ are both not totally isotropic, then we may assume that $V = \mathbb R e_1 \oplus \mathbb R e_3$ and $W = \mathbb R e_2 \oplus \mathbb R e_4$.
+    \end{proof}
     
     \[
     \rho\begin{pmatrix}
@@ -3954,10 +3968,10 @@ Thus we have proved that
     \]
     in the basis $\{e_1^3, e_1^2 e_2, e_1 e_2^2, e_2^3\}$ of $\Sym^3 \mathbb R^2$.
     Also I think that 
-    \[
-    \xi: \SL(2,\mathbb R)/P \to \mathcal F(\mathrm{Sym}^3 \mathbb R^4)\\
-    \xi(g P) = \rho(g) \cdot (e_1^3 \subseteq e_1^3 \wedge e_1^2 e_2 \subseteq e_1^3 \wedge e_1^2 e_2 \wedge e_1 e_2^2 \subseteq e_1^3 \wedge e_1^2 e_2 \wedge e_1 e_2^2 \wedge e_2^3)
-    \] 
+    \begin{align*}
+        \xi: &\SL(2,\mathbb R)/P \to \mathcal F(\mathrm{Sym}^3 \mathbb R^4)\\
+    \xi(g P) &= \rho(g) \cdot (e_1^3 \subseteq e_1^3 \oplus e_1^2 e_2 \subseteq e_1^3 \oplus e_1^2 e_2 \oplus e_1 e_2^2 \subseteq e_1^3 \oplus e_1^2 e_2 \oplus e_1 e_2^2 \oplus e_2^3)
+    \end{align*}
     
     One idea is to assume that $\rho(\Gamma)$ is $P_2$-Anosov and look at the relation $\rho(g) V \cap W = 0$ in the projective space $\mathbb P(\mathbb R^4)$.
     I think that when $\Gamma \leq \SL(2,\mathbb R)$ is a uniform lattice, then $\rho(\Gamma)$ is $P_2$-Anosov.
@@ -4113,7 +4127,7 @@ Recall that a mean on a set $X$ is a linear functional $m: \ell^\infty(X) \to \m
 \end{definition}
 
 \subsection{More boundary theory}
-\begin{lemma}[Furstenberg]
+\begin{lemma}[Existence of limit measures for $(G, \mu)$-spaces]
     Let $(G, \mu)$ be a locally compact group equipped with a probability measure, $(X, \nu)$ be a metrizable compact $(G, \mu)$-space.
     Denote by $Z_n : \Omega \to G$ the $n$-th step of the random walk associated with $\mu$.
     Then there exists a measurable map 
@@ -4129,23 +4143,29 @@ Recall that a mean on a set $X$ is a linear functional $m: \ell^\infty(X) \to \m
     \nu = \int_\Omega \nu_\omega d\mathbb P(\omega).
     \]
 \end{lemma}
-\begin{lemma}
-    For every harmonic function $f \in \mathcal H^\infty(G, \mu)$, the limits
+\begin{lemma}[Limits of harmonic functions along random walks]
+    Let $(G, \mu)$ be a locally compact group equipped with an admissible probability measure.
+    Then for every harmonic function $f \in \mathcal H^\infty(G, \mu)$, the limits
     \[
     \tilde f(g, \omega) = \lim_{n \to \infty} f(g Z_n(\omega))
     \]
     exist for all $g \in G$ and $\mathbb P$-almost every $\omega \in \Omega$, where $Z_n$ is the $n$-th step of the random walk associated with $\mu$.
     We shall denote with $\tilde f : \Omega \to \mathbb R$ the function $\tilde f(e, \cdot)$.
 \end{lemma}
-\begin{definition}
+\begin{definition}[$(G, \mu)$-boundary]
     Let $(G, \mu)$ be a locally compact group equipped with a probability measure.
-    A \emph{$(G, \mu)$-space} is a $(G, \mu)$-space $(X, \nu)$ such that for all $\phi, \psi \in L^\infty(X, \nu)$, the transform $P_\nu: L^\infty(X, \nu) \to L^\infty(G, \mu)$ satisfies
+    A \emph{$(G, \mu)$-boundary} is a $(G, \mu)$-space $(X, \nu)$ such that for all $\phi, \psi \in L^\infty(X, \nu)$, the transform $P_\nu: L^\infty(X, \nu) \to \mathcal H^\infty(G, \mu)$ satisfies
     \[
     \tilde P_\nu(\phi \psi) = \tilde P_\nu(\phi) \tilde P_\nu(\psi),
     \]
+    In that case, we define the \emph{boundary map} $\mathrm{bnd}: (\Omega, \mathbb P) \to (X, \nu)$ by the realtion
+    \[
+    \tilde P_\nu(\phi)(\omega) = \phi(\mathrm{bnd}(\omega))
+    \]
+    for $\mathbb P$-almost every $\omega \in \Omega$ and all $\phi \in L^\infty(X, \nu)$.
 \end{definition}
-\begin{proposition}
-    If $(X, \nu)$ is a compact $(G, \mu)$-boundary, then there exists a measurable map $\mathrm{bnd}: \Omega \to X$ satisfying
+\begin{proposition}[Compact $(G, \mu)$-boundaries]
+    If $(X, \nu)$ is a compact $(G, \mu)$-space, then it is a $(G, \mu)$-boundary if and only if there exists a measurable map $\mathrm{bnd}: \Omega \to X$ satisfying
     \[
     \nu_\omega = \lim_{n \to \infty} Z_n(\omega)_* \nu = \delta_{\mathrm{bnd}(\omega)}
     \]
@@ -4159,5 +4179,62 @@ Recall that a mean on a set $X$ is a linear functional $m: \ell^\infty(X) \to \m
     This, along with the identity satisfied by $\tilde P_\nu$ for $(G, \mu)$-boundaries implies that the variance of $\phi$ with respect to $\nu_\omega$ is zero for $\mathbb P$-almost every $\omega \in \Omega$ and all $\phi \in L^\infty(X, \nu)$.
     Thus $\nu_\omega$ is a Dirac mass.
 \end{proof}
+\begin{remark}
+    If $(X, \nu)$ is a $(G, \mu)$-boundary, then the transformation $P_\nu: L^\infty(X, \nu) \to \mathcal H^\infty(G, \mu)$ is an isometric embedding.
+\end{remark}
+The universal $(G, \mu)$-boundary is called the Poisson boundary of $(G, \mu)$:
+\begin{theorem}[Poisson boundary]
+    Let $(G, \mu)$ be a locally compact group equipped with an admissible probability measure.
+    Then there exists a unique (up to isomorphism) $(G, \mu)$-boundary $(B, \nu)$, called the \emph{Poisson boundary} of $(G, \mu)$, characterized by each of the following properties:
+    \begin{enumerate}[label=(\roman*)]
+        \item Poisson representation: The map $P_\nu: L^\infty(B, \nu) \to \mathcal H^\infty(G, \mu)$ is an isometric isomorphism.
+        In particular every bounded harmonic function on $(G, \mu)$ admits a unique $\phi \in L^\infty(B, \nu)$ such that $f = P_\nu(\phi)$ and which can be recovered from $f$ by the boundary map $\mathrm{bnd}: \Omega \to B$:
+        \[
+        \phi(\mathrm{bnd}(\omega)) = \tilde f(\omega) = \lim_{n \to \infty} f(Z_n(\omega)).
+        \]
+        \item Universality: The Poisson boundary $(B, \nu)$ is maximal in the sense that every $(G, \mu)$-boundary $(X, \nu_X)$ is a $G$-equivariant measurable quotient of $(B, \nu)$, i.e.\ there exists a measurable $G$-equivariant map $\pi: B \to X$ such that $\pi_* \nu = \nu_X$.
+    \end{enumerate}
+\end{theorem}
+\section{2024-10-15}
+\begin{proposition}
+    Let $\rho: \Gamma \to \SO(p,q)$ be a projective Anosov representation.
+    Denoting with $\xi^{\mathrm{sym}} = (\xi, \xi^*): \partial_\infty \Gamma \to \mathbb P(\mathbb R^d) \times \mathbb P((\mathbb R^d)^*)$ its symmetric limit map:
+    \[
+    \dim_\mathcal H \xi(\partial_\infty \Gamma) =
+    \dim_\mathcal H \xi^*(\partial_\infty \Gamma) =
+    \dim_\mathcal H \xi^{\mathrm{sym}}(\partial_\infty \Gamma).
+    \]
+\end{proposition}
+\begin{proof}
+    We assume that $\mathbb P(\mathbb R^d), \mathbb P((\mathbb R^d)^*)$ are equipped with the round metrics and the product with the $\infty$-product metric.
+    This is convenient since for this kind of metric, we have that $\diam(U \times V) = \max\{\diam(U), \diam(V)\}$, which makes it easy to compute Hausdorff dimensions.
 
+    Defining $f: \mathbb P(\mathbb R^d) \to \mathbb P((\mathbb R^d)^*)$ by $f(\mathbb R v) = \mathbb R v^\perp$, where $v^\perp$ is with respect to the preserved product, it is a smooth diffeomorphism between compact manifolds, so it is bi-Lipschitz, and thus preserves the Hausdorff dimension.
+
+    But $\xi^* = f \circ \xi$ (\cite[Theorem 2.53]{glorieux_hausdorff_2023}), so $\xi^{\mathrm{sym}}(\partial_\infty \Gamma) = \mathrm{Gr}(f)$.
+    Thus it suffices to show that in the product metric, the Hausdorff dimension of the graph of a bi-Lipschitz function is equal to the Hausdorff dimension of its domain.
+    Indeed, for a cover $U_\alpha$ of the domain, $U_\alpha \times f(U_\alpha)$ is a cover of the graph and there exist constants $C_1, C_2 > 0$ such that
+    \[
+    C_1 \diam(U_\alpha) \leq \diam(U_\alpha \times f(U_\alpha)) \leq C_2 \diam(U_\alpha).
+    \]
+\end{proof}
+\begin{proposition}
+    Let $\rho_{\mathrm{red}}: \SL(d,\mathbb R) \to \SL(n,\mathbb R)$, be the reducible representation, where $n > d$, and define 
+    \begin{align*}
+        \xi_{\mathrm{red}}: \mathbb P(\mathbb R^d) &\to \mathbb P(\mathbb R^n)\\
+        \mathbb R v &\mapsto \mathbb R (v, 0)\\
+        \xi_{\mathrm{red}}^*: \mathbb P((\mathbb R^d)^*) &\to \mathbb P((\mathbb R^n)^*)\\
+        \mathbb R \varphi &\mapsto \mathbb R \tilde \varphi\\
+        \ker(\varphi) &\mapsto \ker(\varphi) \oplus \mathbb R^{n-d},
+    \end{align*}
+    where $\tilde \varphi(v, w) = \varphi(v)$ for $v \in \mathbb R^d$ and $w \in \mathbb R^{n-d}$.
+    Then for any projective Anosov representation $\rho: \Gamma \to \SL(d, \mathbb R)$, the representation $\rho_{\mathrm{red}} \circ \rho: \Gamma \to \SL(n, \mathbb R)$ is projective Anosov with symmetric limit map $\xi_{\mathrm{red}}^{\mathrm{sym}} = (\xi_{\mathrm{red}} \circ \xi, \xi_{\mathrm{red}}^* \circ \xi^*)$ and
+    \[
+    \dim_\mathcal H \xi_{\mathrm{red}}^{\mathrm{sym}}(\partial_\infty \Gamma) = \dim_\mathcal H \xi^{\mathrm{sym}}(\partial_\infty \Gamma).
+    \]
+\end{proposition}
+\begin{proof}
+    The fact that this is the limit map follows from the fact that the limit map is the unique $\rho$-equivariant continuous map from $\partial_\infty \Gamma$ to the appropriate flag space (Stage, Lemma 1.4.4).
+    The equality of the Hausdorff dimensions follows from the fact that $\xi_{\mathrm{red}}$ and $\xi_{\mathrm{red}}^*$ are smooth embeddings, so they are bi-Lipschitz onto their images.
+\end{proof}
 \end{document}
